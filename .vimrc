@@ -20,8 +20,8 @@ set smartcase                   " ... unless they contain at least one capital l
 " My customizations
 set ls=2                        " always show status bar
 set number                      " show line numbers
-set cursorline
-colorscheme twilight
+set cursorline                  " display a marker on current line
+colorscheme railscasts          " set colorscheme
 
 set completeopt=menuone,longest " simple autocomplete for anything
 set wildmode=list:longest,full  " autocomplete for paths and files
@@ -30,4 +30,6 @@ set wildignore+=.git            " ignore these extensions on autocomplete
 set backupdir=/tmp              " directory used to save backup files
 set directory=/tmp              " directory used to save swap files
 
-call pathogen#infect()
+set t_Co=256                    " forces terminal to use 256 colors
+
+call pathogen#infect()          " initializes pathogen to manage plugins
