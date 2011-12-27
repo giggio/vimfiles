@@ -27,9 +27,12 @@ set completeopt=menuone,longest " simple autocomplete for anything
 set wildmode=list:longest,full  " autocomplete for paths and files
 set wildignore+=.git            " ignore these extensions on autocomplete
 
+set hidden                      " change buffers without warnings even when there are unsaved changes
+
 set backupdir=/tmp              " directory used to save backup files
 set directory=/tmp              " directory used to save swap files
 
 set t_Co=256                    " forces terminal to use 256 colors
+set gfn=Monospace\ 13           " forces gVim to use this font
 
 call pathogen#infect()          " initializes pathogen to manage plugins
