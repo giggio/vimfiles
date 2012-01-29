@@ -1,4 +1,7 @@
-Rafael Rosa Fu's vimfiles
+Giovanni Bassi's vimfiles.
 
-These are my personal vimfiles. Since I'm still learning to use vim, I advise
-you not to use it for anything :)
+These are my personal vimfiles. Since I'm still learning to use vim, I advise you not to use it for anything :)
+
+I am using vim both on Ubuntu and Windows (in Windows it is preety much gVim, as vim refuses to work properly). Right now there are some nice bundles, like NERDTree and Coffeescript. I have been using vim mostly to do Ruby programming and script editing in general.
+
+This is a fork from Rafael Rosa Fu's vimfiles. Check out https://github.com/rafaelrosafu/vimfiles for his latest updates.
