@@ -44,3 +44,7 @@ call pathogen#infect()          " initializes pathogen to manage plugins
 map <F2> :NERDTreeTabsToggle<CR>
 
 let NERDTreeShowHidden=1
+
+:set guioptions+=m  "add menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
