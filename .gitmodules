@@ -22,3 +22,6 @@
 [submodule "bundle/vim-typescript"]
 	path = bundle/vim-typescript
 	url = git://github.com/dmitry-ilyashevich/vim-typescript.git
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = git://github.com/hallison/vim-markdown.git
