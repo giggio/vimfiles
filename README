@@ -4,4 +4,11 @@ These are my personal vimfiles. Since I'm still learning to use vim, I advise yo
 
 I am using vim both on Ubuntu and Windows (in Windows it is preety much gVim, as vim refuses to work properly). Right now there are some nice bundles, like NERDTree and Coffeescript. I have been using vim mostly to do Ruby programming and script editing in general.
 
+Installation instructions:
+- git clone <this repo url> ~/.vim
+- echo "source ~/.vim/vimrc" > ~/.vimrc
+- cd ~/.vim
+- git submodule init
+- git submodule update
+
 This is a fork from Rafael Rosa Fu's vimfiles. Check out https://github.com/rafaelrosafu/vimfiles for his latest updates.
