@@ -71,3 +71,8 @@ let NERDTreeShowHidden=1
 "endfunction
 
 "inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+let vimlocal = expand("%:p:h") . "/.vimrc.local"
+if filereadable(vimlocal) 
+  execute 'source '.vimlocal
+endif
