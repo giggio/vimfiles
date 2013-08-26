@@ -74,6 +74,22 @@ let NERDTreeShowHidden=1
 
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/coffeeLintConfig.json"
 command -nargs=1 C CoffeeCompile | :<args>
+nmap <F8> :TagbarToggle<CR>
+if executable('coffeetags')
+  let g:tagbar_type_coffee = {
+        \ 'ctagsbin' : 'coffeetags',
+        \ 'ctagsargs' : '--include-vars',
+        \ 'kinds' : [
+        \ 'f:functions',
+        \ 'o:object',
+        \ ],
+        \ 'sro' : ".",
+        \ 'kind2scope' : {
+        \ 'f' : 'object',
+        \ 'o' : 'object',
+        \ }
+        \ }
+endif
 
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal) 
