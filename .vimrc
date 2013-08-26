@@ -73,6 +73,7 @@ let NERDTreeShowHidden=1
 "inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/coffeeLintConfig.json"
+command -nargs=1 C CoffeeCompile | :<args>
 
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal) 
