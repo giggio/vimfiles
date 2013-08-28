@@ -96,3 +96,4 @@ if filereadable(vimlocal)
   execute 'source '.vimlocal
 endif
 map <F12> :NERDTreeFind<CR>
+imap jj <Esc>
