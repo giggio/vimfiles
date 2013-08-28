@@ -95,3 +95,4 @@ let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal) 
   execute 'source '.vimlocal
 endif
+map <F12> :NERDTreeFind<CR>
