@@ -37,7 +37,15 @@ if has("win32")
 endif
 
 set t_Co=256                    " forces terminal to use 256 colors
-set gfn=Monospace\ 13           " forces gVim to use this font
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_macvim")
+    set guifont=Menlo\ Regular:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
 
 call pathogen#infect()          " initializes pathogen to manage plugins
 
