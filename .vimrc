@@ -108,6 +108,6 @@ imap jj <Esc>
 nmap oo o<Esc>k
 nmap OO O<Esc>j
 au GUIEnter * simalt ~x
-
 nmap <F9> :mksession! <cr> " Quick write session with F2
 nmap <F10> :source Session.vim <cr>     " And load session with F3
+set switchbuf+=usetab,newtab
