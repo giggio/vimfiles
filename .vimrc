@@ -103,7 +103,7 @@ let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal) 
   execute 'source '.vimlocal
 endif
-map <F12> :NERDTreeFind<CR>
+map <S-A-l> :NERDTreeFind<CR>
 imap jj <Esc>
 nmap oo o<Esc>k
 nmap OO O<Esc>j
