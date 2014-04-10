@@ -58,6 +58,6 @@
 [submodule "bundle/emmet-vim"]
 	path = bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
-[submodule "bundle\\vim-unimpaired"]
-	path = bundle\\vim-unimpaired
+[submodule "bundle/vim-unimpaired"]
+	path = bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
