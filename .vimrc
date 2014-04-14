@@ -35,6 +35,8 @@ if has("win32")
   set backupdir=$TEMP
   set directory=$TEMP
 endif
+set nobackup
+set nowritebackup
 
 set t_Co=256                    " forces terminal to use 256 colors
 if has("gui_running")
