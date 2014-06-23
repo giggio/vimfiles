@@ -117,3 +117,4 @@ set wrapscan
 if has("win32")
   let g:slime_target = "tmux"
 endif
+let g:airline_powerline_fonts = 1
