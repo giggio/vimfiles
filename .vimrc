@@ -131,3 +131,15 @@ nnoremap <C-H> <C-W><C-H>
 " open splits in a more natural way:
 set splitbelow
 set splitright
+
+" change
+function! AddTmuxlineStatus()
+  if exists(':Tmuxline')
+    augroup airline_tmuxline
+      au!
+      au InsertEnter * Tmuxline airline_insert
+      au InsertLeave * Tmuxline airline
+    augroup END
+  endif
+endfunction
+au VimEnter * :call AddTmuxlineStatus()
