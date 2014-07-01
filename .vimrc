@@ -135,32 +135,3 @@ nnoremap <C-H> <C-W><C-H>
 " open splits in a more natural way:
 set splitbelow
 set splitright
-
-" change status on tmux
-function! AddTmuxlineStatus()
-  if exists(':Tmuxline')
-    augroup airline_tmuxline
-      au!
-      au InsertEnter * call SetInsert()
-      autocmd InsertLeave * call SetNormal()
-      vnoremap <silent> <expr> <SID>SetVisual SetVisual()
-      nnoremap <silent> <script> v v<SID>SetVisual
-      nnoremap <silent> <script> V V<SID>SetVisual
-      nnoremap <silent> <script> <C-v> <C-v><SID>SetVisual
-      autocmd CursorHold * call SetNormal()
-    augroup END
-  endif
-endfunction
-function! SetInsert()
-    Tmuxline airline_insert
-endfunction
-function! SetVisual()
-    set updatetime=0
-    Tmuxline airline_visual
-    return ''
-endfunction
-function! SetNormal()
-    set updatetime=4000
-    Tmuxline airline
-endfunction
-au VimEnter * :call AddTmuxlineStatus()
