@@ -110,8 +110,8 @@ imap jj <Esc>
 nmap oo o<Esc>k
 nmap OO O<Esc>j
 au GUIEnter * simalt ~x
-nmap <F9> :mksession! <cr> " Quick write session with F2
-nmap <F10> :source Session.vim <cr>     " And load session with F3
+nmap <F9> :mksession! <cr> " Quick write session with F9
+nmap <F10> :source Session.vim <cr> " And load session with F10
 set switchbuf+=usetab,newtab
 set wrapscan
 if has("win32")
@@ -119,8 +119,11 @@ if has("win32")
 endif
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#close_symbol = ''
+let g:airline#extensions#tabline#buffer_nr_format = 'b%s: '
 
 " remap split navigation
 nnoremap <C-J> <C-W><C-J>
