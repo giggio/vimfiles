@@ -124,6 +124,9 @@ let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#close_symbol = ''
 let g:airline#extensions#tabline#buffer_nr_format = 'b%s: '
+"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline_theme='dark'
 
 " remap split navigation
