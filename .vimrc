@@ -138,3 +138,5 @@ nnoremap <C-H> <C-W><C-H>
 " open splits in a more natural way:
 set splitbelow
 set splitright
+
+set relativenumber
