@@ -140,3 +140,4 @@ set splitbelow
 set splitright
 
 set relativenumber
+set diffopt=filler,vertical
