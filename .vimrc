@@ -141,3 +141,4 @@ set splitright
 
 set relativenumber
 set diffopt=filler,vertical
+au BufReadPost fugitive:* set bufhidden=delete
