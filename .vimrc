@@ -142,13 +142,13 @@ set splitright
 set relativenumber
 set diffopt=filler,vertical
 au BufReadPost fugitive:* set bufhidden=delete
-fun! QuitPrompt()
+fun! QuitPrompt(cmd)
   if tabpagenr("$") == 1 && winnr("$") == 1
     let choice = confirm("Close?", "&yes\n&no", 1)
-    if choice == 1 | wq | endif
-  else | wq | endif
+    if choice == 1 | return a:cmd | endif
+    return ""
+  else | return a:cmd | endif
 endfun
-nnoremap ZZ :call QuitPrompt()<cr>
-cnoremap <silent> q<cr> :call QuitPrompt()<cr>
-cnoremap <silent> wq<cr> :call QuitPrompt()<cr>
-cnoremap <silent> x<cr> :call QuitPrompt()<cr>
+cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? QuitPrompt(getcmdline()) : 'q'
+cnoreabbrev <expr> wq getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(getcmdline()) : 'wq'
+cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'x'
