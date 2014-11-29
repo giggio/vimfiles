@@ -76,3 +76,6 @@
 [submodule "bundle/tmux-navigator"]
 	path = bundle/tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule "bundle/vim-dispath"]
+	path = bundle/vim-dispath
+	url = https://github.com/tpope/vim-dispatch.git
