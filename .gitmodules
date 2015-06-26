@@ -79,6 +79,6 @@
 [submodule "bundle/vim-dispath"]
 	path = bundle/vim-dispath
 	url = https://github.com/tpope/vim-dispatch.git
-[submodule "bundle/omnisharp"]
-	path = bundle/omnisharp
-	url = https://github.com/nosami/Omnisharp.git
+[submodule "bundle/omnisharp-vim"]
+	path = bundle/omnisharp-vim
+	url = https://github.com/OmniSharp/omnisharp-vim.git
