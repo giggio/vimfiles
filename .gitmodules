@@ -10,12 +10,6 @@
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
-[submodule "bundle/vim-rails"]
-	path = bundle/vim-rails
-	url = https://github.com/tpope/vim-rails.git
-[submodule "bundle/vim-ruby-refactoring"]
-	path = bundle/vim-ruby-refactoring
-	url = git://github.com/ecomba/vim-ruby-refactoring.git
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git://github.com/ervandew/supertab.git
