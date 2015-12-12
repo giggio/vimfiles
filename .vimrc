@@ -82,6 +82,8 @@ let NERDTreeShowHidden=1
 
 "inoremap <tab> <c-r>=Smart_TabComplete()<CR>
 
+let g:loaded_syntastic_typescript_tsc_checker = 1 "don't do syntax checking
+
 let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/coffeeLintConfig.json"
 command -nargs=1 C CoffeeCompile | :<args>
 nmap <F8> :TagbarToggle<CR>
