@@ -10,7 +10,7 @@ Installation instructions (Linux):
 - cd ~/.vim
 - git submodule update --init
 
-Installation instructions (Windows):
+Installation instructions (Windows, no Powershell):
 - git clone https://github.com/giggio/vimfiles.git ~/vimfiles
 - echo "source $($($env:HOME).Replace('\', '/'))/vimfiles/.vimrc" > ~/_vimrc
 - cd ~/.vim
