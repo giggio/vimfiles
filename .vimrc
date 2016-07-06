@@ -158,6 +158,8 @@ cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(get
 " omnisharp
 let g:OmniSharp_server_type = 'v1'
 let g:OmniSharp_server_type = 'roslyn'
+let g:OmniSharp_selector_ui = 'ctrlp'
+let g:OmniSharp_timeout = 1
 let g:syntastic_cs_checkers = ['code_checker']
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
