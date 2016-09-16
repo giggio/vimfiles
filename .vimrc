@@ -23,7 +23,7 @@ set number                      " show line numbers
 set cursorline                  " display a marker on current line
 colorscheme railscasts          " set colorscheme
 
-set completeopt=menuone,longest " simple autocomplete for anything
+set completeopt=menuone,longest,preview " simple autocomplete for anything
 set wildmode=list:longest,full  " autocomplete for paths and files
 set wildignore+=.git            " ignore these extensions on autocomplete
 
@@ -156,11 +156,12 @@ cnoreabbrev <expr> wq getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(g
 cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'x'
 
 " omnisharp
+let g:OmniSharp_server_path = join([expand('<sfile>:p:h'), 'bundle', 'omnisharp-vim', 'omnisharp-roslyn', 'artifacts', 'scripts', 'Omnisharp'], '/')
 let g:OmniSharp_server_type = 'v1'
 let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_selector_ui = 'ctrlp'
 let g:OmniSharp_timeout = 1
-let g:syntastic_cs_checkers = ['code_checker']
+let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
 let g:SuperTabDefaultCompletionType = 'context'
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabDefaultCompletionTypeDiscovery = ["&omnifunc:<c-x><c-o>","&completefunc:<c-x><c-n>"]
@@ -205,3 +206,10 @@ augroup omnisharp_commands
     autocmd FileType cs nnoremap <C-J> :OmniSharpNavigateDown<cr>
 
 augroup END
+" this setting controls how long to wait (in ms) before fetching type / symbol information.
+set updatetime=500
+" Remove 'Press Enter to continue' message when type information is longer than one line.
+set cmdheight=2
+" Enable snippet completion, requires completeopt-=preview
+" would need to instal ultisnips, which could conflict with other snippets plugins
+"let g:OmniSharp_want_snippet=1
