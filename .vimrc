@@ -154,8 +154,6 @@ cnoreabbrev <expr> wq getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(g
 cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'x'
 
 " omnisharp
-let g:OmniSharp_server_path = join([expand('<sfile>:p:h'), 'pack', 'plugins', 'start', 'omnisharp-vim', 'omnisharp-roslyn', 'artifacts', 'scripts', 'Omnisharp'], '/')
-let g:OmniSharp_server_type = 'v1'
 let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_selector_ui = 'ctrlp'
 let g:OmniSharp_timeout = 1
