@@ -75,7 +75,7 @@
 	url = https://github.com/tpope/vim-dispatch.git
 [submodule "bundle/omnisharp-vim"]
 	path = pack/plugins/start/omnisharp-vim
-  url = https://github.com/giggio/omnisharp-vim.git
+  url = https://github.com/OmniSharp/omnisharp-vim.git
 [submodule "bundle/vimproc"]
 	path = pack/plugins/start/vimproc
 	url = https://github.com/Shougo/vimproc.vim.git
