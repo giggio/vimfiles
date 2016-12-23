@@ -82,3 +82,6 @@
 [submodule "bundle/tsuquyomi"]
 	path = pack/plugins/start/tsuquyomi
 	url = https://github.com/Quramy/tsuquyomi.git
+[submodule "pack/plugins/start/vim-easymotion"]
+	path = pack/plugins/start/vim-easymotion
+	url = https://github.com/easymotion/vim-easymotion.git
