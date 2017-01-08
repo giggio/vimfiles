@@ -162,6 +162,9 @@ autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
 " omnisharp
+if !has("python")
+  let g:OmniSharp_loaded = 1 " don't load omnisharp without python
+endif
 let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_selector_ui = 'ctrlp'
 let g:OmniSharp_timeout = 1
