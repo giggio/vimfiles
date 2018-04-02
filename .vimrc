@@ -1,3 +1,8 @@
+" Disable beep
+set noerrorbells visualbell t_vb=
+if has('autocmd')
+  autocmd GUIEnter * set visualbell t_vb=
+endif
 " Based on @mislav post http://mislav.uniqpath.com/2011/12/vim-revisited/
 set nocompatible                " choose no compatibility with legacy vi
 syntax enable
