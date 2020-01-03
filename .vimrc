@@ -144,7 +144,7 @@ nnoremap <C-H> <C-W><C-H>
 set splitbelow
 set splitright
 
-set relativenumber
+set number relativenumber
 set diffopt=filler,vertical
 au BufReadPost fugitive:* set bufhidden=delete
 fun! QuitPrompt(cmd)
