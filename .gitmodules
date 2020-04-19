@@ -82,3 +82,6 @@
 [submodule "pack/plugins/start/vim-easymotion"]
 	path = pack/plugins/start/vim-easymotion
 	url = https://github.com/easymotion/vim-easymotion.git
+[submodule "pack/plugins/start/commentary"]
+	path = pack/plugins/start/commentary
+	url = https://github.com/tpope/vim-commentary.git
