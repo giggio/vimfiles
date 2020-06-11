@@ -85,3 +85,6 @@
 [submodule "pack/plugins/start/commentary"]
 	path = pack/plugins/start/commentary
 	url = https://github.com/tpope/vim-commentary.git
+[submodule "pack/plugins/start/replace-with-register"]
+	path = pack/plugins/start/replace-with-register
+	url = https://github.com/vim-scripts/ReplaceWithRegister.git
