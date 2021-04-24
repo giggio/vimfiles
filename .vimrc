@@ -50,61 +50,19 @@ if has("gui_running")
   elseif has("gui_macvim")
     set guifont=Menlo\ Regular:h14
   elseif has("gui_win32")
-    set guifont=DejaVu_Sans_Mono_for_Powerline:h11:cANSI,Consolas:h11:cANSI,Courier:h12:cANSI
+    set guifont=CaskaydiaCove\ NF:h11:cANSI,DejaVu_Sans_Mono_for_Powerline:h11:cANSI,Consolas:h11:cANSI,Courier:h12:cANSI
   endif
 endif
 
 map <F2> :NERDTreeToggle<CR>
-
 let NERDTreeShowHidden=1
+autocmd BufWinEnter * silent NERDTreeMirror
 
 :set guioptions+=m  "add menu bar
 :set guioptions-=T  "remove toolbar
 :set guioptions-=r  "remove right-hand scroll bar
 
-"function! Smart_TabComplete()
-"  let line = getline('.')                         " current line
-"  
-"  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
-"                                                  " line to one character right
-"                                                  " of the cursor
-"  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-"  if (strlen(substr)==0)                          " nothing to match on empty string
-"    return "\<tab>"
-"  endif
-"  let has_period = match(substr, '\.') != -1      " position of period, if any
-"  let has_slash = match(substr, '\/') != -1       " position of slash, if any
-"  if (!has_period && !has_slash)
-"    return "\<C-X>\<C-P>"                         " existing text matching
-"  elseif ( has_slash )
-"    return "\<C-X>\<C-F>"                         " file matching
-"  else
-"    return "\<C-X>\<C-O>"                         " plugin matching
-"  endif
-"endfunction
-
-"inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-
 let g:loaded_syntastic_typescript_tsc_checker = 1 "don't do syntax checking
-
-let g:syntastic_coffee_coffeelint_args = "--csv --file ~/.vim/coffeeLintConfig.json"
-command -nargs=1 C CoffeeCompile | :<args>
-nmap <F8> :TagbarToggle<CR>
-if executable('coffeetags')
-  let g:tagbar_type_coffee = {
-        \ 'ctagsbin' : 'coffeetags',
-        \ 'ctagsargs' : '--include-vars',
-        \ 'kinds' : [
-        \ 'f:functions',
-        \ 'o:object',
-        \ ],
-        \ 'sro' : ".",
-        \ 'kind2scope' : {
-        \ 'f' : 'object',
-        \ 'o' : 'object',
-        \ }
-        \ }
-endif
 
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal) 
@@ -119,9 +77,6 @@ nmap <F9> :mksession! <cr> " Quick write session with F9
 nmap <F10> :source Session.vim <cr> " And load session with F10
 set switchbuf+=usetab,newtab
 set wrapscan
-if has("win32")
-  let g:slime_target = "tmux"
-endif
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
@@ -166,33 +121,75 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-let g:SuperTabDefaultCompletionType = 'context'
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabClosePreviewOnPopupClose = 1
 set completeopt=longest,menuone,preview
 " this setting controls how long to wait (in ms) before fetching type / symbol information.
 set updatetime=500
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
-" Enable snippet completion, requires completeopt-=preview
-" would need to instal ultisnips, which could conflict with other snippets plugins
-"let g:OmniSharp_want_snippet=1
-
 
 " Easymotion config:
-" let g:EasyMotion_do_mapping = 0 " Disable default mappings
-" Jump to anywhere you want with minimal keystrokes, with just one key binding.
-" `s{char}{label}`
-" nmap s <Plug>(easymotion-overwin-f)
-" or
-" `s{char}{char}{label}`
-" Need one more keystroke, but on average, it may be more comfortable.
-" nmap s <Plug>(easymotion-overwin-f2)
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
-" JK motions: Line motions
-" map <Leader>j <Plug>(easymotion-j)
-" map <Leader>k <Plug>(easymotion-k)
-"
 
 set mouse=a
+
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <NUL> coc#refresh()
+
+if has('unix')
+  let vimHome = '~/.vim'
+elseif has('win32')
+  let vimHome = $USERPROFILE . "\\vimfiles"
+endif
+
+if empty(glob(vimHome . '/autoload/plug.vim'))
+  if has('unix')
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  elseif has('win32')
+    execute 'silent !powershell -noprofile -c "Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $env:USERPROFILE/vimfiles/autoload/plug.vim -Force"'
+  endif
+endif
+
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
+
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-snippets', 'coc-sh', 'coc-rust-analyzer']
+let g:coc_snippet_next="<tab>"
+let g:coc_snippet_prev="<s-tab>"
+
+call plug#begin(vimHome . '/plugged')
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'scrooloose/nerdtree'
+Plug 'kchmck/vim-coffee-script'
+Plug 'kien/ctrlp.vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'digitaltoad/vim-pug'
+Plug 'tpope/vim-commentary'
+Plug 'vim-syntastic/syntastic'
+Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-fugitive'
+Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'kevinoid/vim-jsonc'
+
+call plug#end()
+
