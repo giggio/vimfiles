@@ -167,6 +167,11 @@ set cmdheight=2
 " Easymotion config:
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
+let g:ctrlp_max_files=0
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|yarn)|node_modules$',
+  \ 'file': '\v\.(exe|so|dll)$'
+  \ }
 
 set mouse=a
 
