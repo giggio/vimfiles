@@ -29,6 +29,7 @@ set cursorline                  " display a marker on current line
 colorscheme railscasts          " set colorscheme
 
 set completeopt=menuone,longest,preview " simple autocomplete for anything
+set wildmenu
 set wildmode=list:longest,full  " autocomplete for paths and files
 set wildignore+=.git            " ignore these extensions on autocomplete
 
@@ -232,6 +233,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'kevinoid/vim-jsonc'
+Plug 'ervandew/ag'
 
 call plug#end()
 
