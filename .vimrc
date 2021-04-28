@@ -44,6 +44,10 @@ endif
 set nobackup
 set nowritebackup
 
+let &t_SI = "\e[1 q"            " Insert mode, blinking block
+let &t_SR = "\e[4 q"            " Replace mode, solid underscore
+let &t_EI = "\e[2 q"            " Normal mode, solid block
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
