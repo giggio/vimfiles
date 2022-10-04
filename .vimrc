@@ -217,7 +217,6 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 
-
 if has('unix')
   let vimHome = '~/.vim'
 elseif has('win32')
@@ -236,7 +235,6 @@ endif
 autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \| PlugInstall --sync | source $MYVIMRC
 \| endif
-
 
 let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-snippets', 'coc-sh', 'coc-rust-analyzer', 'coc-angular']
 let g:coc_snippet_next="<tab>"
@@ -264,6 +262,34 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'kevinoid/vim-jsonc'
 Plug 'ervandew/ag'
+" github copilot
+" Only supported in newest vim or nvim and with Node 16 only, so we have to check all that
+" see: https://github.com/community/community/discussions/16800
+if version >= 900 || has('nvim')
+  let node_version = trim(system('node --version'))
+  if ! v:shell_error
+    if strlen(matchstr(node_version, 'v16\..*'))
+      Plug 'github/copilot.vim'
+    else
+      if has('unix')
+        let node16 = trim(system('n which 16'))
+        if ! v:shell_error
+          let g:copilot_node_command = node16
+          Plug 'github/copilot.vim'
+        endif
+      endif
+      if has("win32")
+        let nodes = glob($APPDATA.'/nvm/v16*', 0, 1)
+        let nodes_length = len(nodes)
+        if nodes_length
+          let node16 = nodes[nodes_length - 1]
+          let g:copilot_node_command = node16
+          Plug 'github/copilot.vim'
+        endif
+      endif
+    endif
+  endif
+endif
 
 call plug#end()
 
