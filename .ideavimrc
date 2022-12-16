@@ -1,0 +1,49 @@
+set number
+set relativenumber
+" display incomplete commands
+set showcmd
+" Whitespace
+set nowrap                      " don't wrap lines
+set tabstop=2 shiftwidth=2      " a tab is two spaces (or set this to 4)
+set expandtab                   " use spaces, not tabs (optional)
+set backspace=indent,eol,start  " backspace through everything in insert mode
+
+" Searching
+set hlsearch                    " highlight matches
+set incsearch                   " incremental searching
+set ignorecase                  " searches are case insensitive...
+set smartcase                   " ... unless they contain at least one capital letter
+
+" My customizations
+set ls=2                        " always show status bar
+set number                      " show line numbers
+set cursorline                  " display a marker on current line
+imap jj <Esc>
+nmap oo o<Esc>k
+nmap OO O<Esc>j
+au GUIEnter * simalt ~x
+nmap <F9> :mksession! <cr> " Quick write session with F9
+nmap <F10> :source Session.vim <cr> " And load session with F10
+set wrapscan
+
+" remap split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" highlight trailing white spaces:
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+set completeopt=longest,menuone,preview
+" this setting controls how long to wait (in ms) before fetching type / symbol information.
+set updatetime=500
+" Remove 'Press Enter to continue' message when type information is longer than one line.
+set cmdheight=2
+let g:EasyMotion_smartcase = 1
+
