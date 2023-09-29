@@ -1,19 +1,33 @@
-Giovanni Bassi's vimfiles.
+# Giovanni Bassi's vimfiles
 
-These are my personal vimfiles. Since I'm still learning to use vim, I advise you not to use it for anything :)
+These are my personal vimfiles. These are personal, if you want to use it, do it
+with care. Read the whole thing!
 
-I am using vim both on Ubuntu and Windows (in Windows it is preety much gVim, as vim refuses to work properly). Right now there are some nice bundles, like NERDTree and Coffeescript. I have been using vim mostly to do Ruby programming and script editing in general.
+I am using Vim both on Ubuntu and Windows. Right now there are some nice
+bundles, like NERDTree. I use Vim mostly for script editing in general.
 
-Installation instructions (Linux):
-- git clone https://github.com/giggio/vimfiles.git ~/.vim
-- echo "source ~/.vim/.vimrc" > ~/.vimrc
-- cd ~/.vim
-- git submodule update --init
+## Installation instructions
 
-Installation instructions (Windows, no Powershell):
-- git clone https://github.com/giggio/vimfiles.git ~/vimfiles
-- echo "source $($($env:HOME).Replace('\', '/'))/vimfiles/.vimrc" > ~/_vimrc
-- cd ~/.vim
-- git submodule update --init
+### Linux
 
-This is a fork from Rafael Rosa Fu's vimfiles. Check out https://github.com/rafaelrosafu/vimfiles for his latest updates.
+```bash
+git clone https://github.com/giggio/vimfiles.git ~/.vim
+echo "source ~/.vim/.vimrc" > ~/.vimrc
+cd ~/.vim
+git submodule update --init
+```
+
+### Windows (PowerShell Core)
+
+```powershell
+git clone https://github.com/giggio/vimfiles.git ~/.vim
+# I'm using scoop to install Python, adapt at your will:
+echo "let `$PYTHONHOME = '$env:USERPROFILE\scoop\apps\python\current\'`nsource $($($env:USERPROFILE).Replace('\', '/'))/.vim/.vimrc" > ~/_vimrc
+echo "source $($($env:HOME).Replace('\', '/'))/.vim/.vimrc" > ~/_vimrc
+cd ~/.vim
+git submodule update --init
+```
+
+Notes on Windows' version: The normal Vim home (`runtimepath`) would be at
+`~/vimfiles`, but this is changed to `~/.vim` so that Linux and Windows work the
+same way.

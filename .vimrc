@@ -1,3 +1,5 @@
+" reset runtime path to be the same for all platforms
+set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 " Disable beep
 set noerrorbells visualbell t_vb=
 if has('autocmd')
@@ -26,7 +28,6 @@ set smartcase                   " ... unless they contain at least one capital l
 set ls=2                        " always show status bar
 set number                      " show line numbers
 set cursorline                  " display a marker on current line
-colorscheme railscasts          " set colorscheme
 
 set completeopt=menuone,longest,preview " simple autocomplete for anything
 set wildmenu
@@ -121,11 +122,14 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 :set guioptions+=m  "add menu bar
 :set guioptions-=T  "remove toolbar
 :set guioptions-=r  "remove right-hand scroll bar
+:set guioptions+=R  "remove right-hand scroll bar
+:set guioptions-=l  "remove left-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
 
 let g:loaded_syntastic_typescript_tsc_checker = 1 "don't do syntax checking
 
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
-if filereadable(vimlocal) 
+if filereadable(vimlocal)
   execute 'source '.vimlocal
 endif
 map <S-A-l> :NERDTreeFind<CR>
@@ -198,10 +202,6 @@ let g:ctrlp_custom_ignore = {
 
 set mouse=a
 
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
 " continue on the same line number
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -222,17 +222,19 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 
-if has('unix')
+if has('win32unix')
+  let vimHome = $HOME . '/.vim'
+elseif has('unix')
   let vimHome = '~/.vim'
 elseif has('win32')
-  let vimHome = $USERPROFILE . "\\vimfiles"
+  let vimHome = $USERPROFILE . "\\.vim"
 endif
 
 if empty(glob(vimHome . '/autoload/plug.vim'))
   if has('unix')
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   elseif has('win32')
-    execute 'silent !powershell -noprofile -c "Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $env:USERPROFILE/vimfiles/autoload/plug.vim -Force"'
+    execute 'silent !powershell -noprofile -c "Invoke-WebRequest -UseBasicParsing https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | New-Item $env:USERPROFILE/.vim/autoload/plug.vim -Force"'
   endif
 endif
 
@@ -249,7 +251,6 @@ call plug#begin(vimHome . '/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
-Plug 'kchmck/vim-coffee-script'
 Plug 'kien/ctrlp.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -257,7 +258,6 @@ Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-commentary'
 Plug 'vim-syntastic/syntastic'
 Plug 'honza/vim-snippets'
-" Plug 'SirVer/ultisnips'
 Plug 'tpope/vim-fugitive'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-unimpaired'
@@ -267,34 +267,13 @@ Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'kevinoid/vim-jsonc'
 Plug 'ervandew/ag'
+Plug 'jpo/vim-railscasts-theme'
 " github copilot
-" Only supported in newest vim or nvim and with Node 16 only, so we have to check all that
-" see: https://github.com/community/community/discussions/16800
 if version >= 900 || has('nvim')
   let node_version = trim(system('node --version'))
-  if ! v:shell_error
-    if strlen(matchstr(node_version, 'v16\..*'))
-      Plug 'github/copilot.vim'
-    else
-      if has('unix')
-        let node16 = trim(system('n which 16'))
-        if ! v:shell_error
-          let g:copilot_node_command = node16
-          Plug 'github/copilot.vim'
-        endif
-      endif
-      if has("win32")
-        let nodes = glob($APPDATA.'/nvm/v16*', 0, 1)
-        let nodes_length = len(nodes)
-        if nodes_length
-          let node16 = nodes[nodes_length - 1]
-          let g:copilot_node_command = node16
-          Plug 'github/copilot.vim'
-        endif
-      endif
-    endif
-  endif
+  Plug 'github/copilot.vim'
 endif
 
 call plug#end()
 
+colorscheme railscasts          " set colorscheme
