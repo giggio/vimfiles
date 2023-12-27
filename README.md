@@ -22,8 +22,7 @@ git submodule update --init
 ```powershell
 git clone https://github.com/giggio/vimfiles.git ~/.vim
 # I'm using scoop to install Python, adapt at your will:
-echo "let `$PYTHONHOME = '$env:USERPROFILE\scoop\apps\python\current\'`nsource $($($env:USERPROFILE).Replace('\', '/'))/.vim/.vimrc" > ~/_vimrc
-echo "source $($($env:HOME).Replace('\', '/'))/.vim/.vimrc" > ~/_vimrc
+Set-Content -NoNewline -Path ~/_vimrc -Value "let `$PYTHONHOME = '$env:USERPROFILE\scoop\apps\python\current\'`nsource $($($env:USERPROFILE).Replace('\', '/'))/.vim/.vimrc`n"
 cd ~/.vim
 git submodule update --init
 ```
