@@ -11,20 +11,18 @@ bundles, like NERDTree. I use Vim mostly for script editing in general.
 ### Linux
 
 ```bash
-git clone https://github.com/giggio/vimfiles.git ~/.vim
+git clone --recursive https://github.com/giggio/vimfiles.git ~/.vim
 echo "source ~/.vim/.vimrc" > ~/.vimrc
 cd ~/.vim
-git submodule update --init
 ```
 
 ### Windows (PowerShell Core)
 
 ```powershell
-git clone https://github.com/giggio/vimfiles.git ~/.vim
+git clone --recursive https://github.com/giggio/vimfiles.git ~/.vim
 # I'm using scoop to install Python, adapt at your will:
 Set-Content -NoNewline -Path ~/_vimrc -Value "let `$PYTHONHOME = '$env:USERPROFILE\scoop\apps\python\current\'`nsource $($($env:USERPROFILE).Replace('\', '/'))/.vim/.vimrc`n"
 cd ~/.vim
-git submodule update --init
 ```
 
 Notes on Windows' version: The normal Vim home (`runtimepath`) would be at
