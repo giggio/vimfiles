@@ -190,6 +190,8 @@ set completeopt=longest,menuone,preview
 set updatetime=500
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
+" start with all unfolded.
+set foldlevelstart=99
 
 " Easymotion config:
 " Turn on case insensitive feature
