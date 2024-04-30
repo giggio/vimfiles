@@ -20,6 +20,7 @@ cd ~/.vim
 
 ```powershell
 git clone --recursive https://github.com/giggio/vimfiles.git ~/.vim
+# or git clone --recursive git@github.com:giggio/vimfiles.git ~/.vim
 # I'm using scoop to install Python, adapt at your will:
 Set-Content -NoNewline -Path ~/_vimrc -Value "let `$PYTHONHOME = '$env:USERPROFILE\scoop\apps\python\current\'`nsource $($($env:USERPROFILE).Replace('\', '/'))/.vim/.vimrc`n"
 cd ~/.vim
