@@ -119,10 +119,12 @@ autocmd VimEnter * autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDT
 " Exit Vim if NERDTree is the only window remaining in the only tab:
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
-:set guioptions+=m  "add menu bar
+if ! has('nvim')
+  :set guioptions+=m  "add menu bar
+  :set guioptions+=R  "remove right-hand scroll bar
+endif
 :set guioptions-=T  "remove toolbar
 :set guioptions-=r  "remove right-hand scroll bar
-:set guioptions+=R  "remove right-hand scroll bar
 :set guioptions-=l  "remove left-hand scroll bar
 :set guioptions-=L  "remove left-hand scroll bar
 
@@ -166,16 +168,21 @@ set splitright
 set number relativenumber
 set diffopt=filler,vertical
 au BufReadPost fugitive:* set bufhidden=delete
-fun! QuitPrompt(cmd)
-  if tabpagenr("$") == 1 && winnr("$") == 1
-    let choice = confirm("Close?", "&yes\n&no", 1)
-    if choice == 1 | return a:cmd | endif
-    return ""
-  else | return a:cmd | endif
-endfun
-cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? QuitPrompt(getcmdline()) : 'q'
-cnoreabbrev <expr> wq getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(getcmdline()) : 'wq'
-cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'x'
+if ! has('nvim')
+  fun! QuitPrompt(cmd)
+    if tabpagenr("$") == 1 && winnr("$") == 1
+      let choice = confirm("Close?", "&yes\n&no", 1)
+      if choice == 1 | return a:cmd | endif
+      return ""
+    else | return a:cmd | endif
+  endfun
+  cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? QuitPrompt(getcmdline()) : 'q'
+  cnoreabbrev <expr> qa getcmdtype() == ":" && getcmdline() == 'q' ? QuitPrompt(getcmdline()) : 'qa'
+  cnoreabbrev <expr> wq getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(getcmdline()) : 'wq'
+  cnoreabbrev <expr> wqa getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(getcmdline()) : 'wqa'
+  cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'x'
+  cnoreabbrev <expr> xa getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'xa'
+endif
 
 " highlight trailing white spaces:
 highlight ExtraWhitespace ctermbg=red guibg=red
