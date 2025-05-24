@@ -1,5 +1,9 @@
-" reset runtime path to be the same for all platforms
-set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+if !has('nvim')
+  " reset runtime path to be the same for all platforms
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  " todo: check how to work with nvim on Windows, it'll problably have problems
+  " with the runtimepath
+endif
 
 runtime helpers/functions.vim
 
