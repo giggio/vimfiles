@@ -13,3 +13,4 @@ let g:NERDTreeExtensionHighlightColor = {}
 let g:NERDTreeExtensionHighlightColor['nix'] = "689FB6"
 let g:NERDTreeWinPos = "right"
 
+nmap <leader>f :Rg<CR>
