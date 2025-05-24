@@ -112,76 +112,9 @@ if has("gui_running")
   endif
 endif
 
-function! SessionAutoStart()
-  if filereadable(".session.vim")
-    source .session.vim
-  endif
-endfunction
-augroup SessionAuto
-  autocmd!
-  autocmd VimEnter * nested call SessionAutoStart()
-  autocmd VimLeavePre * call SaveSession()
-augroup END
+runtime session_management.vim
 
-function! SaveSession()
-  set lazyredraw
-  silent! call CloseNERDTreeOnAllTabs()
-  silent! mksession! .session.vim
-  silent! call OpenNERDTreeOnAllTabs()
-  set nolazyredraw
-  redraw!
-endfunction
-
-function! CloseNERDTreeOnAllTabs()
-  if exists("g:NERDTree")
-    let s:orig = tabpagenr()
-    tabdo NERDTreeClose
-    execute 'tabnext' s:orig
-  endif
-endfunction
-
-function! OpenNERDTreeOnAllTabs()
-  if exists("g:NERDTree")
-    let s:orig = tabpagenr()
-    silent! NERDTree
-    silent! tabdo if tabpagenr() != s:orig
-      \| silent! NERDTreeMirror
-      \| wincmd p
-      \| endif
-    silent! execute 'tabnext' s:orig
-    wincmd p
-  endif
-endfunction
-
-function! ConfigureNERDTree()
-  if exists("g:NERDTree")
-    noremap <F2> :NERDTreeToggle<CR>
-    let g:NERDTreeShowHidden=1
-    " Open the existing NERDTree on each new tab.
-    autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
-    " Exit Vim if NERDTree is the only window remaining in the only tab.
-    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
-    " Close the tab if NERDTree is the only window remaining in it.
-    autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
-    if !exists('s:std_in') 
-      NERDTree
-      let s:orig = tabpagenr()               " remember where we started
-      let s:last  = tabpagenr('$')           " total number of tabs
-      for i in range(1, s:last - 1)
-        silent! tabnext
-        silent! NERDTreeMirror
-        silent! wincmd p
-      endfor
-      tabnext
-      silent! wincmd p
-    endif
-    " Start NERDTree. If a file is specified, move the cursor to its window.
-    if argc() > 0 || exists("s:std_in") | wincmd p | endif
-    map <S-A-l> :NERDTreeFind<CR>
-  endif
-endfunction
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * call ConfigureNERDTree()
+runtime nerdtree.vim
 
 if ! has('nvim')
   :set guioptions+=m  "add menu bar
@@ -292,7 +225,7 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-snippets', 'coc-sh', 'coc-rust-analyzer', 'coc-angular']
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-snippets', 'coc-sh', 'coc-rust-analyzer', 'coc-angular', 'coc-vimlsp']
 let g:coc_snippet_next="<tab>"
 let g:coc_snippet_prev="<s-tab>"
 
