@@ -4,6 +4,7 @@ endif
 let g:coc_global_extensions = [
       \ 'coc-angular',
       \ 'coc-css',
+      \ 'coc-html',
       \ 'coc-json',
       \ 'coc-markdownlint',
       \ 'coc-rust-analyzer',
