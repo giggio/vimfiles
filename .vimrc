@@ -2,9 +2,6 @@
 set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
 " Disable beep
 set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
-endif
 " Based on @mislav post http://mislav.uniqpath.com/2011/12/vim-revisited/
 set nocompatible                " choose no compatibility with legacy vi
 syntax enable
@@ -58,29 +55,11 @@ else
   set signcolumn=yes
 endif
 
-set t_Co=256                    " forces terminal to use 256 colors
-if has("gui_running")
-  if has("gui_gtk2")
-    set guifont=Inconsolata\ 12
-  elseif has("gui_macvim")
-    set guifont=Menlo\ Regular:h14
-  elseif has("gui_win32")
-    set guifont=CaskaydiaCove\ NF:h11:cANSI,DejaVu_Sans_Mono_for_Powerline:h11:cANSI,Consolas:h11:cANSI,Courier:h12:cANSI
-  endif
-endif
+runtime gui.vim
 
 runtime session_management.vim
 
 runtime nerdtree.vim
-
-if ! has('nvim')
-  :set guioptions+=m  "add menu bar
-  :set guioptions+=R  "remove right-hand scroll bar
-endif
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=l  "remove left-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
 
 let g:loaded_syntastic_typescript_tsc_checker = 1 "don't do syntax checking
 
@@ -91,11 +70,15 @@ endif
 imap jj <Esc>
 nmap oo o<Esc>k
 nmap OO O<Esc>j
-au GUIEnter * simalt ~x
 set switchbuf+=usetab,newtab
 set wrapscan
 
-runtime theme.vim
+set mouse=a
+
+" continue on the same line number
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
 
 " remap split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -142,22 +125,7 @@ set cmdheight=2
 " start with all unfolded.
 set foldlevelstart=99
 
-" Easymotion config:
-" Turn on case insensitive feature
-let g:EasyMotion_smartcase = 1
-let g:ctrlp_max_files=0
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|yarn)|node_modules$',
-  \ 'file': '\v\.(exe|so|dll)$'
-  \ }
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
-set mouse=a
-
-" continue on the same line number
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
+runtime plugins_config.vim
 
 runtime coc_nvim.vim
 
@@ -171,5 +139,5 @@ endif
 
 runtime plugins.vim
 
-colorscheme railscasts
+runtime theme.vim
 
