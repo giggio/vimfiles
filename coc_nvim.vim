@@ -1,9 +1,27 @@
 if !exists("g:coc_service_initialized")
   finish
 endif
-let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-snippets', 'coc-sh', 'coc-rust-analyzer', 'coc-angular', 'coc-vimlsp']
+let g:coc_global_extensions = [
+      \ 'coc-angular',
+      \ 'coc-css',
+      \ 'coc-json',
+      \ 'coc-markdownlint',
+      \ 'coc-rust-analyzer',
+      \ 'coc-sh',
+      \ 'coc-snippets',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
+      \]
 let g:coc_snippet_next="<tab>"
 let g:coc_snippet_prev="<s-tab>"
+
+autocmd FileType yaml if bufname("%") =~# "docker-compose.yml" | set ft=yaml.docker-compose | endif
+autocmd FileType yaml if bufname("%") =~# "compose.yml" | set ft=yaml.docker-compose | endif
+
+let g:coc_filetype_map = {
+      \ 'yaml.docker-compose': 'dockercompose',
+      \ }
+
 " Bellow is from example config:
 " https://github.com/neoclide/coc.nvim/blob/master/doc/coc-example-config.vim
 

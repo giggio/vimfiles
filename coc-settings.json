@@ -1,4 +1,31 @@
 {
   "rust-analyzer.procMacro.enable": true,
-  "rust-analyzer.checkOnSave.command": "clippy"
+  "rust-analyzer.check.command": "clippy",
+  "languageserver": {
+    "nixd": {
+      "command": "nixd",
+      "rootPatterns": [".nixd.json"],
+      "filetypes": ["nix"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    },
+    "dockercompose": {
+      "command": "docker-compose-langserver",
+      "args": ["--stdio"],
+      "filetypes": ["dockercompose"],
+      "rootPatterns": [".git", ".env", "docker-compose.yml", "compose.yml"]
+    },
+    "lua": {
+      "command": "lua-language-server",
+      "rootPatterns": [".git"],
+      "filetypes": ["lua"]
+    },
+    "systemd-language-server": {
+      "command": "systemd-language-server",
+      "filetypes": ["systemd"]
+    }
+  }
 }
