@@ -93,21 +93,6 @@ set splitright
 set number relativenumber
 set diffopt=filler,vertical
 au BufReadPost fugitive:* set bufhidden=delete
-if ! has('nvim')
-  fun! QuitPrompt(cmd)
-    if tabpagenr("$") == 1 && winnr("$") == 1
-      let choice = confirm("Close?", "&yes\n&no", 1)
-      if choice == 1 | return a:cmd | endif
-      return ""
-    else | return a:cmd | endif
-  endfun
-  cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline() == 'q' ? QuitPrompt(getcmdline()) : 'q'
-  cnoreabbrev <expr> qa getcmdtype() == ":" && getcmdline() == 'q' ? QuitPrompt(getcmdline()) : 'qa'
-  cnoreabbrev <expr> wq getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(getcmdline()) : 'wq'
-  cnoreabbrev <expr> wqa getcmdtype() == ":" && getcmdline() == 'wq' ? QuitPrompt(getcmdline()) : 'wqa'
-  cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'x'
-  cnoreabbrev <expr> xa getcmdtype() == ":" && getcmdline() == 'x' ? QuitPrompt(getcmdline()) : 'xa'
-endif
 
 " highlight trailing white spaces:
 highlight ExtraWhitespace ctermbg=red guibg=red
