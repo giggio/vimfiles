@@ -1,18 +1,28 @@
 function! SessionAutoStart()
-  if filereadable(".session.vim")
-    source .session.vim
+  if has('nvim')
+    if filereadable(".session.nvim")
+      source .session.nvim
+    endif
+  else
+    if filereadable(".session.vim")
+      source .session.vim
+    endif
   endif
 endfunction
-augroup SessionAuto
-  autocmd!
-  autocmd VimEnter * nested call SessionAutoStart()
-  autocmd VimLeavePre * call SaveSession()
-augroup END
+  augroup SessionAuto
+    autocmd!
+    autocmd VimEnter * nested call SessionAutoStart()
+    autocmd VimLeavePre * call SaveSession()
+  augroup END
 
 function! SaveSession()
   set lazyredraw
   silent! call CloseNERDTreeOnAllTabs()
-  silent! mksession! .session.vim
+  if has('nvim')
+    silent! mksession! .session.nvim
+  else
+    silent! mksession! .session.vim
+  endif
   silent! call OpenNERDTreeOnAllTabs()
   set nolazyredraw
   redraw!
