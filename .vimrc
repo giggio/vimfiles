@@ -1,7 +1,7 @@
 if !has('nvim')
   " reset runtime path to be the same for all platforms
   set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-  " todo: check how to work with nvim on Windows, it'll problably have problems
+  " todo: check how to work with nvim on Windows, it'll probably have problems
   " with the runtimepath
 endif
 
@@ -122,8 +122,6 @@ set foldlevelstart=99
 
 runtime plugins_config.vim
 
-runtime coc_nvim.vim
-
 if has('win32unix')
   let vimHome = $HOME . '/.vim'
 elseif has('unix')
@@ -134,8 +132,10 @@ endif
 
 runtime helpers/autosave.vim
 
+runtime theme.vim
+
 runtime plugins.vim
 
-runtime theme.vim
+autocmd VimEnter * runtime coc_nvim.vim
 
 autocmd VimEnter * call g:ShowStartupErrors()

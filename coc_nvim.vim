@@ -1,7 +1,11 @@
 if !exists("g:coc_service_initialized")
   finish
 endif
-" https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.vim
+let g:coc_global_extensions = ['coc-json', 'coc-tsserver', 'coc-css', 'coc-snippets', 'coc-sh', 'coc-rust-analyzer', 'coc-angular', 'coc-vimlsp']
+let g:coc_snippet_next="<tab>"
+let g:coc_snippet_prev="<s-tab>"
+" Bellow is from example config:
+" https://github.com/neoclide/coc.nvim/blob/master/doc/coc-example-config.vim
 
 " May need for Vim (not Neovim) since coc.nvim calculates byte offset by count
 " utf-8 byte sequence
@@ -142,7 +146,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^="%{coc#status()}%{get(b:,'coc_current_function','')}"
 
 " Mappings for CoCList
 " Show all diagnostics

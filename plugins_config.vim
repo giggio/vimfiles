@@ -9,3 +9,7 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 " exclude fugitive from editorconfig
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['nix'] = "689FB6"
+let g:NERDTreeWinPos = "right"
+
