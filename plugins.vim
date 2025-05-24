@@ -39,3 +39,6 @@ endif
 
 call plug#end()
 
+if !has('nvim')
+  packadd! editorconfig " editorconfig is on by default on nvim
+endif

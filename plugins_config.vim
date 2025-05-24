@@ -7,4 +7,5 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll)$'
   \ }
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-
+" exclude fugitive from editorconfig
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
