@@ -1,3 +1,4 @@
 .netrwhist
 autoload/plug.vim
 plugged
+.session.vim
