@@ -9,7 +9,7 @@ if has('timers')
     if g:autosave_timer > 0
       call timer_stop(g:autosave_timer)
     endif
-    let g:autosave_timer = timer_start(3000, {-> execute('update')})
+    let g:autosave_timer = timer_start(3000, {-> execute('wall')})
   endfunction
 
   augroup AutoSaveDebounce
