@@ -11,5 +11,5 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline_theme='dark'
 
-colorscheme railscasts
+call g:CatchError('colorscheme railscasts')
 

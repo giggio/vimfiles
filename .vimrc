@@ -1,5 +1,11 @@
 " reset runtime path to be the same for all platforms
 set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+
+runtime helpers/functions.vim
+
+" startup errors will accumulate in this list
+let g:StartupErrors = []
+
 " Disable beep
 set noerrorbells visualbell t_vb=
 " Based on @mislav post http://mislav.uniqpath.com/2011/12/vim-revisited/
@@ -128,3 +134,4 @@ runtime plugins.vim
 
 runtime theme.vim
 
+autocmd VimEnter * call g:ShowStartupErrors()
