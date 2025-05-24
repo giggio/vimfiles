@@ -15,7 +15,7 @@ call plug#begin(g:vimHome . '/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'digitaltoad/vim-pug'
@@ -30,7 +30,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'kevinoid/vim-jsonc'
-Plug 'ervandew/ag'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'jpo/vim-railscasts-theme'
 if version >= 900 || has('nvim')
   Plug 'github/copilot.vim'
