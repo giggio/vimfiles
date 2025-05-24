@@ -137,6 +137,8 @@ elseif has('win32')
   let vimHome = $USERPROFILE . "\\.vim"
 endif
 
+runtime helpers/autosave.vim
+
 runtime plugins.vim
 
 runtime theme.vim
