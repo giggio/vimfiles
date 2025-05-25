@@ -33,5 +33,3 @@ let g:airline_theme = 'material'
 if (has("termguicolors"))
   set termguicolors
 endif
-
-autocmd VimEnter * call g:CatchError('colorscheme material')
