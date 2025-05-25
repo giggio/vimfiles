@@ -1,4 +1,4 @@
-" Original script from:
+" Script adapted from:
 " https://github.com/BlueDrink9/env/blob/master/editors/vim/manage_plugins.vim
 " See gist:
 " https://gist.github.com/BlueDrink9/474b150c44d41b80934990c0acfb00be
@@ -172,57 +172,6 @@ function! PluginNameToFunc(name)
     " Has to be a global function so lua can access it.
     return 'Plug_after_' . substitute(a:name, '[\\.-]', '_', 'g')
 endfunction
-
-function! s:installPluginManager()
-    if has('nvim')
-        let g:loaded_plug = 1
-        lua << EOF
-        local lazypath = vim.g.pluginInstallPath .. "/lazy.nvim"
-        if not vim.loop.fs_stat(lazypath) then
-            -- bootstrap lazy.nvim
-            -- stylua: ignore
-            vim.g.plugins_first_install = 1
-            vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
-        end
-        vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-EOF
-
-    else
-        if has('win32') || has ('win64')
-            let l:vimhome = $HOME."/vimfiles"
-        else
-            let l:vimhome = $HOME."/.vim"
-        endif
-        let l:plugin_manager_dir = expand(l:vimhome . '/autoload')
-        let l:plugin_manager_file = l:plugin_manager_dir . '/plug.vim'
-        let s:plugin_manager_url = "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-
-        if !filereadable(l:plugin_manager_file)
-            let g:plugins_first_install = 1
-            exec "silent !mkdir -p " . l:plugin_manager_dir
-            if Executable("curl")
-                let s:downloader = "curl -fLo "
-            elseif Executable("wget")
-                let s:downloader = "wget --no-check-certificate -O "
-            else
-                echoerr "You have to install curl or wget, or install plugin manager yourself!"
-                echoerr "Plugin manager not installed. No plugins will be loaded."
-                finish
-            endif
-            " Continue installing...
-            echom "Installing plugin manager..."
-            echo ""
-            call system(printf('%s %s %s', s:downloader, l:plugin_manager_file, s:plugin_manager_url))
-            if !filereadable(l:plugin_manager_file)
-                echoerr "Plugin manager not installed. No plugins will be loaded."
-                finish
-            endif
-            autocmd myPlugins VimEnter * PlugInstall
-        endif
-
-    endif
-endfunction
-call s:installPluginManager()
 
 " Rest is entirely plug-specific
 if has('nvim')
