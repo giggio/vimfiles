@@ -8,12 +8,8 @@ function! SessionAutoStart()
       source .session.vim
     endif
   endif
+  call OpenBuffersNotInTabs()
 endfunction
-  augroup SessionAuto
-    autocmd!
-    autocmd VimEnter * nested call SessionAutoStart()
-    autocmd VimLeavePre * call SaveSession()
-  augroup END
 
 function! SaveSession()
   set lazyredraw
@@ -48,3 +44,29 @@ function! OpenNERDTreeOnAllTabs()
     wincmd p
   endif
 endfunction
+
+function! OpenBuffersNotInTabs()
+  " useful for cases where the user passes new files to vim
+  let tabbufs = []
+  for t in range(1, tabpagenr('$'))
+    call extend(tabbufs, tabpagebuflist(t))
+  endfor
+  let buffers_not_in_tabs = filter(range(1, bufnr('$')), '
+        \ filereadable(bufname(v:val))
+        \ && index(tabbufs, v:val) < 0
+        \ ')
+  for bufnr in buffers_not_in_tabs
+    execute 'tab sbuffer ' . bufnr
+  endfor
+endfunction
+
+set sessionoptions-=buffers
+set sessionoptions-=options
+set sessionoptions-=blank
+set sessionoptions-=help
+set sessionoptions-=terminal
+augroup SessionAuto
+  autocmd!
+  autocmd VimEnter * nested call SessionAutoStart()
+  autocmd VimLeavePre * call SaveSession()
+augroup END
