@@ -138,11 +138,11 @@ runtime helpers/autosave.vim
 
 runtime theme.vim
 
+runtime coc_nvim.vim
+
 runtime plugins.vim
 
 call g:CatchError('colorscheme material')
-
-autocmd VimEnter * runtime coc_nvim.vim
 
 autocmd VimEnter * call g:ShowStartupErrors()
 
