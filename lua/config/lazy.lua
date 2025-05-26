@@ -167,3 +167,6 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 vim.lsp.enable('lua_ls')
+
+-- reset leader
+vim.g.mapleader = "\\"
