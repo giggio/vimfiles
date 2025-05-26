@@ -130,6 +130,8 @@ elseif has('unix')
   let vimHome = '~/.vim'
 elseif has('win32')
   let vimHome = $USERPROFILE . "\\.vim"
+else
+  let vimHome = '~/.vim'
 endif
 
 runtime helpers/autosave.vim
