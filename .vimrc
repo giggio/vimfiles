@@ -18,7 +18,7 @@ syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
-autocmd BufRead,BufNewFile launch.json set filetype=jsonc
+autocmd BufRead,BufNewFile launch.json set filetype=json5
 autocmd BufRead,BufNewFile settings.json set filetype=json5
 
 "" Whitespace
