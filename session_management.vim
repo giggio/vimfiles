@@ -1,4 +1,9 @@
 function! SessionAutoStart()
+  if argc() > 0
+    let s:session_autoload=0
+    return
+  endif
+  let s:session_autoload=1
   if has('nvim')
     if filereadable(".session.nvim")
       source .session.nvim
@@ -8,10 +13,12 @@ function! SessionAutoStart()
       source .session.vim
     endif
   endif
-  call OpenBuffersNotInTabs()
 endfunction
 
 function! SaveSession()
+  if s:session_autoload == 0
+    return
+  endif
   set lazyredraw
   silent! call CloseNERDTreeOnAllTabs()
   if has('nvim')
@@ -43,21 +50,6 @@ function! OpenNERDTreeOnAllTabs()
     silent! execute 'tabnext' s:orig
     wincmd p
   endif
-endfunction
-
-function! OpenBuffersNotInTabs()
-  " useful for cases where the user passes new files to vim
-  let tabbufs = []
-  for t in range(1, tabpagenr('$'))
-    call extend(tabbufs, tabpagebuflist(t))
-  endfor
-  let buffers_not_in_tabs = filter(range(1, bufnr('$')), '
-        \ filereadable(bufname(v:val))
-        \ && index(tabbufs, v:val) < 0
-        \ ')
-  for bufnr in buffers_not_in_tabs
-    execute 'tab sbuffer ' . bufnr
-  endfor
 endfunction
 
 set sessionoptions-=buffers
