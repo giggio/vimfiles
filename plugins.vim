@@ -14,10 +14,12 @@ if !has('nvim')
 endif
 
 let g:pluginInstallPath = g:vimHome . '/plugged'
+let g:vimPluginInstallPath = g:pluginInstallPath . '/vim'
+let g:nvimPluginInstallPath = g:pluginInstallPath . '/nvim'
 runtime manage_plugins.vim
 
 if !has('nvim')
-  call plug#begin(g:pluginInstallPath)
+  call plug#begin(g:vimPluginInstallPath)
 endif
 
 " Using 'Plugin' instead of 'Plug' because of the adapter from manage_plugins.vim
