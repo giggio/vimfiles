@@ -4,6 +4,9 @@ function s:OpenNERDTreeOnBufferEnter()
   if &filetype =~# 'dap'
     return
   endif
+  if g:dap_debugger_running
+    return
+  endif
   if &buftype != 'quickfix' && getcmdwintype() == ''
     if tabpagenr('$') == 1
       silent NERDTree
@@ -16,6 +19,9 @@ function! ConfigureNERDTree()
   if exists("g:NERDTree")
     noremap <F2> :NERDTreeToggle<CR>
     let g:NERDTreeShowHidden=1
+    if !exists("g:dap_debugger_running")
+      let g:dap_debugger_running=0
+    endif
     augroup MyNERDTreeConfig
       autocmd!
       autocmd BufWinEnter * call s:OpenNERDTreeOnBufferEnter()
