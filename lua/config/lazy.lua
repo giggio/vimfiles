@@ -162,6 +162,72 @@ require("lazy").setup({
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
       },
+      config = function()
+        local dap = require('dap')
+        dap.adapters = {
+          lldb_dap = { -- lldb_dap is the name we use in the configuration.type
+            type = 'executable',
+            command = 'lldb-dap',
+            name = 'lldb-dap'
+          },
+          lldb = { -- use lldb for codelldb as it works the same in vscode
+            type = "executable",
+            command = "codelldb",
+            name = "codelldb",
+            -- On windows you may have to uncomment this:
+            -- detached = false,
+          }
+        }
+        dap.configurations =
+        {
+          rust = {
+            {
+              name = 'Debug Rust (nvim - codelldb)',
+              type = "lldb",
+              request = "launch",
+              program = function()
+                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+              end,
+              cwd = '${workspaceFolder}',
+              stopOnEntry = false,
+            },
+            {
+              name = 'Debug Rust (nvim - lldb-dap)',
+              type = 'lldb_dap',
+              request = 'launch',
+              program = function()
+                return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+              end,
+              cwd = '${workspaceFolder}',
+              stopOnEntry = false,
+              args = { },
+            },
+          },
+        }
+      end
+    },
+    {
+      "theHamsta/nvim-dap-virtual-text",
+      -- event = "VeryLazy",
+      -- config = true,
+      config = function()
+        require('nvim-dap-virtual-text').setup {
+        }
+      end,
+      requires = {
+        "nvim-treesitter/nvim-treesitter",
+        "mfussenegger/nvim-dap",
+      },
+    },
+    {
+      "nvim-treesitter/nvim-treesitter",
+      branch = 'main',
+      -- event = "VeryLazy",
+      lazy = false,
+      build = ":TSUpdate",
+      config = function()
+        require'nvim-treesitter'.install { 'rust' }
+      end,
     },
     {
       "rcarriga/nvim-dap-ui",
@@ -169,10 +235,38 @@ require("lazy").setup({
       dependencies = {
         "Weissle/persistent-breakpoints.nvim",
       },
+      config = function()
+        local dap = require('dap')
+        local ui = require("dapui")
+        ui.setup()
+
+        vim.g.dap_debugger_running = 0
+        vim.fn.sign_define("DapBreakpoint", { text = "🛑" })
+        dap.listeners.before.attach.dapui_config = function()
+          ui.open()
+          vim.g.dap_debugger_running = 1
+        end
+        dap.listeners.before.launch.dapui_config = function()
+          ui.open()
+          vim.g.dap_debugger_running = 1
+        end
+        dap.listeners.before.event_terminated.dapui_config = function()
+          ui.close()
+          vim.g.dap_debugger_running = 0
+        end
+        dap.listeners.before.event_exited.dapui_config = function()
+          ui.close()
+          vim.g.dap_debugger_running = 0
+        end
+      end
     },
     {
       "Weissle/persistent-breakpoints.nvim",
       event = "VeryLazy",
+      opts = {
+        load_breakpoints_event = { "BufReadPost" },
+        always_reload = true,
+      },
     },
   },
   -- Configure any other settings here. See the documentation for more details.
