@@ -50,7 +50,3 @@ vim.lsp.config('lua_ls', {
 
 vim.lsp.enable('lua_ls')
 
--- local dap_virtual_text = require("nvim-dap-virtual-text")
--- dap_virtual_text.setup()
-
-require('dap.ext.vscode').json_decode = require'json5'.parse

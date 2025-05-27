@@ -31,6 +31,7 @@ require("lazy").setup({
     {
       "Joakker/lua-json5",
       build = "./install.sh",
+      event = "VeryLazy",
     },
     {
       "folke/which-key.nvim",
@@ -161,6 +162,7 @@ require("lazy").setup({
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
+        "Joakker/lua-json5",
       },
       config = function()
         local dap = require('dap')
@@ -176,7 +178,34 @@ require("lazy").setup({
             name = "codelldb",
             -- On windows you may have to uncomment this:
             -- detached = false,
+          },
+          node = {
+            type = "server",
+            host = "localhost",
+            port = "${port}",
+            executable = {
+              command = "js-debug",
+              args = { "${port}" },
+            },
+            enrich_config = function(conf, on_config) -- necessary so type 'node' also works
+              if not vim.startswith(conf.type, "pwa-") then
+                local config = vim.deepcopy(conf)
+                config.type = "pwa-" .. config.type
+                on_config(config)
+              else
+                on_config(conf)
+              end
+            end
           }
+        }
+        dap.adapters["pwa-node"] = {
+          type = "server",
+          host = "localhost",
+          port = "${port}",
+          executable = {
+            command = "js-debug",
+            args = { "${port}" },
+          },
         }
         dap.configurations =
         {
@@ -203,7 +232,35 @@ require("lazy").setup({
               args = { },
             },
           },
+          javascript = {
+            {
+              name = "Node - Launch file (nvim - js-debug)",
+              type = "node",
+              request = "launch",
+              program = "${file}",
+              skipFiles = {
+                  "<node_internals>/**"
+              },
+              cwd = "${workspaceFolder}",
+            },
+            {
+              name = "Node - npm run debug (nvim - js-debug)",
+              type = "node",
+              request = "launch",
+              runtimeArgs = {
+                "run-script",
+                "debug"
+              },
+              runtimeExecutable = "npm",
+              skipFiles = {
+                "<node_internals>/**"
+              },
+              cwd = "${workspaceFolder}",
+            },
+          },
         }
+        local ext_vscode = require('dap.ext.vscode')
+        ext_vscode.json_decode = require'json5'.parse
       end
     },
     {
@@ -226,7 +283,7 @@ require("lazy").setup({
       lazy = false,
       build = ":TSUpdate",
       config = function()
-        require'nvim-treesitter'.install { 'rust' }
+        require'nvim-treesitter'.install { 'rust', 'javascript' }
       end,
     },
     {
