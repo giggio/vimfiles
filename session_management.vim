@@ -4,14 +4,8 @@ function! SessionAutoStart()
     return
   endif
   let s:session_autoload=1
-  if has('nvim')
-    if filereadable(".session.nvim")
-      source .session.nvim
-    endif
-  else
-    if filereadable(".session.vim")
-      source .session.vim
-    endif
+  if filereadable(".session.vim")
+    source .session.vim
   endif
 endfunction
 
@@ -21,11 +15,7 @@ function! SaveSession()
   endif
   set lazyredraw
   silent! call CloseNERDTreeOnAllTabs()
-  if has('nvim')
-    silent! mksession! .session.nvim
-  else
-    silent! mksession! .session.vim
-  endif
+  silent! mksession! .session.vim
   silent! call OpenNERDTreeOnAllTabs()
   set nolazyredraw
   redraw!
