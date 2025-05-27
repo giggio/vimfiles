@@ -45,52 +45,71 @@ require("lazy").setup({
             "\\d",
             group = "Debugger",
             nowait = true,
-            remap = false,
           },
           {
-            "\\dt",
+            "<F9>",
             function()
               require("dap").toggle_breakpoint()
             end,
             desc = "Toggle Breakpoint",
             nowait = true,
-            remap = false,
           },
           {
-            "\\dc",
+            "<F5>",
             function()
               require("dap").continue()
             end,
             desc = "Continue",
             nowait = true,
-            remap = false,
           },
           {
-            "\\di",
+            "<F11>",
             function()
               require("dap").step_into()
             end,
             desc = "Step Into",
             nowait = true,
-            remap = false,
           },
           {
-            "\\do",
+            "<F10>",
             function()
               require("dap").step_over()
             end,
             desc = "Step Over",
             nowait = true,
-            remap = false,
           },
           {
-            "\\du",
+            "<F23>", -- "<S-F11>",
             function()
               require("dap").step_out()
             end,
             desc = "Step Out",
             nowait = true,
-            remap = false,
+          },
+          {
+            "<F17>", --"<S-F5>",
+            function()
+              require("dap").terminate()
+              require("dapui").close()
+              require("nvim-dap-virtual-text").toggle()
+            end,
+            desc = "Terminate",
+            nowait = true,
+          },
+          {
+            "C-<F10>",
+            function()
+              require("dap").run_to_cursor()
+            end,
+            desc = "Run to cursor",
+            nowait = true,
+          },
+          {
+            "<F22>", -- "S-F10",
+            function() require("dap").goto_()
+            end,
+            desc = "Set Next Statement",
+            nowait = true,
           },
           {
             "\\dr",
@@ -98,7 +117,6 @@ require("lazy").setup({
             end,
             desc = "Open REPL",
             nowait = true,
-            remap = false,
           },
           {
             "\\dl",
@@ -107,18 +125,6 @@ require("lazy").setup({
             end,
             desc = "Run Last",
             nowait = true,
-            remap = false,
-          },
-          {
-            "\\dq",
-            function()
-              require("dap").terminate()
-              require("dapui").close()
-              require("nvim-dap-virtual-text").toggle()
-            end,
-            desc = "Terminate",
-            nowait = true,
-            remap = false,
           },
           {
             "\\db",
@@ -127,7 +133,6 @@ require("lazy").setup({
             end,
             desc = "List Breakpoints",
             nowait = true,
-            remap = false,
           },
           {
             "\\de",
@@ -136,7 +141,6 @@ require("lazy").setup({
             end,
             desc = "Set Exception Breakpoints",
             nowait = true,
-            remap = false,
           },
         },
       },
