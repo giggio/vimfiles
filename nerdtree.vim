@@ -23,7 +23,15 @@ function! ConfigureNERDTree()
     if argc() > 0 || exists("s:std_in") | wincmd p | endif
     map <S-A-l> :NERDTreeFind<CR>
   endif
+  augroup MyNERDTreeConfig
+    autocmd!
+    autocmd TabEnter * if &filetype ==# 'nerdtree' | wincmd w | endif " always select the code window when a tab changes
+  augroup END
 endfunction
 
+let g:NERDTreeExtensionHighlightColor = {}
+let g:NERDTreeExtensionHighlightColor['nix'] = "689FB6"
+let g:NERDTreeWinPos = "right"
+let g:NERDTreeCustomOpenArgs = {'file': {'reuse': 'all', 'where': 't', 'keepopen': 1, 'stay': 0}, 'dir': {}} " always open new files in new tabs, and reuse existing tabs if they are already open
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * call ConfigureNERDTree()
