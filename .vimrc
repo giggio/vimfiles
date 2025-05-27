@@ -145,4 +145,3 @@ runtime plugins.vim
 call g:CatchError('colorscheme material')
 
 autocmd VimEnter * call g:ShowStartupErrors()
-
