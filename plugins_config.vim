@@ -24,5 +24,7 @@ let g:ctrlp_prompt_mappings = {
 " EditorConfig config:
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " exclude fugitive from editorconfig
 
+let g:loaded_syntastic_typescript_tsc_checker = 1 "don't do syntax checking
+
 " FZF config:
 nmap <leader>f :Rg<CR>

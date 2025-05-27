@@ -1,12 +1,15 @@
-function! SessionAutoStart()
+function! s:SessionAutoStart()
+  let g:session_autoloading=0
   if argc() > 0
     let s:session_autoload=0
     return
   endif
   let s:session_autoload=1
+  let g:session_autoloading=1
   if filereadable(".session.vim")
     source .session.vim
   endif
+  let g:session_autoloading=0
 endfunction
 
 function! SaveSession()
@@ -47,8 +50,9 @@ set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
 set sessionoptions-=terminal
+
 augroup SessionAuto
   autocmd!
-  autocmd VimEnter * nested call SessionAutoStart()
   autocmd VimLeavePre * call SaveSession()
+  autocmd VimEnter * nested call s:SessionAutoStart()
 augroup END

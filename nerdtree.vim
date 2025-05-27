@@ -3,7 +3,12 @@ function! ConfigureNERDTree()
     noremap <F2> :NERDTreeToggle<CR>
     let g:NERDTreeShowHidden=1
     " Open the existing NERDTree on each new tab.
-    autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == '' | silent NERDTreeMirror | endif
+    autocmd BufWinEnter * if &buftype != 'quickfix' && getcmdwintype() == ''
+          \ | if tabpagenr('$') == 1 " if the current tab is the first one, open a new NERDTree
+          \ |   silent NERDTree
+          \ | else
+          \ |   silent NERDTreeMirror
+          \ | endif
     " Exit Vim if NERDTree is the only window remaining in the only tab.
     autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
     " Close the tab if NERDTree is the only window remaining in it.

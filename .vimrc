@@ -73,8 +73,6 @@ runtime session_management.vim
 
 runtime nerdtree.vim
 
-let g:loaded_syntastic_typescript_tsc_checker = 1 "don't do syntax checking
-
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal)
   execute 'source '.vimlocal
@@ -86,11 +84,6 @@ set switchbuf+=usetab,newtab
 set wrapscan
 
 set mouse=a
-
-" continue on the same line number
-if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-endif
 
 " remap split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -114,6 +107,11 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
+" continue on the same line number
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+endif
+
 set completeopt=longest,menuone,preview
 " this setting controls how long to wait (in ms) before fetching type / symbol information.
 set updatetime=500
@@ -135,6 +133,8 @@ else
 endif
 
 runtime helpers/autosave.vim
+
+runtime helpers/close_initial_empty_tab.vim
 
 runtime theme.vim
 
