@@ -122,3 +122,8 @@ dap.listeners.before.event_exited.dapui_config = function()
 end
 
 require('dap.ext.vscode').json_decode = require'json5'.parse
+
+require('persistent-breakpoints').setup{
+	load_breakpoints_event = { "BufReadPost" },
+  always_reload = true,
+}

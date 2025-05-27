@@ -49,7 +49,7 @@ require("lazy").setup({
           {
             "<F9>",
             function()
-              require("dap").toggle_breakpoint()
+              require("persistent-breakpoints.api").toggle_breakpoint()
             end,
             desc = "Toggle Breakpoint",
             nowait = true,
@@ -162,6 +162,17 @@ require("lazy").setup({
         "nvim-neotest/nvim-nio",
         "theHamsta/nvim-dap-virtual-text",
       },
+    },
+    {
+      "rcarriga/nvim-dap-ui",
+      event = "VeryLazy",
+      dependencies = {
+        "Weissle/persistent-breakpoints.nvim",
+      },
+    },
+    {
+      "Weissle/persistent-breakpoints.nvim",
+      event = "VeryLazy",
     },
   },
   -- Configure any other settings here. See the documentation for more details.
