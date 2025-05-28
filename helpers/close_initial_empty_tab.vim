@@ -14,9 +14,13 @@ function! s:CloseInitialEmptyTab()
   if g:session_autoloading == 1
     return
   endif
+  if tabpagenr('$') == 1 " do not close the only tab
+    unlet g:ace_prev_empty g:ace_prev_buf g:ace_prev_tab
+    return
+  endif
   if exists('g:ace_prev_empty') && g:ace_prev_empty && bufloaded(g:ace_prev_buf)
-    execute 'silent! bdelete' g:ace_prev_buf
     execute 'tabclose' g:ace_prev_tab
+    execute 'silent! bdelete' g:ace_prev_buf
     unlet g:ace_prev_empty g:ace_prev_buf g:ace_prev_tab
   endif
 endfunction
