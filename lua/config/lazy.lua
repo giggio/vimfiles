@@ -32,6 +32,10 @@ require("lazy").setup({
     -- { import = "plugins" },
     LazyPlugSpecs, -- bringing in the plugin in list from vim
     {
+      "neovim/nvim-lspconfig",
+      -- event = "VeryLazy",
+    },
+    {
       "Joakker/lua-json5",
       build = "./install.sh",
       event = "VeryLazy",
@@ -286,7 +290,11 @@ require("lazy").setup({
       lazy = false,
       build = ":TSUpdate",
       config = function()
-        require'nvim-treesitter'.install { 'rust', 'javascript' }
+        require'nvim-treesitter'.install {
+          'rust',
+          'javascript',
+          'lua'
+        }
       end,
     },
     {

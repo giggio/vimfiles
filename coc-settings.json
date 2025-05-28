@@ -18,11 +18,6 @@
       "filetypes": ["dockercompose"],
       "rootPatterns": [".git", ".env", "docker-compose.yml", "compose.yml"]
     },
-    "lua": {
-      "command": "lua-language-server",
-      "rootPatterns": [".git"],
-      "filetypes": ["lua"]
-    },
     "systemd-language-server": {
       "command": "systemd-language-server",
       "filetypes": ["systemd"]
