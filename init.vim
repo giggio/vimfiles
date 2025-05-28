@@ -1,17 +1,16 @@
 " init.vim - Neovim entrypoint configuration file, not loaded by vim
 
+" vimHome is a variable used for compatibility with both Vim and Neovim.
 if has('win32unix')
-  let vimHome = $HOME . '/.vim'
+  let g:vimHome = $HOME . '/.vim'
 elseif has('unix')
-  let vimHome = '~/.vim'
+  let g:vimHome = '~/.vim'
 elseif has('win32')
-  let vimHome = $USERPROFILE . "\\.vim"
+  let g:vimHome = $USERPROFILE . "\\.vim"
 else
-  let vimHome = '~/.vim'
+  let g:vimHome = '~/.vim'
 endif
-exe 'set runtimepath^=' . vimHome
-exe 'set runtimepath+=' . vimHome . '/after'
-let &packpath = &runtimepath
+
 runtime .vimrc
 
 lua require('init')

@@ -1,5 +1,5 @@
 if !has('nvim')
-  if empty(glob(vimHome . '/autoload/plug.vim'))
+  if empty(glob(g:vimHome . '/autoload/plug.vim'))
     if has('unix')
       silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     elseif has('win32')
@@ -53,11 +53,6 @@ endif
 
 if has('nvim')
   lua require("config.lazy")
-  " lazy sets runtime path, removes the default runtime path, and everything fails
-  " so, here we are setting them back
-  " todo: if nvim and vim dirs are unified, this probably can be removed
-  exe 'set runtimepath^=' . vimHome
-  exe 'set runtimepath+=' . vimHome . '/after'
 else
   call plug#end()
 endif
