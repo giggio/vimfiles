@@ -12,18 +12,20 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline_theme='dark'
 
-" enable/disable coc integration >
-let g:airline#extensions#coc#enabled = 1
-" change error symbol: >
-let g:airline#extensions#coc#error_symbol = 'E:'
-" change warning symbol: >
-let g:airline#extensions#coc#warning_symbol = 'W:'
-" enable/disable coc status display >
-let g:airline#extensions#coc#show_coc_status = 1
-" change the error format (%C - error count, %L - line number): >
-let g:airline#extensions#coc#stl_format_err = '%C(L%L)'
-" change the warning format (%C - error count, %L - line number): >
-let g:airline#extensions#coc#stl_format_warn = '%C(L%L)'
+if !has('nvim')
+  " enable/disable coc integration >
+  let g:airline#extensions#coc#enabled = 1
+  " change error symbol: >
+  let g:airline#extensions#coc#error_symbol = 'E:'
+  " change warning symbol: >
+  let g:airline#extensions#coc#warning_symbol = 'W:'
+  " enable/disable coc status display >
+  let g:airline#extensions#coc#show_coc_status = 1
+  " change the error format (%C - error count, %L - line number): >
+  let g:airline#extensions#coc#stl_format_err = '%C(L%L)'
+  " change the warning format (%C - error count, %L - line number): >
+  let g:airline#extensions#coc#stl_format_warn = '%C(L%L)'
+endif
 
 set background=dark
 let g:material_theme_style = 'darker' " 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'

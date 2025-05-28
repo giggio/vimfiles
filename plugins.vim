@@ -23,14 +23,15 @@ if !has('nvim')
 endif
 
 " Using 'Plugin' instead of 'Plug' because of the adapter from manage_plugins.vim
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+if !has('nvim')
+  Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'digitaltoad/vim-pug'
 Plugin 'tpope/vim-commentary'
-Plugin 'vim-syntastic/syntastic'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-fugitive'
 Plugin 'mattn/emmet-vim'
