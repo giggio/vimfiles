@@ -1,5 +1,8 @@
 function! s:SessionAutoStart()
   let g:session_autoloading=0
+  if exists("g:session_disable_autoload") && g:session_disable_autoload == 1
+    return
+  endif
   if argc() > 0
     let s:session_autoload=0
     return
@@ -14,6 +17,9 @@ endfunction
 
 function! SaveSession()
   if s:session_autoload == 0
+    return
+  endif
+  if g:session_disable_autoload == 1
     return
   endif
   set lazyredraw
