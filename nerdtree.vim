@@ -7,7 +7,7 @@ function s:OpenNERDTreeOnBufferEnter()
   if g:dap_debugger_running
     return
   endif
-  if &buftype != 'quickfix' && getcmdwintype() == ''
+  if &buftype != 'nofile' && &buftype != 'quickfix' && getcmdwintype() == ''
     if tabpagenr('$') == 1
       silent NERDTree
     else
