@@ -11,6 +11,6 @@ else
   let g:vimHome = '~/.vim'
 endif
 
-runtime .vimrc
+runtime vimrc.vim
 
 lua require('init')
