@@ -28,7 +28,6 @@ if !has('nvim')
 endif
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'digitaltoad/vim-pug'
 Plugin 'tpope/vim-commentary'

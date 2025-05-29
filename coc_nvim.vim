@@ -14,6 +14,7 @@ function! SetupCocCustomizations()
         \ 'coc-snippets',
         \ 'coc-tsserver',
         \ 'coc-vimlsp',
+        \ '@yaegassy/coc-marksman',
         \]
   let g:coc_snippet_next="<tab>"
   let g:coc_snippet_prev="<s-tab>"
