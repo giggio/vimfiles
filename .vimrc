@@ -138,7 +138,9 @@ runtime helpers/close_initial_empty_tab.vim
 
 runtime theme.vim
 
-runtime coc_nvim.vim
+if !has('nvim')
+  runtime coc_nvim.vim
+endif
 
 runtime plugins.vim
 
