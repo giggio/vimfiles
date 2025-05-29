@@ -4,15 +4,29 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#close_symbol = ''
-let g:airline#extensions#tabline#buffer_nr_format = 'b%s: '
-"let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#buffer_nr_show = 0
+let g:airline#extensions#tabline#show_close_button = 1
+let g:airline#extensions#tabline#close_symbol = 'X'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#fzf#enabled = 1
 let g:airline_theme='dark'
 
-if !has('nvim')
+if has('nvim')
+  " enable/disable nvimlsp integration >
+  let g:airline#extensions#nvimlsp#enabled = 1
+  " nvimlsp error_symbol >
+  let g:airline#extensions#nvimlsp#error_symbol = 'E:'
+  " nvimlsp warning - needs v:lua.vim.diagnostic.get
+  let g:airline#extensions#nvimlsp#warning_symbol = 'W:'
+  " nvimlsp show_line_numbers - needs v:lua.vim.diagnostic.get
+  let g:airline#extensions#nvimlsp#show_line_numbers = 1
+  " nvimlsp open_lnum_symbol - needs v:lua.vim.diagnostic.get
+  let g:airline#extensions#nvimlsp#open_lnum_symbol = '(L'
+  " nvimlsp close_lnum_symbol - needs v:lua.vim.diagnostic.get
+  let g:airline#extensions#nvimlsp#close_lnum_symbol = ')'
+else
   " enable/disable coc integration >
   let g:airline#extensions#coc#enabled = 1
   " change error symbol: >
