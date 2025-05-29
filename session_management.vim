@@ -19,13 +19,13 @@ function! SaveSession()
   if s:session_autoload == 0
     return
   endif
-  if g:session_disable_autoload == 1
+  if exists("g:session_disable_autoload") && g:session_disable_autoload == 1
     return
   endif
   set lazyredraw
   silent! call CloseNERDTreeOnAllTabs()
   silent! mksession! .session.vim
-  silent! call OpenNERDTreeOnAllTabs()
+  " silent! call OpenNERDTreeOnAllTabs() " it is failing, but it would only run when quitting Vim, so it is not needed
   set nolazyredraw
   redraw!
 endfunction
@@ -56,6 +56,7 @@ set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
 set sessionoptions-=terminal
+let s:session_autoload=0
 
 augroup SessionAuto
   autocmd!

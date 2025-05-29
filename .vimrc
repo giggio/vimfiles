@@ -5,6 +5,16 @@ if !has('nvim')
   " with the runtimepath
 endif
 
+if has('win32unix')
+  let g:vimHome = $HOME . '/.vim'
+elseif has('unix')
+  let g:vimHome = '~/.vim'
+elseif has('win32')
+  let g:vimHome = $USERPROFILE . "\\.vim"
+else
+  let g:vimHome = '~/.vim'
+endif
+
 runtime helpers/functions.vim
 
 " startup errors will accumulate in this list
@@ -67,12 +77,6 @@ else
   set signcolumn=yes
 endif
 
-runtime gui.vim
-
-runtime session_management.vim
-
-runtime nerdtree.vim
-
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal)
   execute 'source '.vimlocal
@@ -120,17 +124,13 @@ set cmdheight=2
 " start with all unfolded.
 set foldlevelstart=99
 
+runtime session_management.vim
+
 runtime plugins_config.vim
 
-if has('win32unix')
-  let vimHome = $HOME . '/.vim'
-elseif has('unix')
-  let vimHome = '~/.vim'
-elseif has('win32')
-  let vimHome = $USERPROFILE . "\\.vim"
-else
-  let vimHome = '~/.vim'
-endif
+runtime gui.vim
+
+runtime nerdtree.vim
 
 runtime helpers/autosave.vim
 
