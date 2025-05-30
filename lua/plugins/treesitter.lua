@@ -8,6 +8,7 @@ return {
       'javascript',
       'lua',
       'rust',
+      'diff',
     }
     local installed = vim.fn.glob(vim.fn.stdpath('data') .. '/site/parser/*.so', 0, 1)
     local missing = {}
