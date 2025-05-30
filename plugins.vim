@@ -32,7 +32,9 @@ if has('nvim')
 endif
 Plugin 'scrooloose/nerdtree', g:vim_nerdtree_plug_args
 Plugin 'ryanoasis/vim-devicons', {'dependencies': ['scrooloose/nerdtree']}
-Plugin 'ctrlpvim/ctrlp.vim'
+if !has('nvim')
+  Plugin 'ctrlpvim/ctrlp.vim'
+endif
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'digitaltoad/vim-pug'
 Plugin 'tpope/vim-commentary'
