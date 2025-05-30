@@ -7,6 +7,7 @@ require("lsp.lua_ls")
 vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('marksman')
+vim.lsp.enable('vimls')
 vim.api.nvim_create_augroup("LspDiagnosticsHold", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
   pattern = "*",

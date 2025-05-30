@@ -4,3 +4,4 @@ plugged
 .session.vim
 .session.nvim
 *.old
+.direnv
