@@ -26,7 +26,12 @@ endif
 if !has('nvim')
   Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 endif
-Plugin 'scrooloose/nerdtree'
+let g:vim_nerdtree_plug_args = { }
+if has('nvim')
+  let g:vim_nerdtree_plug_args['lazy'] = 'false'
+endif
+Plugin 'scrooloose/nerdtree', g:vim_nerdtree_plug_args
+Plugin 'ryanoasis/vim-devicons', {'dependencies': ['scrooloose/nerdtree']}
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'digitaltoad/vim-pug'
@@ -44,7 +49,6 @@ Plugin 'kevinoid/vim-jsonc'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
-Plugin 'ryanoasis/vim-devicons'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'AndrewRadev/bufferize.vim'
 if version >= 900 || has('nvim')
