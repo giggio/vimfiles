@@ -30,5 +30,5 @@ require("lazy").setup({
     { import = "plugins" },
     LazyPlugSpecs, -- bringing in the plugin in list from vim
   },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = { enabled = false }, -- automatically check for plugin updates
 })
