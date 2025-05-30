@@ -27,8 +27,6 @@ return {
     if #missing > 0 then
       print("Missing parsers: " .. table.concat(missing, ", "))
       require'nvim-treesitter'.install(missing)
-    else
-      print("All tree-sitter parsers are installed.")
     end
   end,
 }
