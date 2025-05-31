@@ -24,21 +24,30 @@ endif
 
 " Using 'Plugin' instead of 'Plug' because of the adapter from manage_plugins.vim
 if !has('nvim')
+  " LSP support for Vim. Neovim has built-in LSP support.
   Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 let g:vim_nerdtree_plug_args = { }
 if has('nvim')
   let g:vim_nerdtree_plug_args['lazy'] = 'false'
 endif
+" file explorer
 Plugin 'scrooloose/nerdtree', g:vim_nerdtree_plug_args
+" icons
 Plugin 'ryanoasis/vim-devicons', {'dependencies': ['scrooloose/nerdtree']}
 if !has('nvim')
   Plugin 'ctrlpvim/ctrlp.vim'
   Plugin 'mattn/emmet-vim'
 endif
+if !has('nvim')
+  " snippets:
+  " (using snippes in coc-vim, so that is why only the snipped sources are installed here)
+  " nvim is using its own snippet sources and providers
+  Plugin 'honza/vim-snippets'
+endif
+
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'tpope/vim-commentary'
-Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
