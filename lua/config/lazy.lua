@@ -26,6 +26,11 @@ require("lazy").setup({
   performance = {
     reset_packpath = false,
   },
+  change_detection = {
+    -- automatically check for config file changes and reload the ui
+    enabled = true,
+    notify = false, -- get a notification when changes are found
+  },
   spec = {
     { import = "plugins" },
     LazyPlugSpecs, -- bringing in the plugin in list from vim
