@@ -34,20 +34,18 @@ Plugin 'scrooloose/nerdtree', g:vim_nerdtree_plug_args
 Plugin 'ryanoasis/vim-devicons', {'dependencies': ['scrooloose/nerdtree']}
 if !has('nvim')
   Plugin 'ctrlpvim/ctrlp.vim'
+  Plugin 'mattn/emmet-vim'
 endif
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
-Plugin 'digitaltoad/vim-pug'
 Plugin 'tpope/vim-commentary'
 Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-fugitive'
-Plugin 'mattn/emmet-vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-scripts/ReplaceWithRegister'
-Plugin 'kevinoid/vim-jsonc'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }

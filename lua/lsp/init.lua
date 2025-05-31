@@ -8,6 +8,12 @@ vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('marksman')
 vim.lsp.enable('vimls')
+vim.lsp.enable('html')
+vim.lsp.enable('jsonls')
+vim.lsp.enable('cssls')
+vim.lsp.enable('eslint')
+vim.lsp.enable('emmet_language_server')
+
 vim.api.nvim_create_augroup("LspDiagnosticsHold", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
   pattern = "*",
