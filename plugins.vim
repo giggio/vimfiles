@@ -55,11 +55,12 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-scripts/ReplaceWithRegister'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'junegunn/fzf.vim'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'AndrewRadev/bufferize.vim'
+Plugin 'junegunn/fzf', { 'lazy': 'true', 'do': { -> fzf#install() } }
+" loading in the end as fzf has issues with Buffers (specially NERDTree)
+Plugin 'junegunn/fzf.vim', { 'for': 'nerdtree', 'lazy': 'true', 'event': 'VeryLazy', 'dependencies': ['junegunn/fzf'] }
 if version >= 900 || has('nvim')
   Plugin 'github/copilot.vim'
 endif
@@ -71,5 +72,7 @@ else
 endif
 
 if !has('nvim')
-  packadd! editorconfig " editorconfig is on by default on nvim
+  if &verbose == 0 " todo: Error when loading with verbose, remove when https://github.com/editorconfig/editorconfig-vim/issues/221 is fixed
+    packadd! editorconfig " editorconfig is on by default on nvim
+  endif
 endif

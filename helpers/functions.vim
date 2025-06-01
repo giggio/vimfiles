@@ -46,3 +46,8 @@ function! g:Pad(number, number_of_zeroes)
   return repeat('0', a:number_of_zeroes - len(string(a:number))) . a:number
 endfunction
 
+function! g:VerboseEchomsg(msg)
+  if &verbose > 0
+    echomsg a:msg
+  endif
+endfunction

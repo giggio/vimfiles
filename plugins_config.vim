@@ -14,12 +14,12 @@ let g:ctrlp_user_command = {
     \ },
   \ }
 let g:ctrlp_switch_buffer = 'ET' " switch to buffer in any tab or window, if file is already open
-let g:ctrlp_open_new_file = 't' " open new file in new tab
-let g:ctrlp_open_multiple_files = 't' " open multiple files in new tabs
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': ['<c-t>', '<2-LeftMouse>'],
-  \ 'AcceptSelection("t")': ['<cr>'],
-  \ } " always open files in new tab, and c-t now opens in current buffer, if we want that
+let g:ctrlp_open_new_file = 'r' " open new file in current window
+let g:ctrlp_open_multiple_files = 'v' " open multiple files in vertical splits
+" let g:ctrlp_prompt_mappings = {
+"   \ 'AcceptSelection("e")': ['<c-t>', '<2-LeftMouse>'],
+"   \ 'AcceptSelection("t")': ['<cr>'],
+"   \ } " always open files in new tab, and c-t now opens in current buffer, if we want that
 
 " EditorConfig config:
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " exclude fugitive from editorconfig

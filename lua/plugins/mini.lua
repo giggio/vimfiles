@@ -3,10 +3,10 @@ return {
   version = '*',
   config = function()
     require('mini.pick').setup({
-       mappings = {
-        choose            = '<C-t>',
-        choose_in_tabpage = '<CR>',
-      }
+       -- mappings = {
+       --  choose            = '<C-t>',
+       --  choose_in_tabpage = '<CR>',
+      -- }
     })
     require('mini.icons').setup()
   end,

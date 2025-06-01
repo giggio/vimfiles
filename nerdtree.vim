@@ -8,16 +8,12 @@ function s:OpenNERDTree(bootstrap)
   if g:NERDTreeShouldBeOpen == 1
     if &buftype == '' && getcmdwintype() == ''
       if a:bootstrap
-        if tabpagenr() == 1
-          silent NERDTree
-        else
-          silent NERDTreeMirror
-        endif
+        silent NERDTree
       else
         if g:NERDTree.ExistsForTab()
           silent NERDTreeToggle
         else
-          silent NERDTreeMirror
+          silent NERDTree
         endif
       endif
     endif
@@ -37,7 +33,7 @@ function s:ToggleNERDTreeOnTabEnter()
       endif
     else
       if &buftype == '' && getcmdwintype() == ''
-        silent NERDTreeMirror
+        silent NERDTree
       endif
     endif
     if &filetype ==# 'nerdtree' | wincmd w | endif " move the cursor to code window
@@ -61,6 +57,7 @@ function s:SelectFileOnNERDTree()
   if &buftype == '' && getcmdwintype() == ''
     silent NERDTreeFind
   endif
+  if &filetype ==# 'nerdtree' | wincmd w | endif " move the cursor to code window
 endfunction
 
 function s:OpenInitialNERDTreeWindows()
@@ -69,7 +66,7 @@ function s:OpenInitialNERDTreeWindows()
       let s:current_tab  = tabpagenr()
       for i in range(1, s:number_of_tabs)
         exec 'tabnext ' . i
-        call s:OpenNERDTree(1)
+        call s:OpenNERDTree(i)
       endfor
       for i in range(1, s:number_of_tabs)
         exec 'tabnext ' . i
@@ -89,10 +86,58 @@ function! g:ToggleNERDTreeOnKeyPress()
   if g:NERDTree.ExistsForTab()
     silent NERDTreeToggle
   else
-    silent NERDTreeMirror
+    silent NERDTree
   endif
   if &filetype ==# 'nerdtree' | wincmd w | endif " move the cursor to code window
 endfunction
+
+function s:BufferDeleteOrQuit()
+  call VerboseEchomsg("Starting BufferDeleteOrQuit()")
+  if &buftype != ''
+    call VerboseEchomsg("Quitting not normal buffer")
+    quit
+    return
+  endif
+  let listed_buffers = filter(range(1, bufnr('$')), "buflisted(v:val) && v:val != bufnr('%')")
+  call VerboseEchomsg("Listed buffers: " . string(listed_buffers))
+  if len(listed_buffers) == 0
+    call VerboseEchomsg("Quitting with no buffers")
+    quitall
+  else
+    if len(filter(tabpagebuflist(), 'buflisted(v:val)')) > 1
+      call VerboseEchomsg("There is more than one buffer in the current tab, closing it: " . string(len(filter(tabpagebuflist(), 'buflisted(v:val)'))))
+      let current_buffer = bufnr('%')
+      if tabpagenr('$') > 1
+        call VerboseEchomsg("Quitting with buffer: " . current_buffer)
+        quit
+      else
+        call VerboseEchomsg("Buffer to delete: " . current_buffer)
+        execute "bd " . current_buffer
+      endif
+      return
+    endif
+    let current_buffer = bufnr('%')
+    call VerboseEchomsg("Current buffer: " . current_buffer)
+    let all_buffers_opened_in_all_tabs = []
+    for tab in range(1, tabpagenr('$'))
+      let list = tabpagebuflist(tab)
+      let all_buffers_opened_in_all_tabs += filter(list, 'buflisted(v:val)')
+    endfor
+    let all_buffers_opened_in_all_tabs = filter(all_buffers_opened_in_all_tabs, 'v:val != bufnr("%")')
+    let hidden_buffers = filter(listed_buffers, 'index(all_buffers_opened_in_all_tabs, v:val) == -1')
+    if len(hidden_buffers) == 0
+      call VerboseEchomsg("There are no hidden buffers")
+      quit
+    else
+      call VerboseEchomsg("There are hidden buffers: " . string(hidden_buffers))
+      execute "buffer " . hidden_buffers[0]
+      execute "bd " . current_buffer
+    endif
+  endif
+  call VerboseEchomsg("Finished BufferDeleteOrQuit()")
+endfunction
+
+cnoreabbrev <expr> q ((getcmdtype() == ':' && getcmdline() == 'q') ? 'call <SID>BufferDeleteOrQuit()' : 'q')
 
 function s:ConfigureNERDTree()
   if exists("g:NERDTree")
@@ -102,20 +147,14 @@ function s:ConfigureNERDTree()
     let g:NERDTreeExtensionHighlightColor = {}
     let g:NERDTreeExtensionHighlightColor['nix'] = "689FB6"
     let g:NERDTreeWinPos = "right"
-    let g:NERDTreeCustomOpenArgs = {'file': {'reuse': 'all', 'where': 't', 'keepopen': 1, 'stay': 0}, 'dir': {}} " always open new files in new tabs, and reuse existing tabs if they are already open
+    let g:NERDTreeCustomOpenArgs = {'file': {'reuse': 'all', 'where': 'p', 'keepopen': 1, 'stay': 0}, 'dir': {}} " always open new files in new tabs, and reuse existing tabs if they are already open
     " my custom NERDTree settings
-    let g:NERDTreeShouldBeOpen=1
-    if !exists("g:dap_debugger_running")
-      let g:dap_debugger_running=0
-    endif
     augroup MyNERDTreeConfig
       autocmd!
       autocmd BufWinEnter * call s:OpenNERDTree(0)
       autocmd BufWinEnter * call s:SelectFileOnNERDTree()
-      " Exit Vim if NERDTree is the only window remaining in the only tab.
-      autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
       " Close the tab if NERDTree is the only window remaining in it.
-      autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call feedkeys(":quit\<CR>:\<BS>") | endif
+      autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
       " always select the code window when a tab changes
       autocmd TabEnter * call s:ToggleNERDTreeOnTabEnter()
       autocmd TabEnter * if &filetype ==# 'nerdtree' | wincmd w | endif
@@ -128,6 +167,10 @@ function s:ConfigureNERDTree()
   endif
 endfunction
 
+if !exists("g:dap_debugger_running")
+  let g:dap_debugger_running=0
+endif
+let g:NERDTreeShouldBeOpen=1
 augroup NERDTreeSetup
   autocmd!
   autocmd StdinReadPre * let s:std_in=1
