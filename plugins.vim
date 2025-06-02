@@ -23,6 +23,22 @@ let g:vimPluginInstallPath = g:pluginInstallPath . '/vim'
 let g:nvimPluginInstallPath = g:pluginInstallPath . '/nvim'
 runtime manage_plugins.vim
 
+if has('nvim') " editorconfig is on by default on nvim
+  if filereadable(".editorconfig")
+    let g:editorconfig_is_enabled=1
+  else
+    let g:editorconfig_is_enabled=0
+  endif
+else
+  let g:editorconfig_is_enabled=0
+  if &verbose == 0 " todo: Error when loading with verbose, remove when https://github.com/editorconfig/editorconfig-vim/issues/221 is fixed
+    packadd! editorconfig
+    if filereadable(".editorconfig")
+      let g:editorconfig_is_enabled=1
+    endif
+  endif
+endif
+
 if !has('nvim')
   call plug#begin(g:vimPluginInstallPath)
 endif
@@ -63,6 +79,11 @@ Plugin 'vim-scripts/ReplaceWithRegister'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'AndrewRadev/bufferize.vim'
+" we don't need to strip whitespace on save if editorconfig is enabled
+" as it has its own configuration for this
+" this config is for ntpeters/vim-better-whitespace
+let g:strip_whitespace_on_save=!g:editorconfig_is_enabled
+Plugin 'ntpeters/vim-better-whitespace'
 if !has('nvim')
   " using mini-pick instead of fzf in nvim
   Plugin 'junegunn/fzf', { 'lazy': 'true', 'do': { -> fzf#install() } }
@@ -79,8 +100,3 @@ else
   call plug#end()
 endif
 
-if !has('nvim')
-  if &verbose == 0 " todo: Error when loading with verbose, remove when https://github.com/editorconfig/editorconfig-vim/issues/221 is fixed
-    packadd! editorconfig " editorconfig is on by default on nvim
-  endif
-endif

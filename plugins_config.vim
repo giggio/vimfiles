@@ -29,3 +29,8 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " exclude fugitive from 
 " See more at: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
 " ripgrep is used by fzf and by mini pick
 let $RIPGREP_CONFIG_PATH=expand(vimHome . "/.ripgreprc")
+
+" Better whitespace options
+let g:better_whitespace_operator='_s'
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_confirm=0

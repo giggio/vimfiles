@@ -119,20 +119,6 @@ set splitright
 
 set number relativenumber
 set diffopt=filler,vertical
-au BufReadPost fugitive:* set bufhidden=delete
-
-" highlight trailing white spaces:
-highlight ExtraWhitespace ctermbg=red guibg=red
-if has("autocmd")
-  match ExtraWhitespace /\s\+$/
-  augroup FileTypes
-    autocmd!
-    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-    autocmd BufWinLeave * call clearmatches()
-  augroup END
-endif
 
 if has("autocmd")
   augroup ContinueOnTheSameLineNumber
