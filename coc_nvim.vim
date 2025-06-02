@@ -19,8 +19,13 @@ function! SetupCocCustomizations()
   let g:coc_snippet_next="<tab>"
   let g:coc_snippet_prev="<s-tab>"
 
-  autocmd FileType yaml if bufname("%") =~# "docker-compose.yml" | set ft=yaml.docker-compose | endif
-  autocmd FileType yaml if bufname("%") =~# "compose.yml" | set ft=yaml.docker-compose | endif
+  if has("autocmd")
+    augroup SetupCocFileTypes
+      autocmd!
+      autocmd FileType yaml if bufname("%") =~# "docker-compose.yml" | set ft=yaml.docker-compose | endif
+      autocmd FileType yaml if bufname("%") =~# "compose.yml" | set ft=yaml.docker-compose | endif
+    augroup END
+  endif
 
   let g:coc_filetype_map = {
         \ 'yaml.docker-compose': 'dockercompose',
@@ -90,7 +95,12 @@ function! SetupCocCustomizations()
   endfunction
 
   " Highlight the symbol and its references when holding the cursor
-  autocmd CursorHold * silent call CocActionAsync('highlight')
+  if has("autocmd")
+    augroup SetupCocCursorHold
+      autocmd!
+      autocmd CursorHold * silent call CocActionAsync('highlight')
+    augroup END
+  endif
 
   " Symbol renaming
   nmap <leader>rn <Plug>(coc-rename)
@@ -99,11 +109,12 @@ function! SetupCocCustomizations()
   xmap <leader>F  <Plug>(coc-format-selected)
   nmap <leader>F  <Plug>(coc-format-selected)
 
-  augroup mygroup
-    autocmd!
-    " Setup formatexpr specified filetype(s)
-    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  augroup end
+  if has("autocmd")
+    augroup SetupCocFormatExpr
+      autocmd!
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    augroup end
+  endif
 
   " Applying code actions to the selected code block
   " Example: `<leader>aap` for current paragraph
@@ -184,12 +195,19 @@ function! SetupCocCustomizations()
   nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 endfunction
 
-" this remap has to be loaded before copilot.vim, or <Tab> will be incorrectly mapped
-" Use tab for trigger completion with characters ahead and navigate
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+if !has('nvim')
+  " this remap has to be loaded before copilot.vim, or <Tab> will be incorrectly mapped
+  " Use tab for trigger completion with characters ahead and navigate
+  inoremap <silent><expr> <TAB>
+        \ coc#pum#visible() ? coc#pum#next(1) :
+        \ CheckBackspace() ? "\<Tab>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+endif
 
-autocmd VimEnter * call SetupCocCustomizations()
+if has("autocmd") && !has('nvim')
+  augroup SetupCoc
+    autocmd!
+    autocmd VimEnter * call SetupCocCustomizations()
+  augroup END
+endif

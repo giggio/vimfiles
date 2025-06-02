@@ -7,10 +7,15 @@ if !has('nvim')
     endif
   endif
 
-  " Run PlugInstall if there are missing plugins
-  autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-        \| PlugInstall --sync | source $MYVIMRC
-        \| endif
+  if has("autocmd")
+    augroup InstallPlugins
+      autocmd!
+      " Run PlugInstall if there are missing plugins
+      autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+            \| PlugInstall --sync | source $MYVIMRC
+            \| endif
+    augroup END
+  endif
 endif
 
 let g:pluginInstallPath = g:vimHome . '/plugged'

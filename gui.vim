@@ -1,6 +1,9 @@
 if has("gui_running")
   if has('autocmd')
-    autocmd GUIEnter * set visualbell t_vb=
+    augroup SetVisualBell
+      autocmd!
+      autocmd GUIEnter * set visualbell t_vb=
+    augroup END
   endif
   set lines=999 columns=999
   if has("gui_gtk2")

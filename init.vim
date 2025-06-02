@@ -41,8 +41,13 @@ syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
-autocmd BufRead,BufNewFile launch.json set filetype=json5
-autocmd BufRead,BufNewFile settings.json set filetype=json5
+if has("autocmd")
+  augroup FileTypes
+    autocmd!
+    autocmd BufRead,BufNewFile launch.json set filetype=json5
+    autocmd BufRead,BufNewFile settings.json set filetype=json5
+  augroup END
+endif
 
 "" Whitespace
 set nowrap                      " don't wrap lines
@@ -118,15 +123,22 @@ au BufReadPost fugitive:* set bufhidden=delete
 
 " highlight trailing white spaces:
 highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-autocmd BufWinLeave * call clearmatches()
-
-" continue on the same line number
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  match ExtraWhitespace /\s\+$/
+  augroup FileTypes
+    autocmd!
+    autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+    autocmd BufWinLeave * call clearmatches()
+  augroup END
+endif
+
+if has("autocmd")
+  augroup ContinueOnTheSameLineNumber
+    autocmd!
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  augroup END
 endif
 
 set completeopt=longest,menuone,preview
@@ -159,7 +171,12 @@ runtime plugins.vim
 
 call g:CatchError('colorscheme material')
 
-autocmd VimEnter * call g:ShowStartupErrors()
+if has("autocmd")
+  augroup ShowStartupErrorsGroup
+    autocmd!
+    autocmd VimEnter * call g:ShowStartupErrors()
+  augroup END
+endif
 
 if has('nvim')
   lua require('init')

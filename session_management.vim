@@ -33,8 +33,10 @@ set sessionoptions-=help
 set sessionoptions-=terminal
 let s:session_autoload=0
 
-augroup SessionAuto
-  autocmd!
-  autocmd VimLeavePre * call SaveSession()
-  autocmd VimEnter * nested call s:SessionAutoStart()
-augroup END
+if has("autocmd")
+  augroup SessionAuto
+    autocmd!
+    autocmd VimLeavePre * call SaveSession()
+    autocmd VimEnter * nested call s:SessionAutoStart()
+  augroup END
+endif
