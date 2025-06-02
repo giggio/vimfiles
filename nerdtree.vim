@@ -137,7 +137,7 @@ function s:BufferDeleteOrQuit()
   call VerboseEchomsg("Finished BufferDeleteOrQuit()")
 endfunction
 
-cnoreabbrev <expr> q ((getcmdtype() == ':' && getcmdline() == 'q') ? 'call <SID>BufferDeleteOrQuit()' : 'q')
+cnoreabbrev <expr> q ((getcmdtype() == ':' && getcmdline() ==# 'q') ? 'call <SID>BufferDeleteOrQuit()' : 'q')
 
 function s:ConfigureNERDTree()
   if exists("g:NERDTree")
