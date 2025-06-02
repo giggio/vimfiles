@@ -63,9 +63,12 @@ Plugin 'vim-scripts/ReplaceWithRegister'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'AndrewRadev/bufferize.vim'
-Plugin 'junegunn/fzf', { 'lazy': 'true', 'do': { -> fzf#install() } }
-" loading in the end as fzf has issues with Buffers (specially NERDTree)
-Plugin 'junegunn/fzf.vim', { 'for': 'nerdtree', 'lazy': 'true', 'event': 'VeryLazy', 'dependencies': ['junegunn/fzf'] }
+if !has('nvim')
+  " using mini-pick instead of fzf in nvim
+  Plugin 'junegunn/fzf', { 'lazy': 'true', 'do': { -> fzf#install() } }
+  " loading in the end as fzf has issues with Buffers (specially NERDTree)
+  Plugin 'junegunn/fzf.vim', { 'for': 'nerdtree', 'lazy': 'true', 'event': 'VeryLazy', 'dependencies': ['junegunn/fzf'] }
+endif
 if version >= 900 || has('nvim')
   Plugin 'github/copilot.vim'
 endif

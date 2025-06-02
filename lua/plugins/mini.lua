@@ -11,9 +11,7 @@ return {
     require('mini.icons').setup()
   end,
   keys = {
-    {
-      "<C-P>",
-      "<cmd>Pick files<CR>",
-    },
+    { "<C-P>", "<cmd>Pick files<CR>" },
+    { "\\f", "<cmd>Pick grep_live<CR>" },
   },
 }
