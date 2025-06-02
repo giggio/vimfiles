@@ -30,6 +30,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " exclude fugitive from 
 " ripgrep is used by fzf and by mini pick
 let $RIPGREP_CONFIG_PATH=expand(vimHome . "/.ripgreprc")
 
+" Ths if for the futitive command, which uses Git, with the first letter capitalized
+cnoreabbrev <expr> git ((getcmdtype() == ':' && getcmdline() ==# 'git') ? 'Git' : 'git')
+
 " Better whitespace options
 let g:better_whitespace_operator='_s'
 let g:better_whitespace_enabled=1
