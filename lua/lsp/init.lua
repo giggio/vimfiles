@@ -2,6 +2,17 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 vim.lsp.config('*', {
   capabilities = capabilities,
 })
+
+-- todo: can't use Cspell LS until it supports .yaml and more than one config file
+-- see: https://github.com/vlabo/cspell-lsp/issues/13
+-- if cspell.yaml exists, use it as the config filename
+-- if vim.fn.filereadable('./cspell.yaml') == 1 then
+--   vim.lsp.config('cspell_ls', {
+--     cmd = { 'cspell-lsp', '--stdio', '--config', 'cspell.yaml' },
+--   })
+-- end
+-- vim.lsp.enable('cspell_ls')
+
 require("lsp.lua_ls")
 
 vim.lsp.enable('rust_analyzer')
