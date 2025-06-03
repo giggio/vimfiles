@@ -125,6 +125,10 @@ if has("autocmd")
     autocmd!
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
   augroup END
+  augroup SetBufferNotListed
+    autocmd!
+    autocmd BufNew * if &buftype != '' | setlocal nobuflisted | endif
+  augroup END
 endif
 
 set completeopt=longest,menuone,preview
