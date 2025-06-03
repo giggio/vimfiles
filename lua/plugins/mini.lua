@@ -1,5 +1,7 @@
 return {
   'echasnovski/mini.nvim',
+  lazy = false,
+  event = "VeryLazy",
   version = '*',
   config = function()
     require('mini.pick').setup({
@@ -8,7 +10,9 @@ return {
        --  choose_in_tabpage = '<CR>',
       -- }
     })
+    vim.ui.select = require('mini.pick').ui_select
     require('mini.icons').setup()
+
   end,
   keys = {
     { "<C-P>", "<cmd>Pick files<CR>" },
