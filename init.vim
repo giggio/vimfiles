@@ -127,7 +127,7 @@ if has("autocmd")
   augroup END
   augroup SetBufferNotListed
     autocmd!
-    autocmd BufNew * if &buftype != '' | setlocal nobuflisted | endif
+    autocmd BufEnter * if &buftype != '' | setlocal nobuflisted | endif
   augroup END
 endif
 

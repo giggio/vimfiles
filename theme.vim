@@ -4,7 +4,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_show = 0
 let g:airline#extensions#tabline#show_close_button = 1
 let g:airline#extensions#tabline#close_symbol = 'X'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
@@ -12,6 +12,18 @@ let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#fzf#enabled = 1
 let g:airline_theme='dark'
+let g:airline#extensions#tabline#buffer_idx_format = {
+      \ '0': '0 ',
+      \ '1': '1 ',
+      \ '2': '2 ',
+      \ '3': '3 ',
+      \ '4': '4 ',
+      \ '5': '5 ',
+      \ '6': '6 ',
+      \ '7': '7 ',
+      \ '8': '8 ',
+      \ '9': '9 '
+      \}
 
 if has('nvim')
   " enable/disable nvimlsp integration >
