@@ -50,5 +50,5 @@ nmap <leader>7 <Plug>AirlineSelectTab7
 nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>0 <Plug>AirlineSelectTab0
-nmap [b :wincmd t<CR> \| <Plug>AirlineSelectPrevTab
-nmap ]b :wincmd t<CR> \| <Plug>AirlineSelectNextTab
+nmap ]b :wincmd t<CR><Plug>AirlineSelectNextTab
+nmap [b :wincmd t<CR><Plug>AirlineSelectPrevTab
