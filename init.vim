@@ -99,19 +99,10 @@ let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal)
   execute 'source '.vimlocal
 endif
-imap jj <Esc>
-nmap oo o<Esc>k
-nmap OO O<Esc>j
 set switchbuf+=usetab,newtab
 set wrapscan
 
 set mouse=a
-
-" remap split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 
 " open splits in a more natural way:
 set splitbelow
@@ -138,6 +129,8 @@ set updatetime=500
 set cmdheight=2
 " start with all unfolded.
 set foldlevelstart=99
+
+runtime maps.vim
 
 runtime session_management.vim
 
