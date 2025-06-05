@@ -130,7 +130,7 @@ function s:BufferDeleteOrQuit()
       quit
     else
       call VerboseEchomsg("There are hidden buffers: " . string(hidden_buffers))
-      execute "buffer " . hidden_buffers[0]
+      execute 'normal [b'
       execute "bd " . current_buffer
     endif
   endif
