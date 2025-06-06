@@ -15,15 +15,18 @@ vim.lsp.config('*', {
 
 require("lsp.lua_ls")
 
-vim.lsp.enable('rust_analyzer')
-vim.lsp.enable('ts_ls')
-vim.lsp.enable('marksman')
-vim.lsp.enable('vimls')
+vim.lsp.enable('cssls')
+vim.lsp.enable('emmet_language_server')
+vim.lsp.enable('eslint')
+vim.lsp.enable('gopls')
 vim.lsp.enable('html')
 vim.lsp.enable('jsonls')
-vim.lsp.enable('cssls')
-vim.lsp.enable('eslint')
-vim.lsp.enable('emmet_language_server')
+vim.lsp.enable('marksman')
+vim.lsp.enable('nushell')
+vim.lsp.enable('rust_analyzer')
+vim.lsp.enable('sqls')
+vim.lsp.enable('ts_ls')
+vim.lsp.enable('vimls')
 
 vim.api.nvim_create_augroup("LspDiagnosticsHold", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
@@ -49,6 +52,15 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
   end,
   group = "LspDiagnosticsHold",
 })
+
+-- allow gotmpl files to be recognized as HTML files when hugo config files are present
+if vim.fn.filereadable('./hugo.yaml') == 1 or vim.fn.filereadable('./hugo.toml') == 1 or vim.fn.filereadable('./hugo.json') == 1
+  or vim.fn.glob('./config/**/hugo.yaml') ~= '' or vim.fn.glob('./config/**/hugo.toml') ~= '' or vim.fn.glob('./config/**/hugo.json') ~= '' then
+  vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = { '*.html' },
+    command = "set filetype=gotmpl",
+  })
+end
 
 vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "LSP: code action" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "LSP: rename" })
