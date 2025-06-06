@@ -13,20 +13,41 @@ vim.lsp.config('*', {
 -- end
 -- vim.lsp.enable('cspell_ls')
 
+vim.lsp.config('powershell_es', {
+  -- using powershell-editor-services from nix, it comes already bundled
+  cmd = function(dispatchers)
+    local temp_path = vim.fn.stdpath('cache')
+    local command_fmt = [[ -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Normal]]
+    local command = command_fmt:format(temp_path, temp_path)
+    local cmd = { 'powershell-editor-services', command }
+    return vim.lsp.rpc.start(cmd, dispatchers)
+  end,
+})
+
 require("lsp.lua_ls")
 
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('bashls')
+vim.lsp.enable('clangd')
+vim.lsp.enable('csharp_ls')
 vim.lsp.enable('cssls')
+vim.lsp.enable('dockerls')
 vim.lsp.enable('emmet_language_server')
 vim.lsp.enable('eslint')
+vim.lsp.enable('fsautocomplete')
 vim.lsp.enable('gopls')
 vim.lsp.enable('html')
 vim.lsp.enable('jsonls')
 vim.lsp.enable('marksman')
 vim.lsp.enable('nushell')
+vim.lsp.enable('powershell_es')
+vim.lsp.enable('ruby_lsp')
 vim.lsp.enable('rust_analyzer')
 vim.lsp.enable('sqls')
+vim.lsp.enable('systemd_ls')
 vim.lsp.enable('ts_ls')
 vim.lsp.enable('vimls')
+vim.lsp.enable('yamlls')
 
 vim.api.nvim_create_augroup("LspDiagnosticsHold", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
