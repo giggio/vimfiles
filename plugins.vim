@@ -68,7 +68,6 @@ if !has('nvim')
 endif
 
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
-Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
@@ -85,6 +84,8 @@ Plugin 'AndrewRadev/bufferize.vim'
 let g:strip_whitespace_on_save=!g:editorconfig_is_enabled
 Plugin 'ntpeters/vim-better-whitespace'
 if !has('nvim')
+  " nvim already has a built-in comment system
+  Plugin 'tpope/vim-commentary'
   " using mini-pick instead of fzf in nvim
   Plugin 'junegunn/fzf', { 'lazy': 'true', 'do': { -> fzf#install() } }
   " loading in the end as fzf has issues with Buffers (specially NERDTree)
