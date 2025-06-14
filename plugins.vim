@@ -86,7 +86,7 @@ Plugin 'ntpeters/vim-better-whitespace'
 if !has('nvim')
   " nvim already has a built-in comment system
   Plugin 'tpope/vim-commentary'
-  " using mini-pick instead of fzf in nvim
+  " using telescope instead of fzf in nvim
   Plugin 'junegunn/fzf', { 'lazy': 'true', 'do': { -> fzf#install() } }
   " loading in the end as fzf has issues with Buffers (specially NERDTree)
   Plugin 'junegunn/fzf.vim', { 'for': 'nerdtree', 'lazy': 'true', 'event': 'VeryLazy', 'dependencies': ['junegunn/fzf'] }

@@ -38,6 +38,7 @@ return {
       'lua',
       'make',
       'markdown',
+      'markdown_inline',
       'nix',
       'nu',
       'powershell',

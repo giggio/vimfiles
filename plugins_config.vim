@@ -27,7 +27,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " exclude fugitive from 
 
 " Used by ripgrep to find the config file hosted at ~/.vim/.ripgreprc
 " See more at: https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
-" ripgrep is used by fzf and by mini pick
+" ripgrep is used by fzf and by telescope
 let $RIPGREP_CONFIG_PATH=expand(vimHome . "/.ripgreprc")
 
 " Ths if for the futitive command, which uses Git, with the first letter capitalized
