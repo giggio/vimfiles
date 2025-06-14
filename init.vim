@@ -153,6 +153,8 @@ endif
 runtime plugins.vim
 
 call g:CatchError('colorscheme material')
+" remove background from vim:
+hi Normal guibg=NONE ctermbg=NONE
 
 if has("autocmd")
   augroup ShowStartupErrorsGroup
