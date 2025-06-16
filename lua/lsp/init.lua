@@ -13,6 +13,9 @@ vim.lsp.config('*', {
 -- end
 -- vim.lsp.enable('cspell_ls')
 
+vim.lsp.config('cSpell', require 'lsp.cspellls')
+vim.lsp.enable('cSpell')
+
 vim.lsp.config('powershell_es', {
   -- using powershell-editor-services from nix, it comes already bundled
   cmd = function(dispatchers)
