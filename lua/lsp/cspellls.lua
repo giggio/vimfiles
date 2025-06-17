@@ -288,12 +288,30 @@ return {
 
     vim.lsp.commands['cSpell.addWordsToConfigFileFromServer'] = function(command)
       local words = command.arguments[1]
-      local json_file_uri = command.arguments[3].uri
-      local json_file_path = decode_uri(json_file_uri)
-
-      local json_data = read_json_file(json_file_path)
-      vim.list_extend(json_data.words, words)
-      write_json_file(json_file_path, json_data)
+      local config_file_uri = command.arguments[3].uri
+      local config_file_path = decode_uri(config_file_uri)
+      vim.notify('CSpell file path: ' .. config_file_path)
+      local ext = vim.fn.fnamemodify(config_file_path, ':e')
+      if ext == 'yaml' or ext == 'yml' then
+        if not vim.fn.executable('yq') then
+          vim.notify('yq is not installed or not in the PATH, cannot update ' .. config_file_path)
+          return
+        end
+        -- example of command:
+        -- yq '(.words += ["Foo"]) | .words |= sort_by(. | ascii_downcase)' --yaml-roundtrip --in-place cspell.yaml
+        local result = os.execute([[yq '(.words += ["]] .. table.concat(words, '", "') .. [["]) | .words |= sort_by(. | ascii_downcase)' --yaml-roundtrip --in-place ]] .. config_file_path)
+        if result ~= 0 then
+          vim.notify('Failed to update YAML file: ' .. config_file_path)
+        end
+      elseif ext == 'json' then
+        local json_data = read_json_file(config_file_path)
+        vim.list_extend(json_data.words, words)
+        write_json_file(config_file_path, json_data)
+      elseif ext == 'cjs' or ext == 'js' then
+        vim.notify('JavaScript files not supported for updating configuration (file ' .. config_file_path .. ')')
+      else
+        vim.notify('Unsupported file type: ' .. ext .. ' (file ' .. config_file_path .. ')')
+      end
     end
 
     vim.lsp.commands['cSpell.addWordsToDictionaryFileFromServer'] = function()
