@@ -36,4 +36,7 @@ require("lazy").setup({
     LazyPlugSpecs, -- bringing in the plugin in list from vim
   },
   checker = { enabled = false }, -- automatically check for plugin updates
+  rocks = {
+    hererocks = false,
+  },
 })
