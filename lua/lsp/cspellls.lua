@@ -290,7 +290,6 @@ return {
       local words = command.arguments[1]
       local config_file_uri = command.arguments[3].uri
       local config_file_path = decode_uri(config_file_uri)
-      vim.notify('CSpell file path: ' .. config_file_path)
       local ext = vim.fn.fnamemodify(config_file_path, ':e')
       if ext == 'yaml' or ext == 'yml' then
         if not vim.fn.executable('yq') then
@@ -299,9 +298,10 @@ return {
         end
         -- example of command:
         -- yq '(.words += ["Foo"]) | .words |= sort_by(. | ascii_downcase)' --yaml-roundtrip --in-place cspell.yaml
-        local result = os.execute([[yq '(.words += ["]] .. table.concat(words, '", "') .. [["]) | .words |= sort_by(. | ascii_downcase)' --yaml-roundtrip --in-place ]] .. config_file_path)
+        local command = [[yq '(.words += ["]] .. table.concat(words, '", "') .. [["]) | .words |= sort_by(. | downcase)' --inplace ]] .. config_file_path
+        local result = os.execute(command)
         if result ~= 0 then
-          vim.notify('Failed to update YAML file: ' .. config_file_path)
+          vim.notify('Failed to update YAML file: ' .. config_file_path .. ' with command:\n' .. command)
         end
       elseif ext == 'json' then
         local json_data = read_json_file(config_file_path)
