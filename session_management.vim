@@ -37,6 +37,6 @@ if has("autocmd")
   augroup SessionAuto
     autocmd!
     autocmd VimLeavePre * call SaveSession()
-    autocmd VimEnter * nested call s:SessionAutoStart()
+    autocmd VimEnter * ++nested call s:SessionAutoStart()
   augroup END
 endif
