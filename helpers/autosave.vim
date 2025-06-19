@@ -9,11 +9,17 @@ if has('timers')
     if g:autosave_timer > 0
       call timer_stop(g:autosave_timer)
     endif
-    let g:autosave_timer = timer_start(3000, {-> execute('wall')})
+    let g:autosave_timer = timer_start(3000, 'WriteAllFiles')
+  endfunction
+
+  function! WriteAllFiles(_)
+    if mode() != 'i'
+      execute 'wall'
+    endif
   endfunction
 
   augroup AutoSaveDebounce
     autocmd!
-    autocmd TextChanged,TextChangedI * call RunAutosaveTimer()
+    autocmd TextChanged,InsertLeave * call RunAutosaveTimer()
   augroup END
 endif
