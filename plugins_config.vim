@@ -37,6 +37,7 @@ cnoreabbrev <expr> git ((getcmdtype() == ':' && getcmdline() ==# 'git') ? 'Git' 
 let g:better_whitespace_operator='_s'
 let g:better_whitespace_enabled=1
 let g:strip_whitespace_confirm=0
+let g:better_whitespace_filetypes_blacklist=['diff', 'git', 'gitcommit', 'unite', 'qf', 'help', 'fugitive'] " removing markdown from this list
 
 " vim-airline key maps:
 let g:airline#extensions#tabline#buffer_idx_mode = 1
