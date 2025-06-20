@@ -27,6 +27,15 @@ vim.lsp.config('powershell_es', {
   end,
 })
 
+vim.lsp.config('jsonls', {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+
 require("lsp.lua_ls")
 
 vim.lsp.enable('basedpyright')
