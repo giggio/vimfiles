@@ -17,6 +17,7 @@ return {
       'csv',
       'c_sharp',
       'desktop',
+      'dockerfile',
       'editorconfig',
       'diff',
       'fsharp',
