@@ -30,6 +30,7 @@ return {
       'go',
       'gotmpl',
       'html',
+      'http',
       'ini',
       'json',
       'json5',
