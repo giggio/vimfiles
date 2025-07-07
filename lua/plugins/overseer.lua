@@ -1,3 +1,5 @@
+-- A task runner and job management plugin for Neovim
+-- https://github.com/stevearc/overseer.nvim
 return {
   'stevearc/overseer.nvim',
   config = function()
@@ -5,4 +7,8 @@ return {
     }
   end,
   opts = {},
+  keys = {
+    { "<CS-B>", "<cmd>OverseerRun BUILD<CR>" },
+    { "<C-R>t", "<cmd>OverseerRun TEST<CR>" },
+  },
 }
