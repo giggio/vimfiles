@@ -140,6 +140,8 @@ runtime gui.vim
 
 runtime nerdtree.vim
 
+runtime helpers/buffers.vim
+
 runtime helpers/autosave.vim
 
 runtime helpers/close_initial_empty_tab.vim

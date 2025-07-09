@@ -27,5 +27,6 @@ return {
     build = "./install.sh",
     event = "VeryLazy",
   },
+  "nvim-tree/nvim-web-devicons",
 }
 
