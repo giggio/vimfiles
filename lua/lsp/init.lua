@@ -3,6 +3,16 @@ vim.lsp.config('*', {
   capabilities = capabilities,
 })
 
+vim.lsp.config('rust_analyzer', {
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = true;
+      }
+    }
+  }
+})
+
 -- todo: can't use Cspell LS until it supports .yaml and more than one config file
 -- see: https://github.com/vlabo/cspell-lsp/issues/13
 -- if cspell.yaml exists, use it as the config filename
@@ -112,3 +122,4 @@ vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { n
 -- If you don't want to use the telescope plug-in but still want to see all the errors/warnings, comment out the telescope line and uncomment this:
 -- vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>lua vim.diagnostic.setloclist()<CR>', { noremap = true, silent = true })
 
+vim.lsp.inlay_hint.enable(true)
