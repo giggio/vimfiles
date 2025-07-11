@@ -6,6 +6,7 @@ return {
   -- this affects only neo-tree
   commit = "21909e3eb03bc738cce497f45602bf157b396672",
   lazy = false,
+  enabled = vim.fn.has('unix') == 1, -- no Windows Support, see https://github.com/3rd/image.nvim/issues/115
   config = function()
     require("image").setup({
       backend = "kitty",

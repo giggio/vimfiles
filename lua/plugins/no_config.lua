@@ -24,7 +24,7 @@ return {
   },
   {
     "Joakker/lua-json5",
-    build = "./install.sh",
+    build = vim.fn.has('unix') and "./install.sh" or "powershell ./install.ps1",
     event = "VeryLazy",
   },
   "nvim-tree/nvim-web-devicons",

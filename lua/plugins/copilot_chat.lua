@@ -2,6 +2,7 @@ return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     event = "VeryLazy",
+    enabled = vim.fn.has('unix') == 1, -- not working on Windows
     dependencies = {
       { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
       { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
