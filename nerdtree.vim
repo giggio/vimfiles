@@ -51,7 +51,7 @@ function s:ToggleNERDTreeOnTabEnter()
 endfunction
 
 function s:SelectFileOnNERDTree()
-  if &filetype =~# 'dap' || g:dap_debugger_running || &filetype == 'gitcommit'
+  if &filetype =~# 'dap' || g:dap_debugger_running || &filetype == 'gitcommit' || &filetype == 'nerdtree'
     return
   endif
   if g:NERDTreeShouldBeOpen == 0
