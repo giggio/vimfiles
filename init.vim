@@ -1,31 +1,19 @@
 " init.vim - Neovim entrypoint configuration file
 " In my configuration, ~/.vimrc is also loading this file
 
-if has('nvim')
-  " vimHome is a variable used for compatibility with both Vim and Neovim.
-  if has('win32unix')
-    let g:vimHome = $HOME . '/.vim'
-  elseif has('unix')
-    let g:vimHome = '~/.vim'
-  elseif has('win32')
-    let g:vimHome = $USERPROFILE . "\\.vim"
-  else
-    let g:vimHome = '~/.vim'
-  endif
-  " reset runtime path to be the same for all platforms
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-  " todo: check how to work with nvim on Windows, it'll probably have problems
-  " with the runtimepath
-endif
-
+" vimHome is a variable used for compatibility with both Vim and Neovim.
 if has('win32unix')
   let g:vimHome = $HOME . '/.vim'
-elseif has('unix')
-  let g:vimHome = '~/.vim'
 elseif has('win32')
-  let g:vimHome = $USERPROFILE . "\\.vim"
+  let g:vimHome = $USERPROFILE . '/.vim'
 else
   let g:vimHome = '~/.vim'
+endif
+" reset runtime path to be the same for all platforms
+if has('nvim')
+  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+else
+  let &runtimepath = g:vimHome . ',$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,' . g:vimHome . '/after'
 endif
 
 runtime helpers/functions.vim
