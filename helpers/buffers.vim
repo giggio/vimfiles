@@ -60,6 +60,8 @@ function s:AllBuffersOpenedInAllTabs ()
 endfunction
 
 let s:LastBuffer = []
-cnoreabbrev <expr> q ((getcmdtype() == ':' && getcmdline() ==# 'q') ? 'call <SID>BufferDeleteOrQuit()' : 'q')
+" cnoreabbrev <expr> q ((getcmdtype() == ':' && getcmdline() ==# 'q') ? 'call <SID>BufferDeleteOrQuit()' : 'q')
 command -nargs=0 BufferReopen call <SID>BufferReopen()
+command -nargs=0 BufferDeleteOrQuit call <SID>BufferDeleteOrQuit ()
 nmap <leader>br :BufferReopen<CR>
+nmap <leader>q :BufferDeleteOrQuit<CR>
