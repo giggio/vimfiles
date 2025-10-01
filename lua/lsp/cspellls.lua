@@ -242,8 +242,11 @@ return {
   },
   handlers = {
     ['_onDiagnostics'] = function(err, result, ctx, config)
-      vim.lsp.handlers['textDocument/publishDiagnostics'](err, result[1][1], ctx, config)
-      vim.lsp.diagnostic.on_publish_diagnostics(err, result[1][1], ctx, config)
+      local results = result[1]
+      for aResult in results do
+        vim.lsp.handlers['textDocument/publishDiagnostics'](err, aResult, ctx, config)
+        vim.lsp.diagnostic.on_publish_diagnostics(err, aResult, ctx)
+      end
     end,
     ['_onWorkspaceConfigForDocumentRequest'] = function()
       return {
