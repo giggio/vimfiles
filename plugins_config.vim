@@ -53,3 +53,10 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 nmap <leader>0 <Plug>AirlineSelectTab0
 nmap ]b :wincmd t<CR><Plug>AirlineSelectNextTab
 nmap [b :wincmd t<CR><Plug>AirlineSelectPrevTab
+
+" fugitive
+augroup FugitiveSetup
+  autocmd!
+  " Open the fugitive index on the right side
+  autocmd BufWinEnter * if &filetype == 'fugitive' && b:fugitive_type == 'index' | wincmd L | endif
+augroup END
