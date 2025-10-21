@@ -57,13 +57,13 @@ if !has('nvim')
   " (using snippes in coc-vim, so that is why only the snipped sources are installed here)
   " nvim is using its own snippet sources and providers
   Plugin 'honza/vim-snippets'
+  Plugin 'vim-airline/vim-airline'
+  Plugin 'vim-airline/vim-airline-themes'
 endif
 
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-scripts/ReplaceWithRegister'
