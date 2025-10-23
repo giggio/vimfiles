@@ -4,24 +4,17 @@ vim.lsp.config('*', {
 })
 
 vim.lsp.config('rust_analyzer', {
-  settings = {
+  settings = { -- https://rust-analyzer.github.io/book/configuration.html
     ['rust-analyzer'] = {
-      diagnostics = {
-        enable = false; -- disabled because of bacon-ls, see: https://github.com/crisidev/bacon-ls#neovim---manual
+      check = {
+        command = "clippy",
+        features = "all",
+        allTargets = true,
       },
-      checkOnSave = {
-        enable = false; -- disabled because of bacon-ls, see: https://github.com/crisidev/bacon-ls#neovim---manual
-      },
-      -- check = {
-      --   command = "clippy",
-      --   features = "all",
-      --   extraArgs = { "--all-features", "--all-targets", "--", "-D", "warnings" },
-      --   allTargets = true,
-      -- },
     }
   }
 })
-vim.lsp.config('bacon_ls', {
+vim.lsp.config('bacon_ls', { -- bacon is disabled
   init_options = {
     updateOnSave = true,
     updateOnSaveWaitMillis = 1000
@@ -63,7 +56,7 @@ vim.lsp.config('jsonls', {
 
 require("lsp.lua_ls")
 
-vim.lsp.enable('bacon_ls') -- rust
+-- vim.lsp.enable('bacon_ls') -- rust
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('bashls')
 vim.lsp.enable('clangd')
@@ -141,14 +134,14 @@ vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { n
 
 vim.lsp.inlay_hint.enable(true)
 
-vim.api.nvim_create_autocmd('BufRead', {
-  -- configuration of update_in_insert as per https://github.com/crisidev/bacon-ls#neovim---manual
-  group = vim.api.nvim_create_augroup('filetype_rust', { clear = true }),
-  desc = 'Set LSP diagnostics for Rust',
-  pattern = { '*.rs' },
-  callback = function()
-    vim.diagnostic.config({
-      update_in_insert = true,
-    })
-  end,
-})
+-- vim.api.nvim_create_autocmd('BufRead', {
+--   -- configuration of update_in_insert as per https://github.com/crisidev/bacon-ls#neovim---manual
+--   group = vim.api.nvim_create_augroup('filetype_rust', { clear = true }),
+--   desc = 'Set LSP diagnostics for Rust',
+--   pattern = { '*.rs' },
+--   callback = function()
+--     vim.diagnostic.config({
+--       update_in_insert = true,
+--     })
+--   end,
+-- })
