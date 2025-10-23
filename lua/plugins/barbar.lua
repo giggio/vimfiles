@@ -1,3 +1,5 @@
+-- https://github.com/romgrk/barbar.nvim
+-- The neovim tabline plugin.
 return {
   'romgrk/barbar.nvim',
   lazy = true,
@@ -12,6 +14,10 @@ return {
   opts = {
     icons = {
       buffer_index = true,
+      filetype = {
+        custom_colors = false,
+        enabled = true,
+      },
       diagnostics = {
         [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ' '},
         [vim.diagnostic.severity.WARN] = {enabled = true, icon = ' '},
