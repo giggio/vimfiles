@@ -121,7 +121,8 @@ if vim.fn.filereadable('./hugo.yaml') == 1 or vim.fn.filereadable('./hugo.toml')
   })
 end
 
-vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "LSP: code action" })
+-- using tiny_code_action.nvim for code actions:
+-- vim.keymap.set("n", "<leader>.", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "LSP: code action" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { noremap = true, silent = true, desc = "LSP: rename" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "LSP: go to definition" })
 vim.keymap.set("n", "<F12>", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "LSP: go to definition" })
