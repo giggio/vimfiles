@@ -16,16 +16,18 @@ return {
         -- enable_nextest = false,
       },
       -- LSP configuration
-      -- server = {
-      --   on_attach = function(client, bufnr)
-      --     -- you can also put keymaps in here
-      --   end,
-      --   default_settings = {
-      --     -- rust-analyzer language server configuration
-      --     ['rust-analyzer'] = {
-      --     },
-      --   },
-      -- },
+      server = {
+        on_attach = function(client, bufnr)
+          -- you can also put keymaps in here
+        end,
+        default_settings = {
+          ['rust-analyzer'] = {
+            diagnostics = {
+              disabled = {"inactive-code"},
+            },
+          },
+        },
+      },
       -- DAP configuration
       -- dap = {
       -- },
