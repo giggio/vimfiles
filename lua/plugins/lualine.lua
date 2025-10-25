@@ -8,7 +8,10 @@ return {
       options = {
         theme = 'ayu_dark',
       },
-      extensions = {'neo-tree', 'lazy', 'fugitive', 'nvim-dap-ui', 'man', 'overseer', 'quickfix', 'trouble'},
+      extensions = {
+        'neo-tree', 'lazy', 'fugitive', 'nvim-dap-ui', 'man', 'overseer', 'quickfix', 'trouble',
+        { sections = { lualine_a = {'filename'} }, filetypes = {'neotest-summary'} }
+      },
       sections = {
         lualine_c = {
           {
