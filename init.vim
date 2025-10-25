@@ -108,7 +108,7 @@ endif
 
 set completeopt=longest,menuone,preview
 " this setting controls how long to wait (in ms) before fetching type / symbol information.
-set updatetime=500
+set updatetime=300
 " Remove 'Press Enter to continue' message when type information is longer than one line.
 set cmdheight=2
 " start with all unfolded.
@@ -150,5 +150,8 @@ if has("autocmd")
 endif
 
 if has('nvim')
+  " disable popup menu "Disable mouse" message
+  aunmenu PopUp.How-to\ disable\ mouse
+  aunmenu PopUp.-2-
   lua require('init')
 endif

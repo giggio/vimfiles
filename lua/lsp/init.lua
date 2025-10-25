@@ -62,29 +62,33 @@ vim.lsp.enable('ts_ls')
 vim.lsp.enable('vimls')
 vim.lsp.enable('yamlls')
 
-vim.api.nvim_create_augroup("LspDiagnosticsHold", { clear = true })
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
+vim.api.nvim_create_autocmd("CursorHold", {
   pattern = "*",
-  callback = function(_)
-    for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-      if vim.api.nvim_win_get_config(winid).zindex then
-        return
+  group = vim.api.nvim_create_augroup("LspDiagnosticsHold", { clear = true }),
+  callback = function()
+    -- Only open if a diagnostic exists under the cursor
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    local diags = vim.diagnostic.get(0, { lnum = line - 1 })
+    for _, d in ipairs(diags) do
+      if col >= d.col and col < d.end_col then
+        vim.diagnostic.open_float(nil, {
+          focusable = false,
+          close_events = {
+            "BufHidden",
+            "BufLeave",
+            "CursorMoved",
+            "InsertEnter",
+            "WinLeave",
+          },
+          border = "rounded",
+          source = "always",
+          prefix = " ",
+          scope = "cursor",
+        })
+        break
       end
     end
-    vim.diagnostic.open_float({
-      bufnr = 0,
-      scope = "cursor",
-      focusable = false,
-      close_events = {
-        "CursorMoved",
-        "CursorMovedI",
-        "BufHidden",
-        "InsertCharPre",
-        "WinLeave",
-      },
-    })
   end,
-  group = "LspDiagnosticsHold",
 })
 
 -- allow gotmpl files to be recognized as HTML files when hugo config files are present
@@ -127,3 +131,8 @@ vim.lsp.inlay_hint.enable(true)
 --     })
 --   end,
 -- })
+--
+
+-- Open PopUp window with Menu key
+vim.keymap.set({'n','v'}, '<Menu>', '<Cmd>popup PopUp<CR>')
+vim.keymap.set('i', '<Menu>', '<C-\\><C-n><Cmd>popup PopUp<CR>')

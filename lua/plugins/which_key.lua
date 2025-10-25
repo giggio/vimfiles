@@ -116,6 +116,12 @@ return {
         desc = "Set Exception Breakpoints",
         nowait = true,
       },
+      {
+        "<C-ᚑ>", -- comming from Kitty, as "map menu send_text all \x1b[5777;5u"
+        "<Cmd>popup PopUp<CR>",
+        desc = "Open PopUp window",
+        nowait = true,
+      },
     },
   },
   keys = {
