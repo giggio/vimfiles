@@ -119,6 +119,7 @@ return {
       {
         "<C-ᚑ>", -- comming from Kitty, as "map menu send_text all \x1b[5777;5u"
         "<Cmd>popup PopUp<CR>",
+        mode = { "n", "x", "v" },
         desc = "Open PopUp window",
         nowait = true,
       },
