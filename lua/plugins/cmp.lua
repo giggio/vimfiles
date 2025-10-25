@@ -7,6 +7,7 @@ return {
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lsp",
+      "onsails/lspkind.nvim",
       "saadparwaiz1/cmp_luasnip",
       {
         "L3MON4D3/LuaSnip",
@@ -44,6 +45,27 @@ return {
         window = {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
+        },
+        formatting = {
+          format = function(entry, vim_item)
+            local highlights_info = require("colorful-menu").cmp_highlights(entry)
+            -- highlight_info is nil means we are missing the ts parser, it's
+            -- better to fallback to use default `vim_item.abbr`. What this plugin
+            -- offers is two fields: `vim_item.abbr_hl_group` and `vim_item.abbr`.
+            if highlights_info ~= nil then
+              vim_item.abbr_hl_group = highlights_info.highlights
+              vim_item.abbr = highlights_info.text
+            end
+            if vim.tbl_contains({ 'path' }, entry.source.name) then
+              local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+              if icon then
+                vim_item.kind = icon
+                vim_item.kind_hl_group = hl_group
+                return vim_item
+              end
+            end
+            return require('lspkind').cmp_format({ with_text = false })(entry, vim_item)
+          end,
         },
         mapping = {
           ["<Down>"] = cmp.mapping(function(fallback)
