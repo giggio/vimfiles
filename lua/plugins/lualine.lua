@@ -21,7 +21,7 @@ return {
           },
         },
         lualine_x = {
-          'lsp_status',
+          -- 'lsp_status',
           'encoding',
           'fileformat',
           {
