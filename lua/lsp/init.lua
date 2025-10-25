@@ -3,24 +3,6 @@ vim.lsp.config('*', {
   capabilities = capabilities,
 })
 
-vim.lsp.config('rust_analyzer', {
-  settings = { -- https://rust-analyzer.github.io/book/configuration.html
-    ['rust-analyzer'] = {
-      check = {
-        command = "clippy",
-        features = "all",
-        allTargets = true,
-      },
-    }
-  }
-})
-vim.lsp.config('bacon_ls', { -- bacon is disabled
-  init_options = {
-    updateOnSave = true,
-    updateOnSaveWaitMillis = 1000
-  }
-})
-
 -- todo: can't use Cspell LS until it supports .yaml and more than one config file
 -- see: https://github.com/vlabo/cspell-lsp/issues/13
 -- if cspell.yaml exists, use it as the config filename
@@ -56,7 +38,7 @@ vim.lsp.config('jsonls', {
 
 require("lsp.lua_ls")
 
--- vim.lsp.enable('bacon_ls') -- rust
+-- vim.lsp.enable('bacon_ls') -- rust enabled using rustacean.lua
 vim.lsp.enable('basedpyright')
 vim.lsp.enable('bashls')
 vim.lsp.enable('clangd')
@@ -73,7 +55,7 @@ vim.lsp.enable('marksman')
 vim.lsp.enable('nushell')
 vim.lsp.enable('powershell_es')
 vim.lsp.enable('ruby_lsp')
-vim.lsp.enable('rust_analyzer')
+-- vim.lsp.enable('rust_analyzer') -- rust enabled using rustacean.lua
 vim.lsp.enable('sqls')
 vim.lsp.enable('systemd_ls')
 vim.lsp.enable('ts_ls')

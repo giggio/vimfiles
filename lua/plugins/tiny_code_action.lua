@@ -1,3 +1,5 @@
+-- A Neovim plugin that provides a simple way to run and visualize code actions with Telescope.
+-- https://github.com/rachartier/tiny-code-action.nvim
 return {
   "rachartier/tiny-code-action.nvim",
   dependencies = {
