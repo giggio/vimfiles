@@ -1,10 +1,18 @@
 return {
   "folke/which-key.nvim",
   event = "VeryLazy",
+  dependencies = {
+    "nvim-mini/mini.icons", -- https://github.com/nvim-mini/mini.icons/
+    "ryanoasis/vim-devicons", -- https://github.com/nvim-tree/nvim-web-devicons
+  },
   opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
+    icons = {
+      rules = {
+        -- view rules examples at https://github.com/folke/which-key.nvim/blob/main/lua/which-key/icons.lua
+        -- view nerdfont glyphs at https://www.nerdfonts.com/cheat-sheet
+        { plugin = "barbar.nvim", icon = " ", color = "orange" },
+      },
+    },
     spec = {
       -- Debugger
       {
