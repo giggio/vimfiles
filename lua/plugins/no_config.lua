@@ -23,4 +23,10 @@ return {
     build = vim.fn.has('unix') and "./install.sh" or "powershell ./install.ps1",
     event = "VeryLazy",
   },
+  {
+    -- Git integration for buffers
+    -- https://github.com/lewis6991/gitsigns.nvim
+    'lewis6991/gitsigns.nvim',
+    lazy = true,
+  },
 }
