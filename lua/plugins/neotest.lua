@@ -1,5 +1,22 @@
 -- An extensible framework for interacting with tests within NeoVim.
 -- https://github.com/nvim-neotest/neotest
+local function open_neotest_summary()
+  local win_found = false
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.api.nvim_get_option_value("filetype", { buf = buf }) == "neotest-summary" then
+      win_found = true
+      break
+    end
+  end
+  require('neotest').watch.toggle({ suite = true })
+  if not win_found then
+    require('neotest').summary.open()
+  end
+  if not win_found then
+    require('neotest').summary.open()
+  end
+end
 return {
   "nvim-neotest/neotest",
   dependencies = {
@@ -21,31 +38,50 @@ return {
     {
       "<leader>t",
       desc = "Neotest commands",
-      group = "test",
     },
     {
       "<leader>tr",
       function()
+        open_neotest_summary()
         require('neotest').run.run()
-        require('neotest').summary.open()
       end,
       mode = { "n", "x", },
       desc = "Run test",
       noremap = true,
       silent = true,
-      group = "test",
     },
     {
       "<leader>ta",
       function()
+        open_neotest_summary()
         require('neotest').run.run({ suite = true })
-        require('neotest').summary.open()
       end,
       mode = { "n", "x", },
       desc = "Run all tests",
       noremap = true,
       silent = true,
-      group = "test",
+    },
+    {
+      "<leader>tw",
+      function()
+        open_neotest_summary()
+        require('neotest').run.run()
+      end,
+      mode = { "n", "x", },
+      desc = "Watch test",
+      noremap = true,
+      silent = true,
+    },
+    {
+      "<leader>twa",
+      function()
+        open_neotest_summary()
+        require('neotest').watch.toggle({ suite = true })
+      end,
+      mode = { "n", "x", },
+      desc = "Watch all tests",
+      noremap = true,
+      silent = true,
     },
     {
       "<leader>te",
@@ -56,43 +92,39 @@ return {
       desc = "Run test explorer (summary)",
       noremap = true,
       silent = true,
-      group = "test",
     },
     {
       "<leader>tl",
       function()
+        open_neotest_summary()
         require("neotest").run.run_last()
-        require('neotest').summary.open()
       end,
       mode = { "n", "x", },
       desc = "Run last test",
       noremap = true,
       silent = true,
-      group = "test",
     },
     {
-      "<leader>t<leader>r",
+      "<leader>t<leader>dt",
       function()
+        open_neotest_summary()
         require('neotest').run.run({ strategy = "dap" })
-        require('neotest').summary.open()
       end,
       mode = { "n", "x", },
       desc = "Debug test",
       noremap = true,
       silent = true,
-      group = "test",
     },
     {
-      "<leader>t<leader>a",
+      "<leader>t<leader>da",
       function()
+        open_neotest_summary()
         require('neotest').run.run({ suite = true, strategy = "dap" })
-        require('neotest').summary.open()
       end,
       mode = { "n", "x", },
       desc = "Debug all tests",
       noremap = true,
       silent = true,
-      group = "test",
     },
   },
 }
