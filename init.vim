@@ -52,6 +52,11 @@ set smartcase                   " ... unless they contain at least one capital l
 " My customizations
 set ls=2                        " always show status bar
 set number                      " show line numbers
+if has("nvim")                  " Show sign column when needed (for glyphs etc)
+  set signcolumn=auto:3
+elseif has("signs")
+  set signcolumn=auto             " Show sign column when needed (for glyphs etc)
+endif
 set cursorline                  " display a marker on current line
 
 set completeopt=menuone,longest,preview " simple autocomplete for anything
@@ -73,15 +78,6 @@ set nowritebackup
 let &t_SI = "\e[1 q"            " Insert mode, blinking block
 let &t_SR = "\e[4 q"            " Replace mode, solid underscore
 let &t_EI = "\e[2 q"            " Normal mode, solid block
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 let vimlocal = expand("%:p:h") . "/.vimrc.local"
 if filereadable(vimlocal)
