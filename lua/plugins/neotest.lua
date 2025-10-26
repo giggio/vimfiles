@@ -24,13 +24,27 @@ return {
     "nvim-lua/plenary.nvim",
     "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
-    "rouge8/neotest-rust",
+    {
+      "giggio/neo-neotest-rust", -- Neotest adapter for Rust, using cargo-nextest. https://github.com/giggio/neo-neotest-rust forked from https://github.com/rouge8/neotest-rust
+      -- dir = "~/p/local_neovim_plugins/neo-neotest-rust",
+    },
+    "MisanthropicBit/neotest-busted" -- Neotest adapter for running busted tests using neovim as a lua interpreter https://github.com/MisanthropicBit/neotest-busted
   },
   config = function()
     require('neotest').setup {
       adapters = {
         -- require('rustaceanvim.neotest') -- todo: verify again when this issue is fixed: https://github.com/mrcjkb/rustaceanvim/issues/864
-        require("neotest-rust") { args = { "--no-capture" }, }, -- todo: this plugin is archived, consider replacing it
+        require("neo-neotest-rust").setup({ -- this is my fork, evaluate rustaceanvim.neotest, see above message
+          args = { "--no-capture" },
+          dap_adapter = "lldb",
+          dap_extra_options = { -- fork was because of this section
+            preRunCommands = {
+              "command script import " .. vim.g.vimHome .. "/helpers/rust_prettifier_for_lldb.py"
+            },
+          },
+        }),
+        require("neotest-busted")({
+        }),
       }
     }
   end,
@@ -87,9 +101,16 @@ return {
       "<leader>te",
       function()
         require('neotest').summary.toggle()
+        for _, win in ipairs(vim.api.nvim_tabpage_list_wins(vim.api.nvim_get_current_tabpage())) do
+          local buf = vim.api.nvim_win_get_buf(win)
+          if vim.api.nvim_get_option_value("filetype", { buf = buf }) == "neotest-summary" then
+            vim.api.nvim_set_current_win(win)
+            return
+          end
+        end
       end,
       mode = { "n", "x", },
-      desc = "Run test explorer (summary)",
+      desc = "View test explorer (summary)",
       noremap = true,
       silent = true,
     },

@@ -39,4 +39,9 @@ require("lazy").setup({
   rocks = {
     hererocks = false,
   },
+  -- dev = {
+  --   path = "~/p/local_neovim_plugins",
+  --   patterns = { "giggio" },
+  --   fallback = false,
+  -- },
 })

@@ -18,6 +18,8 @@ return {
         name = 'lldb-dap'
       },
       lldb = { -- use lldb for codelldb as it works the same in vscode
+        -- https://codeberg.org/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
+        -- https://codeberg.org/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#c-c-rust-via-codelldb-https-github-com-vadimcn-vscode-lldb
         type = "executable",
         command = "codelldb",
         name = "codelldb",
@@ -64,6 +66,9 @@ return {
           end,
           cwd = '${workspaceFolder}',
           stopOnEntry = false,
+          preRunCommands = {
+            "command script import " .. vim.g.vimHome .. "/helpers/rust_prettifier_for_lldb.py"
+          },
         },
         {
           name = 'Debug Rust (nvim - lldb-dap)',
