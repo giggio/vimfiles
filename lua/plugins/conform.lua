@@ -1,7 +1,7 @@
 -- Lightweight yet powerful formatter plugin for Neovim
 -- https://github.com/stevearc/conform.nvim
 return {
-  'stevearc/conform.nvim',
+  "stevearc/conform.nvim",
   opts = {},
   lazy = true,
   event = "VeryLazy",
@@ -12,7 +12,7 @@ return {
         timeout_ms = 2000,
         lsp_format = "fallback",
       },
-      format_after_save = { },
+      format_after_save = {},
       formatters_by_ft = {
         css = { "prettierd" },
         html = { "prettierd" },
@@ -40,4 +40,14 @@ return {
       require("conform").format({ async = true, range = range })
     end, { range = true })
   end,
+  keys = {
+    {
+      "<leader>j",
+      "<cmd>Format<CR>",
+      mode = { "n", "x", "v" },
+      desc = "Reformat",
+      noremap = true,
+      silent = true,
+    },
+  },
 }
