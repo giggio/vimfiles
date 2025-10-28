@@ -1,4 +1,4 @@
--- empty file so far
+vim.loader.enable()
 require "lsp"
 
 local nix_profiles = os.getenv("NIX_PROFILES")
