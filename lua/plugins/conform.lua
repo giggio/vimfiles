@@ -12,8 +12,20 @@ return {
         timeout_ms = 2000,
         lsp_format = "fallback",
       },
-      formatters_by_ft = { -- todo: add more formatters
+      format_after_save = { },
+      formatters_by_ft = {
+        css = { "prettierd" },
+        html = { "prettierd" },
+        javascript = { "prettierd" },
+        json = { "prettierd" },
+        lua = { "stylua" },
         markdown = { "markdownlint-cli2" },
+        nix = { "nixfmt" },
+        rust = { "rustfmt" },
+        scss = { "prettierd" },
+        sh = { "shfmt" },
+        typescript = { "prettierd" },
+        yaml = { "yamlfmt" },
       },
     })
     vim.api.nvim_create_user_command("Format", function(args)
@@ -25,7 +37,7 @@ return {
           ["end"] = { args.line2, end_line:len() },
         }
       end
-      require("conform").format({ async = true, lsp_format = "fallback", range = range })
+      require("conform").format({ async = true, range = range })
     end, { range = true })
   end,
 }
