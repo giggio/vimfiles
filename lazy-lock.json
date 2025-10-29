@@ -68,7 +68,6 @@
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
   "vim-nerdtree-syntax-highlight": { "branch": "master", "commit": "35e70334a2ff6e89b82a145d1ac889e82d1ddb4e" },
   "vim-snippets": { "branch": "master", "commit": "f371d635f6f6350d34bbb483e37e383db322d145" },
-  "vim-tmux-navigator": { "branch": "master", "commit": "c45243dc1f32ac6bcf6068e5300f3b2b237e576a" },
   "vim-unimpaired": { "branch": "master", "commit": "db65482581a28e4ccf355be297f1864a4e66985c" },
   "vimproc.vim": { "branch": "master", "commit": "63a4ce0768c7af434ac53d37bdc1e7ff7fd2bece" },
   "volt": { "branch": "main", "commit": "620de1321f275ec9d80028c68d1b88b409c0c8b1" },

@@ -64,7 +64,6 @@ endif
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-scripts/ReplaceWithRegister'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
