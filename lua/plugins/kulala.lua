@@ -8,7 +8,7 @@ return {
     init = function()
       vim.filetype.add({
         extension = {
-          ['http'] = 'http',
+          ["http"] = "http",
         },
       })
     end,
@@ -17,7 +17,7 @@ return {
       { "<leader>Ra", desc = "Send all requests" },
       { "<leader>Rb", desc = "Open scratchpad" },
     },
-    ft = {"http", "rest"},
+    ft = { "http", "rest" },
     opts = {
       global_keymaps = true,
       global_keymaps_prefix = "<leader>R",

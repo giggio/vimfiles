@@ -1,8 +1,8 @@
 -- 🦀 Supercharge your Rust experience in Neovim!
 -- https://github.com/mrcjkb/rustaceanvim
 return {
-  'mrcjkb/rustaceanvim',
-  version = '^6',
+  "mrcjkb/rustaceanvim",
+  version = "^6",
   lazy = false, -- This plugin is already lazy
   opt = {
     tools = {
@@ -21,9 +21,9 @@ return {
           -- you can also put keymaps in here
         end,
         default_settings = {
-          ['rust-analyzer'] = {
+          ["rust-analyzer"] = {
             diagnostics = {
-              disabled = {"inactive-code"},
+              disabled = { "inactive-code" },
             },
           },
         },

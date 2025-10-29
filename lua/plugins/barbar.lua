@@ -1,13 +1,13 @@
 -- https://github.com/romgrk/barbar.nvim
 -- The neovim tabline plugin.
 return {
-  'romgrk/barbar.nvim',
+  "romgrk/barbar.nvim",
   lazy = true,
   event = "VeryLazy",
   enabled = true,
   dependencies = {
-    'nvim-tree/nvim-web-devicons',
-    'lewis6991/gitsigns.nvim',
+    "nvim-tree/nvim-web-devicons",
+    "lewis6991/gitsigns.nvim",
   },
   init = function()
     vim.g.barbar_auto_setup = false
@@ -20,15 +20,15 @@ return {
         enabled = true,
       },
       diagnostics = {
-        [vim.diagnostic.severity.ERROR] = {enabled = true, icon = ' '},
-        [vim.diagnostic.severity.WARN] = {enabled = true, icon = ' '},
-        [vim.diagnostic.severity.INFO] = {enabled = false},
-        [vim.diagnostic.severity.HINT] = {enabled = false},
+        [vim.diagnostic.severity.ERROR] = { enabled = true, icon = " " },
+        [vim.diagnostic.severity.WARN] = { enabled = true, icon = " " },
+        [vim.diagnostic.severity.INFO] = { enabled = false },
+        [vim.diagnostic.severity.HINT] = { enabled = false },
       },
-      preset = 'slanted',
+      preset = "slanted",
     },
   },
-  version = '^1.0.0',
+  version = "^1.0.0",
   keys = {
     { "<leader>1", "<cmd>BufferGoto 1<CR>" },
     { "<leader>2", "<cmd>BufferGoto 2<CR>" },
@@ -44,5 +44,5 @@ return {
     { "<C-A-.>", "<Cmd>BufferMoveNext<CR>" },
     { "[b", "<Cmd>BufferPrevious<CR>" },
     { "]b", "<Cmd>BufferNext<CR>" },
-  }
+  },
 }

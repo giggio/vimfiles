@@ -1,10 +1,9 @@
 -- A task runner and job management plugin for Neovim
 -- https://github.com/stevearc/overseer.nvim
 return {
-  'stevearc/overseer.nvim',
+  "stevearc/overseer.nvim",
   config = function()
-    require('overseer').setup {
-    }
+    require("overseer").setup({})
   end,
   opts = {},
   keys = {

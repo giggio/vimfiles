@@ -5,7 +5,7 @@ return {
     "Weissle/persistent-breakpoints.nvim",
   },
   config = function()
-    local dap = require('dap')
+    local dap = require("dap")
     local ui = require("dapui")
     ui.setup()
 
@@ -53,5 +53,5 @@ return {
         vim.cmd("wincmd t")
       end
     end
-  end
+  end,
 }

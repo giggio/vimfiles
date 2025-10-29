@@ -3,14 +3,14 @@
 return {
   "rachartier/tiny-code-action.nvim",
   dependencies = {
-      {"nvim-telescope/telescope.nvim"},
+    { "nvim-telescope/telescope.nvim" },
   },
   event = "LspAttach",
   config = function()
-    require("tiny-code-action").setup {
+    require("tiny-code-action").setup({
       backend = "delta",
       -- picker = "telescope",
-      picker  = {
+      picker = {
         "buffer",
         opts = {
           hotkeys = true,
@@ -32,7 +32,7 @@ return {
           },
         },
       },
-    }
+    })
   end,
   keys = {
     {
@@ -40,10 +40,10 @@ return {
       function()
         require("tiny-code-action").code_action()
       end,
-      mode = { "n", "x", },
+      mode = { "n", "x" },
       desc = "Code Action",
       noremap = true,
-      silent = true
+      silent = true,
     },
   },
 }

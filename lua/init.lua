@@ -1,5 +1,5 @@
 vim.loader.enable()
-require "lsp"
+require("lsp")
 
 local nix_profiles = os.getenv("NIX_PROFILES")
 if nix_profiles then
@@ -16,7 +16,11 @@ if nix_profiles then
       end
       local share_lua_path = profile .. "share/lua/5.1"
       if vim.fn.isdirectory(share_lua_path) == 1 then
-        package.path = package.path .. share_lua_path .. "/?.lua;" .. share_lua_path .. "/?/init.lua;"
+        package.path = package.path
+          .. share_lua_path
+          .. "/?.lua;"
+          .. share_lua_path
+          .. "/?/init.lua;"
       end
       local lib_lua_path = profile .. "lib/lua/5.1"
       if vim.fn.isdirectory(lib_lua_path) == 1 then

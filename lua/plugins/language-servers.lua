@@ -5,10 +5,10 @@ return {
   {
     -- A neovim plugin that helps managing crates.io dependencies
     -- https://github.com/saecki/crates.nvim
-    'saecki/crates.nvim',
-    tag = 'stable',
+    "saecki/crates.nvim",
+    tag = "stable",
     config = function()
-      require('crates').setup {
+      require("crates").setup({
         lsp = {
           enabled = true,
           -- on_attach = function(client, bufnr)
@@ -29,7 +29,7 @@ return {
             enabled = true,
           },
         },
-      }
+      })
     end,
   },
 }

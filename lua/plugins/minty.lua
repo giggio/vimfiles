@@ -6,5 +6,5 @@ return {
   lazy = true,
   dependencies = {
     { "nvzone/volt", lazy = true }, -- Create blazing fast & beautiful reactive UI in Neovim https://github.com/nvzone/volt
-  }
+  },
 }

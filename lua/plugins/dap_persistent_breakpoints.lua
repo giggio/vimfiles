@@ -6,4 +6,3 @@ return {
     always_reload = true,
   },
 }
-

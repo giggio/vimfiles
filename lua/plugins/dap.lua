@@ -10,12 +10,12 @@ return {
     "Joakker/lua-json5",
   },
   config = function()
-    local dap = require('dap')
+    local dap = require("dap")
     dap.adapters = {
       lldb_dap = { -- lldb_dap is the name we use in the configuration.type
-        type = 'executable',
-        command = 'lldb-dap',
-        name = 'lldb-dap'
+        type = "executable",
+        command = "lldb-dap",
+        name = "lldb-dap",
       },
       lldb = { -- use lldb for codelldb as it works the same in vscode
         -- https://codeberg.org/mfussenegger/nvim-dap/wiki/C-C---Rust-(via--codelldb)
@@ -42,8 +42,8 @@ return {
           else
             on_config(conf)
           end
-        end
-      }
+        end,
+      },
     }
     dap.adapters["pwa-node"] = {
       type = "server",
@@ -54,32 +54,31 @@ return {
         args = { "${port}" },
       },
     }
-    dap.configurations =
-    {
+    dap.configurations = {
       rust = {
         {
-          name = 'Debug Rust (nvim - codelldb)',
+          name = "Debug Rust (nvim - codelldb)",
           type = "lldb",
           request = "launch",
           program = function()
-            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
-          cwd = '${workspaceFolder}',
+          cwd = "${workspaceFolder}",
           stopOnEntry = false,
           preRunCommands = {
-            "command script import " .. vim.g.vimHome .. "/helpers/rust_prettifier_for_lldb.py"
+            "command script import " .. vim.g.vimHome .. "/helpers/rust_prettifier_for_lldb.py",
           },
         },
         {
-          name = 'Debug Rust (nvim - lldb-dap)',
-          type = 'lldb_dap',
-          request = 'launch',
+          name = "Debug Rust (nvim - lldb-dap)",
+          type = "lldb_dap",
+          request = "launch",
           program = function()
             return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
-          cwd = '${workspaceFolder}',
+          cwd = "${workspaceFolder}",
           stopOnEntry = false,
-          args = { },
+          args = {},
         },
       },
       javascript = {
@@ -89,7 +88,7 @@ return {
           request = "launch",
           program = "${file}",
           skipFiles = {
-            "<node_internals>/**"
+            "<node_internals>/**",
           },
           cwd = "${workspaceFolder}",
         },
@@ -99,17 +98,17 @@ return {
           request = "launch",
           runtimeArgs = {
             "run-script",
-            "debug"
+            "debug",
           },
           runtimeExecutable = "npm",
           skipFiles = {
-            "<node_internals>/**"
+            "<node_internals>/**",
           },
           cwd = "${workspaceFolder}",
         },
       },
     }
-    local ext_vscode = require('dap.ext.vscode')
-    ext_vscode.json_decode = require'json5'.parse
-  end
+    local ext_vscode = require("dap.ext.vscode")
+    ext_vscode.json_decode = require("json5").parse
+  end,
 }

@@ -21,21 +21,21 @@ return {
         config = function()
           require("luasnip.loaders.from_vscode").lazy_load()
           require("luasnip.loaders.from_snipmate").lazy_load()
-        end
+        end,
       },
       {
         "petertriho/cmp-git",
         dependencies = {
           "nvim-lua/plenary.nvim",
         },
-      }
+      },
     },
     config = function()
-      local luasnip = require"luasnip"
-      local cmp = require'cmp'
+      local luasnip = require("luasnip")
+      local cmp = require("cmp")
       cmp.setup({
         experimental = {
-          ghost_text = false -- this feature conflict with copilot.vim's preview.
+          ghost_text = false, -- this feature conflict with copilot.vim's preview.
         },
         snippet = {
           expand = function(args)
@@ -56,15 +56,16 @@ return {
               vim_item.abbr_hl_group = highlights_info.highlights
               vim_item.abbr = highlights_info.text
             end
-            if vim.tbl_contains({ 'path' }, entry.source.name) then
-              local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+            if vim.tbl_contains({ "path" }, entry.source.name) then
+              local icon, hl_group =
+                require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
               if icon then
                 vim_item.kind = icon
                 vim_item.kind_hl_group = hl_group
                 return vim_item
               end
             end
-            return require('lspkind').cmp_format({ with_text = false })(entry, vim_item)
+            return require("lspkind").cmp_format({ with_text = false })(entry, vim_item)
           end,
         },
         mapping = {
@@ -96,7 +97,7 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-          ['<CR>'] = cmp.mapping(function(fallback)
+          ["<CR>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               if luasnip.expandable() then
                 luasnip.expand()
@@ -107,57 +108,55 @@ return {
               fallback()
             end
           end),
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
         },
         sources = cmp.config.sources({
-          { name = 'nvim_lsp' },
-          { name = 'luasnip' },
-          { name = 'crates' },
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "crates" },
         }, {
           {
-            name = 'buffer',
+            name = "buffer",
             option = {
               get_bufnrs = function()
                 return vim.api.nvim_list_bufs()
-              end
-            }
+              end,
+            },
           },
-        })
+        }),
       })
 
       -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
       -- Set configuration for specific filetype.
-      cmp.setup.filetype('gitcommit', {
+      cmp.setup.filetype("gitcommit", {
         sources = cmp.config.sources({
-          { name = 'git' },
+          { name = "git" },
         }, {
-          { name = 'buffer' },
-        })
+          { name = "buffer" },
+        }),
       })
       require("cmp_git").setup()
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline({ '/', '?' }, {
+      cmp.setup.cmdline({ "/", "?" }, {
         mapping = cmp.mapping.preset.cmdline(),
         sources = {
-          { name = 'buffer' }
-        }
+          { name = "buffer" },
+        },
       })
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({
-          { name = 'path' }
+          { name = "path" },
         }, {
-          { name = 'cmdline' }
+          { name = "cmdline" },
         }),
-        matching = { disallow_symbol_nonprefix_matching = false }
+        matching = { disallow_symbol_nonprefix_matching = false },
       })
-
     end,
   },
 }
-

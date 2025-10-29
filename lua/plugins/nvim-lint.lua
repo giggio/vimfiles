@@ -1,7 +1,7 @@
 -- An asynchronous linter plugin for Neovim complementary to the built-in Language Server Protocol support.
 -- https://github.com/mfussenegger/nvim-lint
 return {
-  'mfussenegger/nvim-lint',
+  "mfussenegger/nvim-lint",
   opts = {},
   lazy = true,
   event = "VeryLazy",
@@ -18,8 +18,8 @@ return {
     })
   end,
   config = function()
-    require('lint').linters_by_ft = {
-      markdown = { 'markdownlint-cli2' },
+    require("lint").linters_by_ft = {
+      markdown = { "markdownlint-cli2" },
       dockerfile = { "hadolint" },
     }
   end,

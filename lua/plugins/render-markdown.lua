@@ -1,8 +1,8 @@
 -- Plugin to improve viewing Markdown files in Neovim
 -- https://github.com/MeanderingProgrammer/render-markdown.nvim
 return {
-  'MeanderingProgrammer/render-markdown.nvim',
-  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  "MeanderingProgrammer/render-markdown.nvim",
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {
@@ -28,5 +28,5 @@ return {
         vim.cmd("highlight RenderMarkdownCode guibg=#1D1D1D ctermbg=black")
       end,
     })
-  end
+  end,
 }

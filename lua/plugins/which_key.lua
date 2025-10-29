@@ -80,14 +80,16 @@ return {
       },
       {
         "<F22>", -- "S-F10",
-        function() require("dap").goto_()
+        function()
+          require("dap").goto_()
         end,
         desc = "Set Next Statement",
         nowait = true,
       },
       {
         "\\dr",
-        function() require("dap").repl.open()
+        function()
+          require("dap").repl.open()
         end,
         desc = "Open REPL",
         nowait = true,
