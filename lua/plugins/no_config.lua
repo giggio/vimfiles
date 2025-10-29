@@ -28,5 +28,6 @@ return {
     -- https://github.com/lewis6991/gitsigns.nvim
     "lewis6991/gitsigns.nvim",
     lazy = true,
+    opts = { sign_priority = 100 },
   },
 }

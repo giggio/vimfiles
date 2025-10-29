@@ -223,5 +223,25 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx,
   return default_publish_diagnostics(err, result, ctx, config)
 end
 
+-- consolidate LSP signs to show only the highest severity per line
+local ns = vim.api.nvim_create_namespace("consolidated_signs")
+local orig_signs_handler = vim.diagnostic.handlers.signs
+vim.diagnostic.handlers.signs = {
+  show = function(_, bufnr, _, opts)
+    local diagnostics = vim.diagnostic.get(bufnr)
+    local max_severity_per_line = {}
+    for _, d in pairs(diagnostics) do
+      local m = max_severity_per_line[d.lnum]
+      if not m or d.severity < m.severity then
+        max_severity_per_line[d.lnum] = d
+      end
+    end
+    orig_signs_handler.show(ns, bufnr, vim.tbl_values(max_severity_per_line), opts)
+  end,
+  hide = function(_, bufnr)
+    orig_signs_handler.hide(ns, bufnr)
+  end,
+}
+
 vim.keymap.set({ "n", "v" }, "<Menu>", "<Cmd>popup PopUp<CR>")
 vim.keymap.set("i", "<Menu>", "<C-\\><C-n><Cmd>popup PopUp<CR>")
