@@ -12,7 +12,17 @@ return {
         timeout_ms = 2000,
         lsp_format = "fallback",
       },
-      format_after_save = {},
+      format_on_save = function(bufnr)
+        local errors =
+          vim.diagnostic.get(bufnr, { severity = { min = vim.diagnostic.severity.ERROR } })
+        if #errors > 0 then
+          return
+        end
+        return {
+          timeout_ms = 500,
+          lsp_fallback = true,
+        }
+      end,
       formatters_by_ft = {
         css = { "prettierd" },
         html = { "prettierd" },
