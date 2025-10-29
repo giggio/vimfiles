@@ -49,6 +49,49 @@ return {
       end
       require("conform").format({ async = true, range = range })
     end, { range = true })
+
+    local group_format_when_diags_change =
+      vim.api.nvim_create_augroup("FormatWhenDiagnosticsChange", { clear = true })
+
+    vim.api.nvim_create_autocmd("DiagnosticChanged", {
+      group = group_format_when_diags_change,
+      callback = function(args)
+        local mode = vim.api.nvim_get_mode().mode
+        if mode ~= "n" and not mode:match("v") then
+          return
+        end
+        local errors =
+          vim.diagnostic.get(args.buf, { severity = { min = vim.diagnostic.severity.ERROR } })
+        if #errors > 0 then
+          return
+        end
+        require("conform").format({ bufnr = args.buf })
+      end,
+    })
+
+    local state_buffer_had_errors = {}
+
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      group = group_format_when_diags_change,
+      callback = function(args)
+        local errors =
+          vim.diagnostic.get(args.buf, { severity = { min = vim.diagnostic.severity.ERROR } })
+        state_buffer_had_errors[args.buf] = #errors > 0
+      end,
+    })
+
+    vim.api.nvim_create_autocmd("InsertLeave", {
+      group = group_format_when_diags_change,
+      callback = function(args)
+        if state_buffer_had_errors[args.buf] then
+          local errors =
+            vim.diagnostic.get(args.buf, { severity = { min = vim.diagnostic.severity.ERROR } })
+          if #errors == 0 then
+            require("conform").format({ bufnr = args.buf })
+          end
+        end
+      end,
+    })
   end,
   keys = {
     {

@@ -29,16 +29,16 @@ return {
   },
   lazy = false,
   config = function()
-    vim.diagnostic.config({
-      signs = {
-        text = {
-          [vim.diagnostic.severity.ERROR] = '',
-          [vim.diagnostic.severity.WARN] = '',
-          [vim.diagnostic.severity.INFO] = '',
-          [vim.diagnostic.severity.HINT] = '󰌵',
-        },
-      }
-    })
+    -- vim.diagnostic.config({
+    --   signs = {
+    --     text = {
+    --       [vim.diagnostic.severity.ERROR] = '',
+    --       [vim.diagnostic.severity.WARN] = '',
+    --       [vim.diagnostic.severity.INFO] = '',
+    --       [vim.diagnostic.severity.HINT] = '󰌵',
+    --     },
+    --   }
+    -- })
     vim.keymap.set("n", "<F2>", "<Cmd>Neotree toggle<CR>")
     require("neo-tree").setup({
       sources = {
@@ -66,17 +66,13 @@ return {
             "dist", -- common build output
             "plugged", -- vim/nvim installed plugins
           },
-          hide_by_pattern = {
-          },
-          always_show = {
-          },
-          always_show_by_pattern = {
-          },
+          hide_by_pattern = {},
+          always_show = {},
+          always_show_by_pattern = {},
           never_show = {
             ".session.vim",
           },
-          never_show_by_pattern = {
-          },
+          never_show_by_pattern = {},
         },
         follow_current_file = {
           enabled = true,
