@@ -65,6 +65,9 @@ return {
         if #errors > 0 then
           return
         end
+        if vim.api.nvim_get_option_value("readonly", { buf = args.buf }) ~= "noreadonly" then
+          return
+        end
         require("conform").format({ bufnr = args.buf })
       end,
     })
