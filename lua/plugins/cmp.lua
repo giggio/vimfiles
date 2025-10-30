@@ -1,8 +1,11 @@
+-- A completion plugin for neovim coded in Lua
+-- https://github.com/hrsh7th/nvim-cmp
 return {
   {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
+      "nvim-web-devicons",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
@@ -57,8 +60,7 @@ return {
               vim_item.abbr = highlights_info.text
             end
             if vim.tbl_contains({ "path" }, entry.source.name) then
-              local icon, hl_group =
-                require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
+              local icon, hl_group = require("nvim-web-devicons").get_icon(entry:get_completion_item().label)
               if icon then
                 vim_item.kind = icon
                 vim_item.kind_hl_group = hl_group

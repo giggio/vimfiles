@@ -59,7 +59,6 @@ elseif has("signs")
 endif
 set cursorline                  " display a marker on current line
 
-set completeopt=menuone,longest,preview " simple autocomplete for anything
 set wildmenu
 set wildmode=list:longest,full  " autocomplete for paths and files
 set wildignore+=.git            " ignore these extensions on autocomplete
