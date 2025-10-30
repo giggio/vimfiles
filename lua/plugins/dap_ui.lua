@@ -1,3 +1,5 @@
+-- A UI for nvim-dap
+-- https://github.com/rcarriga/nvim-dap-ui
 return {
   "rcarriga/nvim-dap-ui",
   event = "VeryLazy",

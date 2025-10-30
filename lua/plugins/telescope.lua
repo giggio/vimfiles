@@ -1,3 +1,5 @@
+-- Find, Filter, Preview, Pick. All lua, all the time.
+-- https://github.com/nvim-telescope/telescope.nvim
 return {
   "nvim-telescope/telescope.nvim",
   -- todo: switch back to branch or tag when treesitter integration is released: branch = '0.1.x',

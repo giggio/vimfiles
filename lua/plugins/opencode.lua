@@ -1,3 +1,5 @@
+-- Integrate the opencode AI assistant with Neovim
+-- https://github.com/NickvanDyke/opencode.nvim
 return {
   "NickvanDyke/opencode.nvim",
   dependencies = {

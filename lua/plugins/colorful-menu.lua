@@ -1,3 +1,5 @@
+-- Bring enjoyment to your auto completion.
+-- https://github.com/xzbdmw/colorful-menu.nvim
 return {
   "xzbdmw/colorful-menu.nvim",
   config = function()

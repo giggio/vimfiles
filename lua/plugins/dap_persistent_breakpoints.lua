@@ -1,3 +1,5 @@
+-- Neovim plugin for persistent breakpoints.
+-- https://github.com/Weissle/persistent-breakpoints.nvim
 return {
   "Weissle/persistent-breakpoints.nvim",
   event = "VeryLazy",
