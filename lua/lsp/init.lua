@@ -199,29 +199,29 @@ vim.diagnostic.config({
 local default_publish_diagnostics = vim.lsp.handlers["textDocument/publishDiagnostics"]
 
 -- hide rustc errors from LSP diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
-  if not result or not result.diagnostics then
-    return default_publish_diagnostics(err, result, ctx, config)
-  end
-  if vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr }) ~= "rust" then
-    return default_publish_diagnostics(err, result, ctx, config)
-  end
-  -- filter: drop diagnostics that come from "rustc" and have severity = Error
-  result.diagnostics = vim.tbl_filter(function(d)
-    if not d.source then
-      return true
-    end
-    if d.source == "rustc" then
-      local sev = d.severity or 1
-      -- LSP severities: Error=1, Warning=2, Information=3, Hint=4
-      if sev == vim.diagnostic.severity.ERROR or sev == 1 then
-        return false -- drop rustc errors
-      end
-    end
-    return true
-  end, result.diagnostics)
-  return default_publish_diagnostics(err, result, ctx, config)
-end
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, result, ctx, config)
+--   if not result or not result.diagnostics then
+--     return default_publish_diagnostics(err, result, ctx, config)
+--   end
+--   if vim.api.nvim_get_option_value("filetype", { buf = ctx.bufnr }) ~= "rust" then
+--     return default_publish_diagnostics(err, result, ctx, config)
+--   end
+--   -- filter: drop diagnostics that come from "rustc" and have severity = Error
+--   result.diagnostics = vim.tbl_filter(function(d)
+--     if not d.source then
+--       return true
+--     end
+--     if d.source == "rustc" then
+--       local sev = d.severity or 1
+--       -- LSP severities: Error=1, Warning=2, Information=3, Hint=4
+--       if sev == vim.diagnostic.severity.ERROR or sev == 1 then
+--         return false -- drop rustc errors
+--       end
+--     end
+--     return true
+--   end, result.diagnostics)
+--   return default_publish_diagnostics(err, result, ctx, config)
+-- end
 
 -- consolidate LSP signs to show only the highest severity per line
 local ns = vim.api.nvim_create_namespace("consolidated_signs")
