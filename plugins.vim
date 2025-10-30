@@ -59,12 +59,12 @@ if !has('nvim')
   Plugin 'honza/vim-snippets'
   Plugin 'vim-airline/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
+  Plugin 'easymotion/vim-easymotion'
 endif
 
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'easymotion/vim-easymotion'
 Plugin 'vim-scripts/ReplaceWithRegister'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
