@@ -25,6 +25,9 @@ return {
             diagnostics = {
               disabled = { "inactive-code" },
             },
+            cfg = {
+              setTest = true,
+            },
           },
         },
       },
