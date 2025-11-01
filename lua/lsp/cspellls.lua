@@ -207,6 +207,68 @@ local function get_buf_lines(bufnr)
   return lines
 end
 
+-- Find the correct buffer for cSpell text edits
+-- When using code action pickers, the scope.bufnr may refer to the picker buffer
+-- This function finds the actual file buffer that contains the text to be edited
+---@param scope_bufnr integer The buffer number from the command scope
+---@param range table The LSP range containing start and end positions
+---@return integer|nil target_bufnr The buffer number to edit, or nil if not found
+local function find_target_buffer(scope_bufnr, range)
+  -- If scope.bufnr is already a valid file buffer, use it
+  if vim.bo[scope_bufnr].buftype == "" then
+    return scope_bufnr
+  end
+
+  local candidates = {}
+
+  -- First, try to get the buffer from the previous window (before picker opened)
+  local prev_win = vim.fn.win_getid(vim.fn.winnr("#"))
+  if prev_win and prev_win ~= 0 then
+    local prev_bufnr = vim.api.nvim_win_get_buf(prev_win)
+    if vim.api.nvim_buf_is_loaded(prev_bufnr) and vim.bo[prev_bufnr].buftype == "" then
+      local clients = vim.lsp.get_clients({ bufnr = prev_bufnr, name = "cSpell" })
+      if #clients > 0 then
+        -- Prioritize the previous window's buffer
+        table.insert(candidates, 1, prev_bufnr)
+      end
+    end
+  end
+
+  -- Collect all other buffers with cSpell attached
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(bufnr) and vim.bo[bufnr].buftype == "" then
+      local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "cSpell" })
+      if #clients > 0 and bufnr ~= candidates[1] then
+        table.insert(candidates, bufnr)
+      end
+    end
+  end
+
+  -- Verify which candidate has the matching text at the range
+  for _, bufnr in ipairs(candidates) do
+    local buf_lines = get_buf_lines(bufnr)
+    if buf_lines and buf_lines[range.start.line + 1] then
+      local start_ch = line_byte_from_position(buf_lines, range.start.line, range.start.character, "utf-16")
+      local end_ch = line_byte_from_position(buf_lines, range["end"].line, range["end"].character, "utf-16")
+      local line = buf_lines[range.start.line + 1]
+      local text_at_range = line:sub(start_ch + 1, end_ch)
+
+      -- Check if this text exists at the specified position
+      if text_at_range and #text_at_range > 0 then
+        return bufnr
+      end
+    end
+  end
+
+  -- No suitable buffer found
+  if #candidates == 0 then
+    vim.notify("cSpell: Could not find target buffer with cSpell LSP client", vim.log.levels.ERROR)
+  else
+    vim.notify("cSpell: Could not match text at range in any candidate buffer", vim.log.levels.ERROR)
+  end
+  return nil
+end
+
 return {
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   cmd = {
@@ -260,10 +322,20 @@ return {
   },
   on_init = function()
     vim.lsp.commands["cSpell.editText"] = function(command, scope)
-      local buf_lines = get_buf_lines(scope.bufnr)
-
       local range = command.arguments[3][1].range
       local new_text = command.arguments[3][1].newText
+
+      -- Find the correct buffer to edit
+      local target_bufnr = find_target_buffer(scope.bufnr, range)
+      if not target_bufnr then
+        return
+      end
+
+      local buf_lines = get_buf_lines(target_bufnr)
+      if not buf_lines then
+        vim.notify("cSpell: Could not read buffer lines for buffer " .. target_bufnr, vim.log.levels.ERROR)
+        return
+      end
 
       local start_line = range.start.line
       local start_ch =
@@ -272,7 +344,7 @@ return {
       local end_ch =
         line_byte_from_position(buf_lines, range["end"].line, range["end"].character, "utf-16")
 
-      local lines = vim.api.nvim_buf_get_lines(scope.bufnr, start_line, end_line + 1, false)
+      local lines = vim.api.nvim_buf_get_lines(target_bufnr, start_line, end_line + 1, false)
 
       local start_line_content = lines[1]
       local end_line_content = lines[#lines]
@@ -288,7 +360,7 @@ return {
         end
       end
 
-      vim.api.nvim_buf_set_lines(scope.bufnr, start_line, start_line + 1, false, lines)
+      vim.api.nvim_buf_set_lines(target_bufnr, start_line, start_line + 1, false, lines)
     end
 
     vim.lsp.commands["cSpell.addWordsToConfigFileFromServer"] = function(command)
