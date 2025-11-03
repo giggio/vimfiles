@@ -53,7 +53,7 @@ set smartcase                   " ... unless they contain at least one capital l
 set ls=2                        " always show status bar
 set number                      " show line numbers
 if has("nvim")                  " Show sign column when needed (for glyphs etc)
-  set signcolumn=auto:3
+  set signcolumn=auto:2-4
 elseif has("signs")
   set signcolumn=auto             " Show sign column when needed (for glyphs etc)
 endif
