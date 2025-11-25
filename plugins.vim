@@ -82,14 +82,14 @@ if !has('nvim')
   " loading in the end as fzf has issues with Buffers (specially NERDTree)
   Plugin 'junegunn/fzf.vim', { 'for': 'nerdtree', 'lazy': 'true', 'event': 'VeryLazy', 'dependencies': ['junegunn/fzf'] }
 endif
-if version >= 900 || has('nvim')
-let g:copilot_lsp_settings = {
-\   'telemetry': {
-\     'telemetryLevel': 'off',
-\   },
-\ }
-  Plugin 'github/copilot.vim'
-endif
+" if version >= 900 || has('nvim')
+" let g:copilot_lsp_settings = {
+" \   'telemetry': {
+" \     'telemetryLevel': 'off',
+" \   },
+" \ }
+"   Plugin 'github/copilot.vim'
+" endif
 
 if has('nvim')
   lua require("config.lazy")
