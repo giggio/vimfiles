@@ -16,6 +16,12 @@ else
   let &runtimepath = g:vimHome . ',$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,' . g:vimHome . '/after'
 endif
 
+if $IS_SERVER ==# '1'
+  let g:is_server = v:true
+else
+  let g:is_server = v:false
+endif
+
 runtime helpers/functions.vim
 
 " startup errors will accumulate in this list

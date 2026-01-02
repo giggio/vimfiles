@@ -6,6 +6,7 @@ return {
     { "nvim-telescope/telescope.nvim" },
   },
   event = "LspAttach",
+  enabled = not vim.g.is_server,
   config = function()
     require("tiny-code-action").setup({
       backend = "delta",

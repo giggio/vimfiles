@@ -5,6 +5,7 @@ return {
   dependencies = {
     { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
   },
+  enabled = not vim.g.is_server,
   config = function()
     ---@type opencode.Opts
     vim.g.opencode_opts = {}

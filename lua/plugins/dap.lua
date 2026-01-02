@@ -3,11 +3,19 @@
 return {
   "mfussenegger/nvim-dap",
   event = "VeryLazy",
+  enabled = not vim.g.is_server,
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "nvim-neotest/nvim-nio",
     "theHamsta/nvim-dap-virtual-text",
     "Joakker/lua-json5",
+    {
+      -- A json5 parser for luajit
+      -- https://github.com/Joakker/lua-json5
+      "Joakker/lua-json5",
+      build = vim.fn.has("unix") and "./install.sh" or "powershell ./install.ps1",
+      event = "VeryLazy",
+    },
   },
   config = function()
     local dap = require("dap")

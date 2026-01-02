@@ -17,13 +17,6 @@ return {
     end,
   },
   {
-    -- A json5 parser for luajit
-    -- https://github.com/Joakker/lua-json5
-    "Joakker/lua-json5",
-    build = vim.fn.has("unix") and "./install.sh" or "powershell ./install.ps1",
-    event = "VeryLazy",
-  },
-  {
     -- Git integration for buffers
     -- https://github.com/lewis6991/gitsigns.nvim
     "lewis6991/gitsigns.nvim",

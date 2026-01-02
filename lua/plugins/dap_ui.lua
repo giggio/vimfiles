@@ -3,6 +3,7 @@
 return {
   "rcarriga/nvim-dap-ui",
   event = "VeryLazy",
+  enabled = not vim.g.is_server,
   dependencies = {
     "Weissle/persistent-breakpoints.nvim",
   },

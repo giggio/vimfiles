@@ -30,6 +30,7 @@ return {
     },
     "MisanthropicBit/neotest-busted", -- Neotest adapter for running busted tests using neovim as a lua interpreter https://github.com/MisanthropicBit/neotest-busted
   },
+  enabled = not vim.g.is_server,
   config = function()
     require("neotest").setup({
       adapters = {

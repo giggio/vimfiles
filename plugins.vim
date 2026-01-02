@@ -42,24 +42,23 @@ endif
 " Using 'Plugin' instead of 'Plug' because of the adapter from manage_plugins.vim
 if !has('nvim')
   call plug#begin(g:vimPluginInstallPath)
-  " LSP support for Vim. Neovim has built-in LSP support.
-  Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-  let g:vim_nerdtree_plug_args = { }
-  if has('nvim')
-    let g:vim_nerdtree_plug_args['lazy'] = 'false'
+  if !g:is_server
+    " LSP support for Vim. Neovim has built-in LSP support.
+    Plugin 'neoclide/coc.nvim', {'branch': 'release'}
+    Plugin 'mattn/emmet-vim'
+    " snippets:
+    " (using snippes in coc-vim, so that is why only the snipped sources are installed here)
+    " nvim is using its own snippet sources and providers
+    Plugin 'honza/vim-snippets'
+    Plugin 'easymotion/vim-easymotion'
   endif
   " file explorer
-  Plugin 'scrooloose/nerdtree', g:vim_nerdtree_plug_args
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plugin 'ryanoasis/vim-devicons', {'dependencies': ['scrooloose/nerdtree']}
   Plugin 'ctrlpvim/ctrlp.vim'
-  Plugin 'mattn/emmet-vim'
-  " snippets:
-  " (using snippes in coc-vim, so that is why only the snipped sources are installed here)
-  " nvim is using its own snippet sources and providers
-  Plugin 'honza/vim-snippets'
   Plugin 'vim-airline/vim-airline'
   Plugin 'vim-airline/vim-airline-themes'
-  Plugin 'easymotion/vim-easymotion'
 endif
 
 Plugin 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -67,7 +66,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/ReplaceWithRegister'
 Plugin 'kaicataldo/material.vim', { 'branch': 'main' }
-Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'AndrewRadev/bufferize.vim'
 " we don't need to strip whitespace on save if editorconfig is enabled
 " as it has its own configuration for this

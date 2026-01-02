@@ -7,6 +7,7 @@ return {
     -- https://github.com/saecki/crates.nvim
     "saecki/crates.nvim",
     tag = "stable",
+    enabled = not vim.g.is_server,
     config = function()
       require("crates").setup({
         lsp = {

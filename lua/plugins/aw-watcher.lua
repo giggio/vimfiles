@@ -3,6 +3,7 @@
 return {
   "lowitea/aw-watcher.nvim",
   lazy = true,
+  enabled = not vim.g.is_server,
   event = "VeryLazy",
   config = function()
     require("aw_watcher").setup({

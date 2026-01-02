@@ -2,6 +2,7 @@
 -- https://github.com/theHamsta/nvim-dap-virtual-text
 return {
   "theHamsta/nvim-dap-virtual-text",
+  enabled = not vim.g.is_server,
   config = function()
     require("nvim-dap-virtual-text").setup({})
   end,

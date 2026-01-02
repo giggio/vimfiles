@@ -2,6 +2,7 @@
 -- https://github.com/stevearc/overseer.nvim
 return {
   "stevearc/overseer.nvim",
+  enabled = not vim.g.is_server,
   config = function()
     require("overseer").setup({})
   end,

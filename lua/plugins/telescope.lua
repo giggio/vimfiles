@@ -8,8 +8,8 @@ return {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-telescope/telescope-ui-select.nvim",
-    "nvim-telescope/telescope-dap.nvim",
-    "nvim-telescope/telescope-github.nvim",
+    { "nvim-telescope/telescope-dap.nvim", enabled = not vim.g.is_server },
+    { "nvim-telescope/telescope-github.nvim", enabled = not vim.g.is_server },
   },
   lazy = true,
   event = "VeryLazy",
@@ -23,7 +23,9 @@ return {
     })
     require("telescope").load_extension("ui-select")
     require("telescope").load_extension("fzf")
-    require("telescope").load_extension("dap")
+    if not vim.g.is_server then
+      require("telescope").load_extension("dap")
+    end
   end,
   keys = {
     { "<C-P>", "<cmd>Telescope find_files<CR>" },
