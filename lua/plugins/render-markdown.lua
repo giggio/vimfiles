@@ -3,25 +3,24 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
   dependencies = { "nvim-treesitter/nvim-treesitter" },
-  ---@module 'render-markdown'
-  ---@type render.md.UserConfig
-  opts = {
-    code = {
-      enabled = true,
-      -- language_info = false,
-      language_name = false,
-    },
-    anti_conceal = {
-      enabled = true,
-      disabled_modes = false,
-      above = 1,
-      below = 1,
-      ignore = {
-        code_background = true,
-      },
-    },
-  },
   config = function()
+    require("render-markdown").setup({
+      code = {
+        enabled = true,
+        language_name = true,
+        conceal_delimiters = false,
+        border = "thick",
+      },
+      anti_conceal = {
+        enabled = true,
+        disabled_modes = false,
+        above = 1,
+        below = 1,
+        ignore = {
+          code_background = true,
+        },
+      },
+    })
     vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       group = vim.api.nvim_create_augroup("RenderMarkdownColorScheme", { clear = true }),
       callback = function()
