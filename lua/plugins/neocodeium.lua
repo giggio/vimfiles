@@ -6,7 +6,9 @@ return {
   enabled = not vim.g.is_server,
   config = function()
     local neocodeium = require("neocodeium")
-    neocodeium.setup()
+    neocodeium.setup({
+      silent = true,
+    })
     vim.keymap.set("i", "<tab>", neocodeium.accept)
   end,
 }
