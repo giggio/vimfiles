@@ -63,6 +63,7 @@ if not vim.g.is_server then
 end
 vim.lsp.enable("bashls")
 vim.lsp.enable("dockerls")
+vim.lsp.enable("nil_ls")
 vim.lsp.enable("systemd_ls")
 vim.lsp.enable("vimls")
 vim.lsp.enable("yamlls")
