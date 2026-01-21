@@ -1,4 +1,4 @@
--- https://github.com/mfussenegger/nvim-dap
+-- https://codeberg.org/mfussenegger/nvim-dap
 -- Debug Adapter Protocol client implementation for Neovim
 return {
   "mfussenegger/nvim-dap",
