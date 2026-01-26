@@ -7,7 +7,16 @@ return {
   config = function()
     local notify = require("notify")
     notify.setup({
-      background_colour = "#000000",
+      background_colour = "NotifyBackground",
+      top_down = false,
+      stages = "slide",
+      icons = {
+        DEBUG = "🪲",
+        error = "🛑",
+        info = "✅️",
+        trace = "✏️",
+        warn = "⚠️",
+      },
     })
     vim.notify = notify
   end,
