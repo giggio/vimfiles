@@ -96,6 +96,9 @@ return {
     vim.api.nvim_create_autocmd({ "VimEnter" }, {
       group = vim.api.nvim_create_augroup("NeoTreeCmds", { clear = true }),
       callback = function()
+        if vim.fn.argc() ~= 0 or vim.g.std_in then
+          return
+        end
         vim.cmd("Neotree reveal")
         vim.cmd("wincmd t")
       end,
