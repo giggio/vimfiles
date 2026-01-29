@@ -1,9 +1,10 @@
 function! s:SessionAutoStart()
+  let g:session_autoloaded=0
   let g:session_autoloading=0
   if exists("g:session_disable_autoload") && g:session_disable_autoload == 1
     return
   endif
-  if argc() > 0
+  if argc() > 0 || &filetype ==# 'man' || bufname('%') =~# 'man\:\/\/'
     let s:session_autoload=0
     return
   endif
@@ -13,6 +14,7 @@ function! s:SessionAutoStart()
     source .session.vim
   endif
   let g:session_autoloading=0
+  let g:session_autoloaded=1
 endfunction
 
 function! SaveSession()
