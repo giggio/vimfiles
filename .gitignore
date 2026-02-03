@@ -1,6 +1,5 @@
 .netrwhist
 autoload/plug.vim
-plugged
 .session.vim
 .session.nvim
 *.old

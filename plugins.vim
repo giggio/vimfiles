@@ -18,9 +18,17 @@ if !has('nvim')
   endif
 endif
 
-let g:pluginInstallPath = g:vimHome . '/plugged'
-let g:vimPluginInstallPath = g:pluginInstallPath . '/vim'
-let g:nvimPluginInstallPath = g:pluginInstallPath . '/nvim'
+if has('win32')
+  let g:pluginInstallPath = $LOCALAPPDATA
+else
+  if $XDG_DATA_HOME ==# ''
+    let g:pluginInstallPath = $HOME . '/.local/share'
+  else
+    let g:pluginInstallPath = $XDG_DATA_HOME
+  endif
+endif
+let g:vimPluginInstallPath = g:pluginInstallPath . '/vim/plugins'
+let g:nvimPluginInstallPath = g:pluginInstallPath . '/nvim/plugins'
 runtime manage_plugins.vim
 
 if has('nvim') " editorconfig is on by default on nvim

@@ -64,7 +64,6 @@ return {
             "node_modules",
             "target", -- rust build output
             "dist", -- common build output
-            "plugged", -- vim/nvim installed plugins
           },
           hide_by_pattern = {},
           always_show = {},
