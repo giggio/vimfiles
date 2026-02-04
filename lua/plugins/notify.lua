@@ -9,6 +9,7 @@ return {
     notify.setup({
       background_colour = "NotifyBackground",
       top_down = false,
+      render = "wrapped-compact",
       stages = "slide",
       icons = {
         DEBUG = "🪲",
