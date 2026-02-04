@@ -36,6 +36,7 @@ function s:BufferDeleteOrQuit()
     return
   endif
   let listed_buffers = s:AllBuffersOpenedInAllTabs()
+  write
   call VerboseEchomsg("Listed buffers: " . string(listed_buffers))
   if len(listed_buffers) == 1
     call VerboseEchomsg("Quitting with last buffer")
