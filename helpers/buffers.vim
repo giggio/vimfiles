@@ -36,8 +36,16 @@ function s:BufferDeleteOrQuit()
     return
   endif
   let listed_buffers = s:AllBuffersOpenedInAllTabs()
-  write
+  if &modified
+    call VerboseEchomsg("Saving modified file.")
+    write
+  endif
   call VerboseEchomsg("Listed buffers: " . string(listed_buffers))
+  if len(filter( getwininfo(), 'v:val.tabnr == tabpagenr() && win_gettype(v:val.winid) == "" && getbufvar(v:val.bufnr, "&buftype") == ""')) > 1
+    call VerboseEchomsg("Quitting with multiple windows")
+    quit
+    return
+  endif
   if len(listed_buffers) == 1
     call VerboseEchomsg("Quitting with last buffer")
     quitall
@@ -45,7 +53,7 @@ function s:BufferDeleteOrQuit()
   endif
   if tabpagenr('$') > 1
     call VerboseEchomsg("Quitting with multiple tabs")
-    quit
+    call s:BufferDelete()
     return
   endif
   let current_buffer = bufnr('%')
