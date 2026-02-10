@@ -3,10 +3,12 @@ nnoremap oo o<Esc>k
 nnoremap OO O<Esc>j
 
 " remap split navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+if !has('nvim') " neovim will use the zellij plugin navigation
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+endif
 
 if !has('nvim')
   " reformat (visual and normal mode)
