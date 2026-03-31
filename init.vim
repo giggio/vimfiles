@@ -160,3 +160,7 @@ if has('nvim')
   aunmenu PopUp.-2-
   lua require('init')
 endif
+
+if exists("g:scrollback") && g:scrollback != 0
+  set wrap
+endif
