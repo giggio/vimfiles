@@ -53,7 +53,6 @@ return {
         "http",
         "javascript",
         "json5",
-        "jsonc",
         "nu",
         "powershell",
         "razor",
