@@ -40,6 +40,7 @@ end
 
 require("lsp.lua_ls")
 
+-- view server config at: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 if not vim.g.is_server then
   -- vim.lsp.enable('bacon_ls') -- rust enabled using rustacean.lua
   vim.lsp.enable("basedpyright")
@@ -62,6 +63,7 @@ if not vim.g.is_server then
   vim.lsp.enable("ts_ls")
 end
 vim.lsp.enable("bashls")
+vim.lsp.enable("docker_compose_language_service")
 vim.lsp.enable("dockerls")
 vim.lsp.enable("nil_ls")
 vim.lsp.enable("systemd_ls")

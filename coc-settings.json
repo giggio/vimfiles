@@ -1,12 +1,8 @@
+// https://github.com/neoclide/coc.nvim/wiki/Language-servers
 {
   "rust-analyzer.procMacro.enable": true,
   "rust-analyzer.check.command": "clippy",
   "languageserver": {
-    "nixd": {
-      "command": "nixd",
-      "rootPatterns": [".nixd.json"],
-      "filetypes": ["nix"]
-    },
     "dockerfile": {
       "command": "docker-langserver",
       "filetypes": ["dockerfile"],
