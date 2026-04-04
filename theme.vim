@@ -1,4 +1,4 @@
-" set t_Co=256                    " todo: maybe remove? forces terminal to use 256 colors
+
 call g:CatchError('colorscheme slate') " set to a dark theme until the material theme is loaded
 if !has('nvim')
   let g:airline_powerline_fonts = 1
@@ -44,6 +44,10 @@ endif
 set background=dark
 let g:material_theme_style = 'darker' " 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
 let g:material_terminal_italics = 1
+" recommendations from https://github.com/kaicataldo/material.vim
+if (has('nvim'))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+endif
 " Enable true colors
 if (has("termguicolors"))
   set termguicolors
