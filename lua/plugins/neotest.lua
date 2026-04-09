@@ -34,7 +34,7 @@ return {
   config = function()
     require("neotest").setup({
       adapters = {
-        -- require('rustaceanvim.neotest') -- todo: verify again when this issue is fixed in nightly: https://github.com/mrcjkb/rustaceanvim/issues/864
+        -- require("rustaceanvim.neotest"), -- todo: Rustacean isn't able to deal with rust files without test modules, it shows spinning bars forever, which is annoying. Verify again when this issue is fixed: https://github.com/mrcjkb/rustaceanvim/issues/623
         require("neo-neotest-rust").setup({ -- this is my fork, evaluate rustaceanvim.neotest, see above message
           args = { "--no-capture" },
           dap_adapter = "lldb",

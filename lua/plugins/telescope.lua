@@ -2,8 +2,7 @@
 -- https://github.com/nvim-telescope/telescope.nvim
 return {
   "nvim-telescope/telescope.nvim",
-  -- todo: switch back to branch or tag when treesitter integration is released: branch = '0.1.x',
-  commit = "b4da76be54691e854d3e0e02c36b0245f945c2c7",
+  version = "*",
   dependencies = {
     "nvim-lua/plenary.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -14,7 +13,20 @@ return {
   lazy = true,
   event = "VeryLazy",
   config = function()
+    local actions = require("telescope.actions")
     require("telescope").setup({
+      defaults = {
+        cache_picker = {
+          num_pickers = 10,
+          ignore_empty_prompt = false,
+        },
+        mappings = {
+          i = {
+            ["<C-Down>"] = actions.cycle_history_next,
+            ["<C-Up>"] = actions.cycle_history_prev,
+          },
+        },
+      },
       extensions = {
         ["ui-select"] = {
           require("telescope.themes").get_dropdown({}),
@@ -29,6 +41,19 @@ return {
   end,
   keys = {
     { "<C-P>", "<cmd>Telescope find_files<CR>" },
-    { "\\f", "<cmd>Telescope live_grep<CR>" },
+    {
+      "<leader>f",
+      function()
+        local telescope = require("telescope.builtin")
+        local cached_pickers = require("telescope.state").get_global_key("cached_pickers") or {}
+        for i, cached_picker in pairs(cached_pickers) do
+          if cached_picker.prompt_title == "Live Grep" then
+            telescope.resume({ cache_index = i })
+            return
+          end
+        end
+        telescope.live_grep()
+      end,
+    },
   },
 }

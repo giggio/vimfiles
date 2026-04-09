@@ -2,7 +2,7 @@
 -- https://github.com/mrcjkb/rustaceanvim
 return {
   "mrcjkb/rustaceanvim",
-  version = "^6",
+  version = "^9",
   lazy = false, -- This plugin is already lazy
   enabled = not vim.g.is_server,
   opt = {
