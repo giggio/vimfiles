@@ -13,7 +13,7 @@ return {
         timeout_ms = 2000,
         lsp_format = "fallback",
       },
-      format_on_save = function(bufnr)
+      format_after_save = function(bufnr)
         local errors = vim.diagnostic.get(bufnr, { severity = { min = vim.diagnostic.severity.ERROR } })
         if #errors > 0 then
           return { dry_run = true }
@@ -23,19 +23,26 @@ return {
           -- print("Skipping format ON SAVE due to undo/redo")
           return { dry_run = true }
         end
-        -- print("Formatting ON SAVE due to diagnostics change")
         return {
-          timeout_ms = 500,
           lsp_fallback = true,
         }
       end,
+      formatters = {
+        markdownlint_cli2_custom = {
+          -- this is only so I can use stdin = true, otherwse I get a message "Do you really want to write to it?"
+          command = "markdownlint-cli2",
+          args = { "--format", "$FILENAME" },
+          exit_codes = { 0, 1 }, -- code 1 is returned when linting/formatter was successful and there were errors
+          stdin = true,
+        },
+      },
       formatters_by_ft = {
         css = { "prettierd" },
         html = { "prettierd" },
         javascript = { "prettierd" },
         json = { "prettierd" },
         lua = { "stylua" },
-        markdown = { "markdownlint-cli2" },
+        markdown = { "markdownlint_cli2_custom" },
         nix = { "nixfmt" },
         rust = { "rustfmt" },
         scss = { "prettierd" },
