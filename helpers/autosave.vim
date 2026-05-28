@@ -36,7 +36,8 @@ augroup FocusTrackingFix
   autocmd!
   autocmd FocusGained * call s:ReenableFocus()
   autocmd FocusLost * silent! wall
-  " autocmd FocusLost * echom "FocusLost: " . strftime("%H:%M:%S") " for test only
+  " for test only
+  "autocmd FocusLost * echom "FocusLost: " . strftime("%H:%M:%S")
 augroup END
 
 " 3. Send the focus-tracking enable escape sequence directly to the terminal

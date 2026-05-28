@@ -45,7 +45,7 @@ return {
       vim.g.dap_debugger_running = 0
       if vim.g.neotree_open == 1 then
         vim.cmd("Neotree reveal")
-        vim.cmd("wincmd t")
+        vim.cmd("wincmd l")
       end
     end
     dap.listeners.before.event_exited.dapui_config = function()
@@ -53,7 +53,7 @@ return {
       vim.g.dap_debugger_running = 0
       if vim.g.neotree_open == 1 then
         vim.cmd("Neotree reveal")
-        vim.cmd("wincmd t")
+        vim.cmd("wincmd l")
       end
     end
   end,

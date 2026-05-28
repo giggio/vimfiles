@@ -81,7 +81,8 @@ return {
         use_libuv_file_watcher = true,
       },
       window = {
-        position = "right",
+        position = "left",
+        width = 30,
         mapping_options = {
           noremap = true,
           nowait = true,
@@ -99,7 +100,7 @@ return {
           return
         end
         vim.cmd("Neotree reveal")
-        vim.cmd("wincmd t")
+        vim.cmd("wincmd l")
       end,
     })
   end,

@@ -21,7 +21,7 @@ function s:OpenNERDTree(bootstrap)
         endif
       endif
     endif
-    if &filetype ==# 'nerdtree' | wincmd t | endif " move the cursor to code window
+    if &filetype ==# 'nerdtree' | wincmd l | endif " move the cursor to code window
   endif
 endfunction
 
@@ -40,7 +40,7 @@ function s:ToggleNERDTreeOnTabEnter()
         silent NERDTree
       endif
     endif
-    if &filetype ==# 'nerdtree' | wincmd t | endif " move the cursor to code window
+    if &filetype ==# 'nerdtree' | wincmd l | endif " move the cursor to code window
   else
     if g:NERDTree.ExistsForTab()
       if g:NERDTree.IsOpen()
@@ -57,11 +57,11 @@ function s:SelectFileOnNERDTree()
   if g:NERDTreeShouldBeOpen == 0
     return
   endif
-  if &filetype ==# 'nerdtree' | wincmd t | endif " move the cursor to code window
+  if &filetype ==# 'nerdtree' | wincmd l | endif " move the cursor to code window
   if &buftype == '' && getcmdwintype() == ''
     silent NERDTreeFind
   endif
-  if &filetype ==# 'nerdtree' | wincmd t | endif " move the cursor to code window
+  if &filetype ==# 'nerdtree' | wincmd l | endif " move the cursor to code window
 endfunction
 
 function s:OpenInitialNERDTreeWindows()
@@ -77,7 +77,7 @@ function s:OpenInitialNERDTreeWindows()
         call s:SelectFileOnNERDTree()
       endfor
       exec 'tabnext ' . s:current_tab
-      if &filetype ==# 'nerdtree' | wincmd t | endif " move the cursor to code window
+      if &filetype ==# 'nerdtree' | wincmd l | endif " move the cursor to code window
     endif
 endfunction
 
@@ -92,7 +92,7 @@ function! g:ToggleNERDTreeOnKeyPress()
   else
     silent NERDTree
   endif
-  if &filetype ==# 'nerdtree' | wincmd t | endif " move the cursor to code window
+  if &filetype ==# 'nerdtree' | wincmd l | endif " move the cursor to code window
 endfunction
 
 function s:ConfigureNERDTree()
@@ -102,7 +102,7 @@ function s:ConfigureNERDTree()
     let g:NERDTreeAutoDeleteBuffer=1
     let g:NERDTreeExtensionHighlightColor = {}
     let g:NERDTreeExtensionHighlightColor['nix'] = "689FB6"
-    let g:NERDTreeWinPos = "right"
+    let g:NERDTreeWinPos = "left"
     let g:NERDTreeCustomOpenArgs = {'file': {'reuse': 'all', 'where': 'p', 'keepopen': 1, 'stay': 0}, 'dir': {}} " always open new files in new tabs, and reuse existing tabs if they are already open
     " my custom NERDTree settings
     augroup MyNERDTreeConfig
@@ -113,7 +113,7 @@ function s:ConfigureNERDTree()
       autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
       " always select the code window when a tab changes
       autocmd TabEnter * call s:ToggleNERDTreeOnTabEnter()
-      autocmd TabEnter * if &filetype ==# 'nerdtree' | wincmd t | endif
+      autocmd TabEnter * if &filetype ==# 'nerdtree' | wincmd l | endif
       " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
       autocmd BufEnter * if winnr() == winnr('h') && bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
         \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif

@@ -33,8 +33,8 @@ if !has('nvim')
   nmap <leader>8 <Plug>AirlineSelectTab8
   nmap <leader>9 <Plug>AirlineSelectTab9
   nmap <leader>0 <Plug>AirlineSelectTab0
-  nmap ]b :wincmd t<CR><Plug>AirlineSelectNextTab
-  nmap [b :wincmd t<CR><Plug>AirlineSelectPrevTab
+  nmap ]b :wincmd l<CR><Plug>AirlineSelectNextTab
+  nmap [b :wincmd l<CR><Plug>AirlineSelectPrevTab
 endif
 
 " EditorConfig config:
@@ -58,5 +58,5 @@ let g:better_whitespace_filetypes_blacklist=['diff', 'git', 'gitcommit', 'unite'
 augroup FugitiveSetup
   autocmd!
   " Open the fugitive index on the right side
-  autocmd BufWinEnter * if &filetype == 'fugitive' && b:fugitive_type == 'index' | wincmd L | endif
+  autocmd BufWinEnter * if &filetype == 'fugitive' && b:fugitive_type == 'index' | wincmd L | vertical resize 50 | endif
 augroup END
