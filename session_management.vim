@@ -33,6 +33,13 @@ set sessionoptions-=options
 set sessionoptions-=blank
 set sessionoptions-=help
 set sessionoptions-=terminal
+set sessionoptions-=skiprtp
+set sessionoptions-=curdir
+set sessionoptions-=resize
+set sessionoptions-=sesdir
+set sessionoptions-=terminal
+set sessionoptions-=winpos
+set sessionoptions-=winsize
 let s:session_autoload=0
 
 if has("autocmd")
