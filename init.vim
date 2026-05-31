@@ -163,4 +163,5 @@ endif
 
 if exists("g:scrollback") && g:scrollback != 0
   set wrap
+  nnoremap <buffer> q :quit!<CR>
 endif
