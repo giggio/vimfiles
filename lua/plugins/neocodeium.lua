@@ -8,6 +8,7 @@ return {
     local neocodeium = require("neocodeium")
     neocodeium.setup({
       silent = true,
+      bin = "codeium_language_server",
     })
     vim.keymap.set("i", "<tab>", neocodeium.accept)
   end,
