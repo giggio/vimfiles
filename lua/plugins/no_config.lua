@@ -2,9 +2,12 @@ return {
   -- Quickstart configs for Nvim LSP
   -- https://github.com/neovim/nvim-lspconfig
   "neovim/nvim-lspconfig", -- Quickstart configs for Nvim LSP https://github.com/neovim/nvim-lspconfig
-  -- Neovim treesitter plugin for setting the commentstring based on the cursor location in a file.
-  -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
-  "JoosepAlviste/nvim-ts-context-commentstring",
+  {
+    -- Neovim treesitter plugin for setting the commentstring based on the cursor location in a file.
+    -- https://github.com/JoosepAlviste/nvim-ts-context-commentstring
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    enabled = not vim.g.is_server,
+  },
   -- Provides Nerd Font icons (glyphs) for use by neovim plugins
   -- https://github.com/nvim-tree/nvim-web-devicons
   "nvim-tree/nvim-web-devicons",
@@ -12,6 +15,7 @@ return {
     -- Smart and powerful comment plugin for neovim.
     -- https://github.com/numToStr/Comment.nvim
     "numToStr/Comment.nvim",
+    enabled = not vim.g.is_server,
     config = function()
       require("Comment").setup()
     end,

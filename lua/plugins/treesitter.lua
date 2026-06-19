@@ -6,8 +6,13 @@ return {
   lazy = false,
   build = ":TSUpdate",
   dependencies = {
-    "HiPhish/rainbow-delimiters.nvim",
-    "nvim-treesitter/nvim-treesitter-context",
+    {
+      -- Rainbow delimiters for Neovim with Tree-sitter
+      -- https://github.com/HiPhish/rainbow-delimiters.nvim
+      "HiPhish/rainbow-delimiters.nvim",
+      enabled = not vim.g.is_server,
+    },
+    "nvim-treesitter/nvim-treesitter-context", --  Show code context https://github.com/nvim-treesitter/nvim-treesitter-context
   },
   config = function()
     local languages = {
