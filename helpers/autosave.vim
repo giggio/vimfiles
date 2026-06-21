@@ -1,4 +1,4 @@
-if has('timers')
+if has('timers') && ((!exists("g:scrollback")) || g:scrollback == 0)
   let g:autosave_enabled = 1
   let g:autosave_timer = 0
 
