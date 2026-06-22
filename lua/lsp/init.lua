@@ -16,18 +16,6 @@ vim.lsp.config("*", {
 if not vim.g.is_server then
   vim.lsp.config("cSpell", require("lsp.cspellls"))
 
-  vim.lsp.config("powershell_es", {
-    -- using powershell-editor-services from nix, it comes already bundled
-    cmd = function(dispatchers)
-      local temp_path = vim.fn.stdpath("cache")
-      local command_fmt =
-        [[ -LogPath '%s/powershell_es.log' -SessionDetailsPath '%s/powershell_es.session.json' -FeatureFlags @() -AdditionalModules @() -HostName nvim -HostProfileId 0 -HostVersion 1.0.0 -Stdio -LogLevel Normal]]
-      local command = command_fmt:format(temp_path, temp_path)
-      local cmd = { "powershell-editor-services", command }
-      return vim.lsp.rpc.start(cmd, dispatchers)
-    end,
-  })
-
   vim.lsp.config("jsonls", {
     settings = {
       json = {
@@ -55,8 +43,6 @@ if not vim.g.is_server then
   vim.lsp.enable("html")
   vim.lsp.enable("jsonls")
   vim.lsp.enable("marksman")
-  vim.lsp.enable("nushell")
-  vim.lsp.enable("powershell_es")
   vim.lsp.enable("ruby_lsp")
   -- vim.lsp.enable('rust_analyzer') -- rust enabled using rustacean.lua
   vim.lsp.enable("sqls")

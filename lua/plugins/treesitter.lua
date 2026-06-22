@@ -58,8 +58,6 @@ return {
         "http",
         "javascript",
         "json5",
-        "nu",
-        "powershell",
         "razor",
         "ruby",
         "rust",
