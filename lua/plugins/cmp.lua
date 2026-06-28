@@ -118,6 +118,7 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "crates" },
+          { name = "minuet" },
         }, {
           {
             name = "buffer",
@@ -128,6 +129,11 @@ return {
             },
           },
         }),
+        performance = {
+          -- It is recommended to increase the timeout duration due to the typically slower response speed of LLMs compared to
+          -- other completion sources. This is not needed when you only need manual completion.
+          fetching_timeout = 2000,
+        },
       })
 
       -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below

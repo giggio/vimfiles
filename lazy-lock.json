@@ -27,6 +27,7 @@
   "material.vim": { "branch": "main", "commit": "32f423c825ee89a37d66e3d8f00e777c7d8a41ab" },
   "mini.icons": { "branch": "main", "commit": "e56797f90192d81f1fda02e662fc3e8e3d775027" },
   "minty": { "branch": "main", "commit": "aafc9e8e0afe6bf57580858a2849578d8d8db9e0" },
+  "minuet-ai.nvim": { "branch": "main", "commit": "d29dec4c36be2b41aa10e70938b7b09a03f0bdba" },
   "neo-neotest-rust": { "branch": "main", "commit": "35ba959d1f2876c1726c12fc2367df56f5d87b69" },
   "neo-tree.nvim": { "branch": "v3.x", "commit": "ebd66767191714e008ce73b769518a763ff31bdc" },
   "neocodeium": { "branch": "main", "commit": "ab8a3da3a66d299ad5422b76ce5ee21b68719296" },

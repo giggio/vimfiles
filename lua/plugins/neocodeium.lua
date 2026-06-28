@@ -3,7 +3,8 @@
 return {
   "monkoose/neocodeium",
   event = "VeryLazy",
-  enabled = not vim.g.is_server,
+  -- enabled = not vim.g.is_server,
+  enabled = false,
   config = function()
     local neocodeium = require("neocodeium")
     neocodeium.setup({
