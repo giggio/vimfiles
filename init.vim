@@ -35,13 +35,6 @@ syntax enable
 set encoding=utf-8
 set showcmd                     " display incomplete commands
 filetype plugin indent on       " load file type plugins + indentation
-if has("autocmd")
-  augroup FileTypes
-    autocmd!
-    autocmd BufRead,BufNewFile launch.json set filetype=json5
-    autocmd BufRead,BufNewFile settings.json set filetype=json5
-  augroup END
-endif
 
 "" Whitespace
 set nowrap                      " don't wrap lines
