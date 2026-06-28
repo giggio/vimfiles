@@ -20,6 +20,9 @@ return {
           code_background = true,
         },
       },
+      latex = {
+        enabled = false,
+      },
     })
     vim.api.nvim_create_autocmd({ "ColorScheme" }, {
       group = vim.api.nvim_create_augroup("RenderMarkdownColorScheme", { clear = true }),

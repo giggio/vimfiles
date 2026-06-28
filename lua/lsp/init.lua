@@ -38,7 +38,7 @@ if not vim.g.is_server then
   vim.lsp.enable("cssls")
   vim.lsp.enable("emmet_language_server")
   vim.lsp.enable("eslint")
-  vim.lsp.enable("fsautocomplete")
+  -- vim.lsp.enable("fsautocomplete")
   vim.lsp.enable("gopls")
   vim.lsp.enable("html")
   vim.lsp.enable("jsonls")

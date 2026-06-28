@@ -11,6 +11,16 @@ return {
       -- https://github.com/HiPhish/rainbow-delimiters.nvim
       "HiPhish/rainbow-delimiters.nvim",
       enabled = not vim.g.is_server,
+      config = function()
+        require("rainbow-delimiters.setup").setup({
+          strategy = {
+            [""] = "rainbow-delimiters.strategy.global",
+          },
+          query = {
+            [""] = "rainbow-delimiters",
+          },
+        })
+      end,
     },
     "nvim-treesitter/nvim-treesitter-context", --  Show code context https://github.com/nvim-treesitter/nvim-treesitter-context
   },

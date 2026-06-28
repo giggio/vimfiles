@@ -28,7 +28,22 @@ return {
       "giggio/neo-neotest-rust", -- Neotest adapter for Rust, using cargo-nextest. https://github.com/giggio/neo-neotest-rust forked from https://github.com/rouge8/neotest-rust
       -- dir = "~/p/local_neovim_plugins/neo-neotest-rust",
     },
-    "MisanthropicBit/neotest-busted", -- Neotest adapter for running busted tests using neovim as a lua interpreter https://github.com/MisanthropicBit/neotest-busted
+    {
+      -- Neotest adapter for running busted tests using neovim as a lua interpreter
+      -- https://github.com/MisanthropicBit/neotest-busted
+      "MisanthropicBit/neotest-busted",
+      config = function()
+        require("neotest-busted")({
+          -- -- Leave as nil to let neotest-busted automatically find busted
+          busted_command = "/etc/profiles/per-user/giggio/bin/busted", -- todo: search for it in a more generic way using $PATH
+          -- todo: Both busted_paths and busted_cpaths probably need to be dynamically discovered using $LUA_PATH and $LUA_CPATH
+          -- -- List of paths to add to lua path lookups before running busted, or a function returning a list of such paths
+          -- busted_paths = { "my/custom/path/?.lua" },
+          -- -- List of paths to add to lua cpath lookups before running busted, or a function returning a list of such paths
+          -- busted_cpaths = { "my/custom/path/?.so" },
+        })
+      end,
+    },
   },
   enabled = not vim.g.is_server,
   config = function()
@@ -44,7 +59,6 @@ return {
             },
           },
         }),
-        require("neotest-busted")({}),
       },
     })
   end,
