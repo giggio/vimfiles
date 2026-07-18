@@ -5,7 +5,8 @@ return {
   dependencies = {
     { "hrsh7th/nvim-cmp" },
   },
-  enabled = not vim.g.is_server,
+  -- enabled = not vim.g.is_server,
+  enabled = false, -- todo: disable, for now
   config = function()
     require("minuet").setup({
       provider = "openai_fim_compatible",
