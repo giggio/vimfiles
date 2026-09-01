@@ -4,3 +4,6 @@ autoload/plug.vim
 .session.nvim
 *.old
 .direnv
+# on Windows the nvim config dir (%LOCALAPPDATA%/nvim) is this repo, so lazy.nvim
+# installs its plugins in here
+/plugins/
