@@ -25,6 +25,19 @@ return {
     "nvim-treesitter/nvim-treesitter-context", --  Show code context https://github.com/nvim-treesitter/nvim-treesitter-context
   },
   config = function()
+    -- The `tree-sitter build` CLI that nvim-treesitter shells out to picks its C compiler
+    -- through the `cc` crate, which defaults to `cl.exe` on Windows. When the MSVC build
+    -- tools are not installed that fails with "program not found", so point it at whatever
+    -- compiler is actually available. Unix picks up `cc` on its own, so leave it alone.
+    if vim.fn.has("win32") == 1 and vim.env.CC == nil and vim.fn.executable("cl") == 0 then
+      for _, compiler in ipairs({ "gcc", "clang", "cc" }) do
+        if vim.fn.executable(compiler) == 1 then
+          vim.env.CC = compiler
+          break
+        end
+      end
+    end
+
     local languages = {
       -- common languages for server and desktop
       "awk",
