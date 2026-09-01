@@ -51,6 +51,12 @@ Notes on Windows' version: The normal Vim home (`runtimepath`) would be at
 `~/vimfiles`, but this is changed to `~/.vim` so that Linux and Windows work the
 same way.
 
+The plugins shell out to a fair number of external programs (language servers,
+formatters, linters and a C compiler for the treesitter parsers) that Linux gets
+from the system package manager but Windows does not. See
+[windows-tools.md](windows-tools.md) for what to install, why each one is
+needed, and the Windows specific quirks worked around in the configuration.
+
 ## Contributing
 
 Questions, comments, bug reports, and pull requests are all welcome.  Submit them at
