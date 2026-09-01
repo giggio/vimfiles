@@ -33,9 +33,23 @@ return {
       -- https://github.com/MisanthropicBit/neotest-busted
       "MisanthropicBit/neotest-busted",
       config = function()
+        -- Leave busted_command as nil to let neotest-busted find busted itself. Only point
+        -- it at the nix profile when that is where busted actually is, otherwise the path
+        -- is dead on every other platform (Windows included) and neotest-busted reports
+        -- "busted command in configuration is not executable".
+        local busted_command = nil
+        for _, candidate in ipairs({
+          vim.fn.exepath("busted"),
+          vim.fn.expand("/etc/profiles/per-user/$USER/bin/busted"),
+          vim.fn.expand("~/.nix-profile/bin/busted"),
+        }) do
+          if candidate ~= "" and vim.fn.executable(candidate) == 1 then
+            busted_command = candidate
+            break
+          end
+        end
         require("neotest-busted")({
-          -- -- Leave as nil to let neotest-busted automatically find busted
-          busted_command = "/etc/profiles/per-user/giggio/bin/busted", -- todo: search for it in a more generic way using $PATH
+          busted_command = busted_command,
           -- todo: Both busted_paths and busted_cpaths probably need to be dynamically discovered using $LUA_PATH and $LUA_CPATH
           -- -- List of paths to add to lua path lookups before running busted, or a function returning a list of such paths
           -- busted_paths = { "my/custom/path/?.lua" },
