@@ -1,3 +1,28 @@
+-- On Windows npm, gem and friends install both an extensionless shell script and a `.cmd`
+-- or `.bat` wrapper next to each other. exepath() resolves to the extensionless one, which
+-- CreateProcess cannot run, so every server installed that way dies with "Spawning language
+-- server with cmd: ... failed". Rewrite the command to its Windows wrapper here, which
+-- covers servers whose `cmd` is a list as well as the ones that build it in a function
+-- (jsonls, ts_ls, ...) and call vim.lsp.rpc.start() themselves.
+if vim.fn.has("win32") == 1 then
+  local rpc_start = vim.lsp.rpc.start
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.lsp.rpc.start = function(cmd, ...)
+    if type(cmd) == "table" and type(cmd[1]) == "string" then
+      local resolved = vim.fn.exepath(cmd[1])
+      if resolved ~= "" and vim.fn.fnamemodify(resolved, ":e") == "" then
+        for _, extension in ipairs(vim.split(vim.env.PATHEXT or ".EXE;.BAT;.CMD", ";")) do
+          if extension ~= "" and vim.uv.fs_stat(resolved .. extension) then
+            cmd = vim.list_extend({ resolved .. extension }, vim.list_slice(cmd, 2))
+            break
+          end
+        end
+      end
+    end
+    return rpc_start(cmd, ...)
+  end
+end
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 vim.lsp.config("*", {
   capabilities = capabilities,
