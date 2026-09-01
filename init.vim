@@ -11,7 +11,12 @@ else
 endif
 " reset runtime path to be the same for all platforms
 if has('nvim')
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
+  " the site directory (where treesitter parsers and queries are installed) has to stay in
+  " the runtimepath, otherwise everything that runs before the plugin manager restores it
+  " ('syntax enable' below, ftplugins calling vim.treesitter.start()) fails with
+  " "Parser could not be created for buffer N and language X"
+  let s:nvimSite = substitute(stdpath('data'), '\\', '/', 'g') . '/site'
+  let &runtimepath = $HOME . '/.vim,' . s:nvimSite . ',$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,' . s:nvimSite . '/after,' . $HOME . '/.vim/after'
 else
   let &runtimepath = g:vimHome . ',$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,' . g:vimHome . '/after'
 endif
