@@ -13,7 +13,8 @@ return {
       -- A json5 parser for luajit
       -- https://github.com/Joakker/lua-json5
       "Joakker/lua-json5",
-      build = vim.fn.has("unix") and "./install.sh" or "powershell ./install.ps1",
+      -- vim.fn.has() returns 0/1, and 0 is truthy in Lua, so it has to be compared explicitly
+      build = vim.fn.has("win32") == 1 and "powershell -NoProfile -File ./install.ps1" or "./install.sh",
       event = "VeryLazy",
     },
   },
@@ -117,6 +118,17 @@ return {
       },
     }
     local ext_vscode = require("dap.ext.vscode")
-    ext_vscode.json_decode = require("json5").parse
+    -- lua-json5 is a native module that has to be compiled by its build step; if that
+    -- did not run (missing toolchain) fall back to nvim-dap's own json decoder instead
+    -- of breaking the whole nvim-dap setup.
+    local ok, json5 = pcall(require, "json5")
+    if ok then
+      ext_vscode.json_decode = json5.parse
+    else
+      vim.notify(
+        "lua-json5 is not built, falling back to the default launch.json decoder. Run :Lazy build lua-json5",
+        vim.log.levels.WARN
+      )
+    end
   end,
 }
